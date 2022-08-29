@@ -1,5 +1,5 @@
 <?php
-
+//2022_08_28_164916
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id('user_id');
+            $table->increments('user_id');
             $table->string('username', 20);
             $table->string('full_name', 30);
+            $table->unsignedInteger('country_id');
             $table->string('email', 30)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -24,8 +25,8 @@ return new class extends Migration
             $table->string('address', 100);
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('contry_id')->references('country_id')->on('contries');
+            
+            $table->foreign('country_id')->references('country_id')->on('countries');
         });
     }
 

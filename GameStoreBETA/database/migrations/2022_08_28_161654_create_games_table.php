@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id('game_id');
+            $table->increments('game_id');
             $table->string('name', 50);
             $table->string('slug', 50);
             $table->text('description');
-            $table->integer('publisher_id')->unsigned();
+            $table->unsignedInteger('publisher_id');
             $table->timestamp('release_date');
             $table->timestamps();
 

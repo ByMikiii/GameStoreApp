@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('genres', function (Blueprint $table) {
-            $table->id('genre_id');
-            $table->string('genre_name', 20);
+        Schema::create('countries', function (Blueprint $table) {
+            $table->increments('country_id');
+            $table->string('country_name', 30);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genres');
+        Schema::dropIfExists('countries');
     }
 };

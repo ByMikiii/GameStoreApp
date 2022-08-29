@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('owned_games', function (Blueprint $table) {
-            $table->id('owned_games_id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('game_id')->unsigned();
+            $table->increments('owned_games_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('game_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users');

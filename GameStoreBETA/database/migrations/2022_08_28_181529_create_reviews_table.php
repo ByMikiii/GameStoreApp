@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id('review_id');
+            $table->increments('review_id');
             $table->string('title', 100);
             $table->text('review_text');
             $table->boolean('positive_review');
-            $table->integer('user_id')->unsigned();
-            $table->integer('game_id')->unsigned();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('game_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users');
