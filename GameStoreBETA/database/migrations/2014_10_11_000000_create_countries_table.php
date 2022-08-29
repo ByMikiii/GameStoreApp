@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('country_id');
             $table->string('country_name', 30);
             $table->timestamps();
+            
         });
     }
 
