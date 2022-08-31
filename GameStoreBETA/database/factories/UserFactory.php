@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
+use Faker\Guesser\Name;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,11 +19,16 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $randomCountryId = Country::all()->random()->id;
         return [
-            'name' => fake()->name(),
+            'username' => fake()->userName(),
+            'full_name' => fake()->name(),
+            'country_id' => $randomCountryId,
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'wallet' => fake()->randomDigitNotNull(),
+            'address' => fake()->address(),
             'remember_token' => Str::random(10),
         ];
     }

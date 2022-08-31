@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('publishers', function (Blueprint $table) {
-            $table->increments('publisher_id');
+            $table->increments('id');
             $table->string('username', 50);
             $table->string('email', 50);
             $table->timestamps();

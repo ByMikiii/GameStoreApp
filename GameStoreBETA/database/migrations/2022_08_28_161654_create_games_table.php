@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->increments('game_id');
+            $table->increments('id');
             $table->string('name', 50);
             $table->string('slug', 50);
             $table->text('description');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('release_date');
             $table->timestamps();
 
-            $table->foreign('publisher_id')->references('publisher_id')->on('publishers');
+            $table->foreign('publisher_id')->references('id')->on('publishers');
 
         });
     }

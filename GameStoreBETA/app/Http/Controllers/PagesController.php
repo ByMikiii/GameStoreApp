@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
     public function index(){
-        return Game::all();
-        return view('index');
+        return view('index',[
+            'users' => User::all(),
+            'title' => 'xddd!'
+        ]);
     }
 
     public function library(){

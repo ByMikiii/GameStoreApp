@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('user_id');
+            $table->increments('id');
             $table->string('username', 20);
             $table->string('full_name', 30);
             $table->unsignedInteger('country_id');
-            $table->string('email', 30)->unique();
+            $table->string('email', 100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->float('wallet');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             
-            $table->foreign('country_id')->references('country_id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

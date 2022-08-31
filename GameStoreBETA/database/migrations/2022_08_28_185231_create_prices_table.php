@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('prices', function (Blueprint $table) {
-            $table->increments('price_id');
+            $table->increments('id');
             $table->float('original_price')->unsigned();
             $table->float('sale_price')->unsigned();
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
-            $table->foreign('game_id')->references('game_id')->on('games');
+            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 

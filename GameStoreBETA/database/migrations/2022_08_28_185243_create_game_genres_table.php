@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('game_genres', function (Blueprint $table) {
-            $table->increments('game_genre_id');
+            $table->increments('id');
             $table->unsignedInteger('genre_id');
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
-            $table->foreign('genre_id')->references('genre_id')->on('genres');
-            $table->foreign('game_id')->references('game_id')->on('games');
+            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 

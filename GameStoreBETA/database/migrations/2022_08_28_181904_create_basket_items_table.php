@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('basket_items', function (Blueprint $table) {
-            $table->increments('basket_items_id');
+            $table->increments('id');
             $table->integer('quantity')->unsigned();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('users');
-            $table->foreign('game_id')->references('game_id')->on('games');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 

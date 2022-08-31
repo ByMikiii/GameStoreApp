@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invoice_items', function (Blueprint $table) {
-            $table->increments('invoice_items_id');
+            $table->increments('id');
             $table->float('game_price');
             $table->unsignedInteger('invoice_id');
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoices');
-            $table->foreign('game_id')->references('game_id')->on('games');
+            $table->foreign('invoice_id')->references('id')->on('invoices');
+            $table->foreign('game_id')->references('id')->on('games');
 
         });
     }

@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('owned_games', function (Blueprint $table) {
-            $table->increments('owned_games_id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('users');
-            $table->foreign('game_id')->references('game_id')->on('games');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('game_id')->references('id')->on('games');
 
         });
     }
