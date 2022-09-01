@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prices', function (Blueprint $table) {
+        Schema::create('system_requirements', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('original_price')->unsigned();
-            $table->float('sale_price')->unsigned();
-            $table->boolean('is_sale');
+            $table->string('os', 200)->nullable();
+            $table->string('processor', 200)->nullable();
+            $table->string('memory', 200)->nullable();
+            $table->string('graphics', 200)->nullable();
+            $table->string('storage', 200)->nullable();
             $table->unsignedInteger('game_id');
             $table->timestamps();
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prices');
+        Schema::dropIfExists('system_requirements');
     }
 };
