@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('slug', 50);
             $table->text('description');
             $table->unsignedInteger('publisher_id');
+            $table->float('original_price', 10, 2);
+            $table->float('sale_price', 10, 2);
+            $table->boolean('is_sale');
             $table->timestamp('release_date');
             $table->timestamps();
 

@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             $this->call(CountriesTableSeeder::class);
         }
         $this->call(UsersTableSeeder::class);
+        $this->call(PublishersTableSeeder::class);
+        $this->call(GamesTableSeeder::class);
+        $this->call(GenresTableSeeder::class);
+        $this->call(Game_genresTableSeeder::class);
 
     }
 }
