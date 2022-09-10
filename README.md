@@ -1,7 +1,7 @@
 # GameStoreApp
  
  
-- $ composer create-project laravel/laravel GameStoreApp
+- $ composer create-project laravel/laravel GameStoreBeta
  
 - $ composer require laravel/ui
 - $ php artisan ui vue --auth
