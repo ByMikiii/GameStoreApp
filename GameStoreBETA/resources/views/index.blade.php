@@ -6,7 +6,7 @@
 
 @section('content')
 
-<h1>ByMikiii</h1>
+<h1 class="h4">ByMikiii</h1>
 
 @foreach ($games as $game)
 <div>

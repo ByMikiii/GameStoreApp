@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+
     public function index(){
         return view('index',[
             'games' => Game::all(),
@@ -31,5 +32,12 @@ class PagesController extends Controller
 
     public function profile(){
         return view('profile');
+    }
+
+        public function profileUsername($username){
+        return view('username',[
+            'title' => $username,
+            'username' => $username
+        ]);
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
-@section('title', 'nehehe')
+@section('title', 'xdd')
+
 
 @section('content')
 
@@ -10,7 +11,5 @@
 <p>{{Carbon\Carbon::parse($game->release_date)->format('d/m/Y')}} </p>   
 <p>{{$game->description}} </p>   
 <p>{{$game->original_price}}$ </p>   
-
-
- 
 @endforeach
+@stop

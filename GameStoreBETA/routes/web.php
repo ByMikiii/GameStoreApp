@@ -19,4 +19,6 @@ Route::get('/game/{game}', [PagesController::class, 'game']);
 Route::get('/library', [PagesController::class, 'library']);
 Route::get('/community', [PagesController::class, 'community']);
 Route::get('/profile', [PagesController::class, 'profile']);
+Route::get('/profile/{username}', [PagesController::class, 'profileUsername']);
+
 Auth::routes();
