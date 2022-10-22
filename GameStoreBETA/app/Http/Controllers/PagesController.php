@@ -46,7 +46,10 @@ class PagesController extends Controller
 
     public function profile(){
         if(Auth::check()){
-        return view('profile');
+        return view('profile',[
+            'title' => Auth::user()->name,
+            'user' => Auth::user()
+        ]);
        }else {
         return redirect()->route('login');
        }

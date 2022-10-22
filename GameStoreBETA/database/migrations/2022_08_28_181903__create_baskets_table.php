@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('basket_items', function (Blueprint $table) {
+        Schema::create('baskets', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('basket_id');
-            $table->unsignedInteger('game_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('basket_id')->references('id')->on('baskets');
-            $table->foreign('game_id')->references('id')->on('games');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('basket_items');
+        Schema::dropIfExists('baskets');
     }
 };

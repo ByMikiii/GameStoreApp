@@ -10,7 +10,7 @@
 </head>
 <body class="bg-bg-color">
   <nav class="h-12 font-bold flex border-b">
-    <a class="flex" href="my-auto"><img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo"></a>
+    <a class="flex" href="/"><img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo"></a>
     <span class="flex items-center h-full ml-1 pr-2">Blast</span>
 
     <a class="m-2 p-1 " href="/">Store</a>
@@ -19,11 +19,11 @@
     @if (Auth::check())
     <a class="m-2 p-1 " href="/library">Library</a>
     <a class="m-2 p-1" href="/friends">Friends</a>
-    <a class="m-2 p-1 " href="/profile">Profile</a> 
+    <a class="m-2 p-1 " href="/profile">{{Auth::user()->name}}</a> 
 
     <form class="m-2 p-1 ml-auto" method="POST" action="{{ route('logout') }}">
         @csrf
-        <button type="submit" class="btn btn-primary">Logout</button>
+        <button type="submit" class="btn btn-primary text-red-600">Logout</button>
     </form>
 
 

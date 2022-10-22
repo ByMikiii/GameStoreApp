@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
-@section('title', 'Profile')
+@section('title', 'Profile - '.$title)
 
 @section('content')
 
-<h1>Profile</h1>
+<h1>{{$user}}</h1>
 
 @stop

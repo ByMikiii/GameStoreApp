@@ -16,6 +16,12 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
+    public function invoice(){
+        return $this->hasMany(Invoice::class);
+    }
+
+    
+
     /**
      * The attributes that are mass assignable.
      *
