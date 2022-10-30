@@ -23,9 +23,11 @@ return new class extends Migration
             $table->float('sale_price', 10, 2);
             $table->boolean('is_sale');
             $table->timestamp('release_date');
+            $table->unsignedInteger('system_requirement_id')->nullable();
             $table->timestamps();
 
             $table->foreign('publisher_id')->references('id')->on('publishers');
+            $table->foreign('system_requirement_id')->references('id')->on('system_requirements');
 
         });
     }

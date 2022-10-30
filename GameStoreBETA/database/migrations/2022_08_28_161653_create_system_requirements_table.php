@@ -20,10 +20,7 @@ return new class extends Migration
             $table->string('memory', 200)->nullable();
             $table->string('graphics', 200)->nullable();
             $table->string('storage', 200)->nullable();
-            $table->unsignedInteger('game_id');
             $table->timestamps();
-
-            $table->foreign('game_id')->references('id')->on('games');
         });
     }
 

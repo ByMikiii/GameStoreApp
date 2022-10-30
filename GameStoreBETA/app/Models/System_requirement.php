@@ -10,6 +10,6 @@ class System_requirement extends Model
     use HasFactory;
 
     public function game(){
-        return $this->belongsTo(Game::class);
+        return $this->hasMany(Game::class);
     }
 }

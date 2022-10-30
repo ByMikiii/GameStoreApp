@@ -15,6 +15,32 @@ class Game extends Model
     ];
 
     public function publisher(){
-        return $this->BelongsTo(Publisher::class);
+        return $this->hasOne(Publisher::class);
     }
+
+    public function system_requirement(){
+        return $this->hasOne(System_requirement::class);
+    }
+
+    public function game_genre(){
+        return $this->hasMany(Game_genre::class);
+    }
+
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
+
+    public function owned_game(){
+        return $this->belongsTo(Owned_game::class);
+    }
+
+    public function basket_item(){
+        return $this->belongsTo(Basket_item::class);
+    }
+
+    public function invoice_item(){
+        return $this->belongsTo(Invoice_item::class);
+    }
+
+
 }

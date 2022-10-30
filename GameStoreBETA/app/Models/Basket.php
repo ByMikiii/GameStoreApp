@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Basket extends Model
 {
     use HasFactory;
+
+    public function basket_item(){
+        return $this->hasMany(Basket_item::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

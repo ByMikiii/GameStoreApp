@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('game_price');
             $table->unsignedInteger('invoice_id');
             $table->unsignedInteger('game_id');
+            $table->integer('quantity');
             $table->timestamps();
 
             $table->foreign('invoice_id')->references('id')->on('invoices');

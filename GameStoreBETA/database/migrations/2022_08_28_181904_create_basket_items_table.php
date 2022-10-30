@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('basket_id');
             $table->unsignedInteger('game_id');
+            $table->integer('quantity');
             $table->timestamps();
 
             $table->foreign('basket_id')->references('id')->on('baskets');

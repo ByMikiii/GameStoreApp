@@ -10,6 +10,10 @@ class Game_genre extends Model
     use HasFactory;
 
     public function game(){
-        return $this->hasMany(Game::class);
+        return $this->belongsTo(Game::class);
+    }
+
+    public function genre(){
+        return $this->hasMany(Genre::class);
     }
 }
