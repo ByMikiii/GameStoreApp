@@ -20,6 +20,14 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
+    public function friend(){
+        return $this->hasMany(Friend::class);
+    }
+
+    public function message(){
+        return $this->hasMany(Message::class);
+    }
+
     
 
     /**
