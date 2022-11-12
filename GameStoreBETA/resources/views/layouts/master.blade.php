@@ -9,32 +9,65 @@
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
 <body class="bg-bg-color">
-  <nav class="h-12 font-bold flex border-b">
-    <a class="flex" href="/"><img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo"></a>
-    <span class="flex items-center h-full ml-1 pr-2">Blast</span>
+  <header class="flex border-b">
+      <a class="m-auto w-11 h-11 max-w-full flex-shrink-0" href="/"><img class="h-full my-auto max-w-full overflow-visible" src="{{ asset('favicon.png') }}" alt="logo"></a>
 
-    <a class="m-2 p-1 " href="/">Store</a>
-    <a class="m-2 p-1 " href="/community">Community</a>
+    <nav class="w-full my-auto">
+    <ul id="nav-pc" class="h-12 w-full font-bold flex">
+
+    <li class="list-item"><a href="/">Market</a></li>
+    <li class="list-item"><a  href="/community">Community</a></li>
 
     @if (Auth::check())
-    <a class="m-2 p-1 " href="/library">Library</a>
-    <a class="m-2 p-1" href="/friends">Friends</a>
-    <a class="m-2 p-1 " href="/profile">{{Auth::user()->name}}</a> 
+    <li class="list-item"><a  href="/library">Library</a></li>
+    <li class="list-item"><a href="/friends">Friends</a></li>
+    <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
-    <a class="m-2 p-1 ml-auto" href="/">{{Auth::user()->wallet}} €</a>
+    <li class="list-item ml-auto"><a href="/">{{Auth::user()->wallet}} €</a></li>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
-        <button type="submit" class="btn btn-primary text-red-600">Logout</button>
+        <li><button type="submit" class="btn btn-primary text-red-600">Logout</button></li>
     </form>
 
 
     @else
-    <a class="m-2 p-1 ml-auto" href="/login">Login</a>
-    <a class="m-2 p-1 " href="/register">Register</a>
+    <li><a class="list-item ml-auto" href="/login">Login</a></li>
+    <li class="list-item"><a  href="/register">Register</a></li>
 
     @endif
+    </ul>
+</nav>
 
-  </nav>
+
+  <div id="hamburger-icon" onclick="mobileNav()">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+</div>
+</header>
+  <ul id="mobile-menu" class="border fixed w-full text-center bg-bg-color" style="display: none;">
+
+    <li class="list-item border-b"><a href="/">Market</a></li>
+    <li class="list-item border-b"><a  href="/community">Community</a></li>
+
+    @if (Auth::check())
+    <li class="list-item border-b"><a  href="/library">Library</a></li>
+    <li class="list-item border-b"><a href="/friends">Friends</a></li>
+    <li class="list-item border-b"><a  href="/profile">{{Auth::user()->name}}</a></li>
+
+    <li class="list-item ml-auto border-b"><a href="/">{{Auth::user()->wallet}} €</a></li>
+    <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
+        @csrf
+        <li><button type="submit" class="btn btn-primary text-red-600">Logout</button></li>
+    </form>
+
+
+    @else
+    <li><a class="list-item ml-auto" href="/login">Login</a></li>
+    <li class="list-item"><a  href="/register">Register</a></li>
+
+    @endif
+  </ul>
 
 
   <main class="text-red-300">
@@ -42,6 +75,7 @@
   </main>
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
+  <script src="/js/script.js"></script>
   <script type="module" src="/js/app.js"></script>
   @yield('scripts')
 </body>
