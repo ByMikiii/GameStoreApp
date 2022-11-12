@@ -21,7 +21,8 @@
     <a class="m-2 p-1" href="/friends">Friends</a>
     <a class="m-2 p-1 " href="/profile">{{Auth::user()->name}}</a> 
 
-    <form class="m-2 p-1 ml-auto" method="POST" action="{{ route('logout') }}">
+    <a class="m-2 p-1 ml-auto" href="/">{{Auth::user()->wallet}} €</a>
+    <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="btn btn-primary text-red-600">Logout</button>
     </form>

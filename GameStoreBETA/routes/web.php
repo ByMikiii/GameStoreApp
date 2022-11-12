@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,9 @@ Route::get('/chat/{username}', [PagesController::class, 'chat']);
   Route::get('/register','LoginController@show_signup_form')->name('Register');
   Route::post('/register','LoginController@process_signup');
   Route::post('/logout','LoginController@logout')->name('Logout');
+
+  Route::get('/stripe', [StripePaymentController::class, 'stripe']);
+  Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
 
 Auth::routes();

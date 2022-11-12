@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,9 @@ class PagesController extends Controller
 }
 
     public function community(){
-        return view('community');
+        return view('community',[
+            'users' => User::all()->sortBy('id')
+        ]);
     }
 
     public function friends(){
