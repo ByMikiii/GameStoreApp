@@ -6,6 +6,6 @@
 
 @section('content')
 
-<h1>{{$username}}</h1>
+<h1>{{$user}}</h1>
 
 @stop

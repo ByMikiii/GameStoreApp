@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>@yield('title', 'laravel')</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Paytone+One" />
   <link rel="stylesheet" href="/css/app.css">
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
 <body class="bg-bg-color">
   <header class="flex border-b">
-      <a class="m-auto w-11 h-11 max-w-full flex-shrink-0" href="/"><img class="h-full my-auto max-w-full overflow-visible" src="{{ asset('favicon.png') }}" alt="logo"></a>
+      <a class="m-auto w-auto h-11 flex-shrink-0 flex" href="/">
+        <img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo">
+        <h1 class="text-3xl text-orange-400 mt-auto"></h1>
+      </a>
 
     <nav class="w-full my-auto">
     <ul id="nav-pc" class="h-12 w-full font-bold flex">
@@ -31,7 +35,7 @@
 
 
     @else
-    <li><a class="list-item ml-auto" href="/login">Login</a></li>
+    <li class="list-item ml-auto"><a href="/login">Login</a></li>
     <li class="list-item"><a  href="/register">Register</a></li>
 
     @endif
@@ -63,9 +67,10 @@
 
 
     @else
-    <li><a class="list-item ml-auto" href="/login">Login</a></li>
-    <li class="list-item"><a  href="/register">Register</a></li>
-
+    <li class="flex relative">
+    <a class="list-item ml-auto pr-36" href="/login">Login</a>
+    <a class="list-item mr-auto pl-36" href="/register">Register</a>
+    </li>
     @endif
   </ul>
 

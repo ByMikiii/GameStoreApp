@@ -16,13 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class, 'index']);
-Route::get('/game/{game}', [PagesController::class, 'game']);
+Route::get('/game/{gameslug}', [PagesController::class, 'game']);
 Route::get('/library', [PagesController::class, 'library']);
 Route::get('/community', [PagesController::class, 'community']);
 Route::get('/profile', [PagesController::class, 'profile']);
-Route::get('/profile/{username}', [PagesController::class, 'profileUsername']);
+Route::get('/user/{username}', [PagesController::class, 'user']);
 Route::get('/friends', [PagesController::class, 'friends']);
 Route::get('/chat/{username}', [PagesController::class, 'chat']);
+Route::get('/deposit', [PagesController::class, 'deposit']);
+
 
 
   Route::get('/login','LoginController@show_login_form')->name('Login');

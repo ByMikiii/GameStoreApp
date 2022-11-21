@@ -14,15 +14,23 @@ class PagesController extends Controller
     public function index(){
         return view('index',[
             'games' => Game::all(),
-            'title' => 'Store',
+            'title' => 'Market - Blast',
         ]);
     }
 
-    public function game($game){
+    public function game($gameslug){
+        $game = Game::where("slug", "=", $gameslug)->get();
+        
+        if(!$game->isEmpty()){
+            $game = $game[0];
         return view('game',[
-            'game' => $game,
-            'games' => Game::where("slug", "=", $game)->get()
+            'title' => $game->name." - Blast",
+            'game' => $game
         ]);
+        }
+        else{
+            return redirect()->action([PagesController::class, 'index']);
+        }
     }
 
     public function library(){
@@ -35,6 +43,7 @@ class PagesController extends Controller
 
     public function community(){
         return view('community',[
+            'title' => "Community - Blast",
             'users' => User::all()->sortBy('id')
         ]);
     }
@@ -42,6 +51,14 @@ class PagesController extends Controller
     public function friends(){
         if(Auth::check()){
         return view('friends');
+    }else{
+        return redirect()->route('login');
+    }
+    }
+
+    public function deposit(){
+        if(Auth::check()){
+        return view('deposit');
     }else{
         return redirect()->route('login');
     }
@@ -58,11 +75,22 @@ class PagesController extends Controller
        }
     }
 
-        public function profileUsername($username){
+        public function user($username){
+        $user = User::where("name", "=", $username)->get();
+
+        if(Auth::check() && $username === Auth::user()->name){
+            return redirect()->action([PagesController::class, 'profile']);
+        }
+        else if(!$user->isEmpty()){    
         return view('username',[
             'title' => $username,
-            'username' => $username
+            'user' => $user,
         ]);
+        }
+        else{
+            return redirect()->action([PagesController::class, 'community']);
+        }
+
     }
 
     public function chat($username){
