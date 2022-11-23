@@ -7,6 +7,7 @@
   <title>@yield('title', 'laravel')</title>
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Paytone+One" />
   <link rel="stylesheet" href="/css/app.css">
+
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
 <body class="bg-bg-color">
@@ -80,8 +81,11 @@
   </main>
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
+
+  <div id="app"></div>
+  <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>
-  <script type="module" src="/js/app.js"></script>
+  
   @yield('scripts')
 </body>
 </html>

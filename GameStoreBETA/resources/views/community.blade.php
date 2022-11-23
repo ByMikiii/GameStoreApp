@@ -7,7 +7,7 @@
 <section>
 @foreach ($users as $user)
    <div id="user" class="flex">
-   <span>{{$user->id}}</span>
+   <span>{{$user->id}}.</span>
    <a href="/user/{{$user->name}}">{{$user->name}}</a>
    <form action="" method="post" class="ml-20">
       <button>Add Friend</button>

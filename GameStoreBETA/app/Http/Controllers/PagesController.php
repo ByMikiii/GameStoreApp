@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Game_genre;
+use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
@@ -25,7 +27,8 @@ class PagesController extends Controller
             $game = $game[0];
         return view('game',[
             'title' => $game->name." - Blast",
-            'game' => $game
+            'game' => $game,
+            
         ]);
         }
         else{
