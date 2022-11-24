@@ -76,7 +76,7 @@
   </ul>
 
 
-  <main class="text-red-300">
+  <main class="text-yellow-300">
     @yield('content')
   </main>
 
