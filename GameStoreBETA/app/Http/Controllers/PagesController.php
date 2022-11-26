@@ -45,9 +45,13 @@ class PagesController extends Controller
 }
 
     public function community(){
+        if(Auth::check()){
+            // $friends = Friend::where()->get();
+        }
         return view('community',[
             'title' => "Community - Blast",
-            'users' => User::all()->sortBy('id')
+            'users' => User::all()->sortBy('id'),
+            
         ]);
     }
 

@@ -21,7 +21,7 @@ class User extends Authenticatable
     }
 
     public function friend(){
-        return $this->hasMany(Friend::class);
+        return $this->belongsToMany(Friend::class);
     }
 
     public function message(){
@@ -39,6 +39,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_photo'
     ];
 
     /**

@@ -17,9 +17,19 @@
     font-weight: 100;
   }
 
+  @media only screen and (max-width: 950px) {
+    #community-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   @media only screen and (max-width: 680px) {
     #nav-pc {
       display: none;
+    }
+
+    #community-list {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
   }
 

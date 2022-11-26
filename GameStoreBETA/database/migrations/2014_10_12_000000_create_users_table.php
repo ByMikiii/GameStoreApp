@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->float('wallet')->default(0);
             $table->string('address', 100)->nullable();
+            $table->string('profile_photo', 200)->default("https://eu.ui-avatars.com/api/?name=a&background=random");
             $table->rememberToken();
             $table->timestamps();
             

@@ -20,8 +20,9 @@ class UserFactory extends Factory
     public function definition()
     {
         $randomCountryId = Country::all()->random()->id;
+        $username = fake()->userName();
         return [
-            'name' => fake()->userName(),
+            'name' => $username,
             'full_name' => fake()->name(),
             'country_id' => $randomCountryId,
             'email' => fake()->safeEmail(),
@@ -29,6 +30,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'wallet' => fake()->randomDigitNotNull(),
             'address' => fake()->address(),
+            'profile_photo' => "https://eu.ui-avatars.com/api/?name=".$username."&background=random",
             'remember_token' => Str::random(10),
         ];
     }

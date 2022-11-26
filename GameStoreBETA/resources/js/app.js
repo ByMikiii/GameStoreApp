@@ -1,7 +1,13 @@
 import './bootstrap';
 
-import { createApp } from 'vue';
+import MultiVue from 'vue-multivue';
+import { createApp, VueElement } from 'vue';
 
-import App from './vue/app.vue';
+import AddFriend from './vue/add-friend.vue';
 
-createApp(App).mount("#app");
+
+new MultiVue('#add-friend', {
+  components: {
+    AddFriend
+  }
+});

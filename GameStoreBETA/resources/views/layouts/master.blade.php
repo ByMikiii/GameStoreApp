@@ -82,7 +82,6 @@
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
 
-  <div id="app"></div>
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>
   
