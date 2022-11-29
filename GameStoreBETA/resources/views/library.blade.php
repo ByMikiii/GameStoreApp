@@ -4,6 +4,10 @@
 
 @section('content')
 
-<h1>Library</h1>
+<h1>My Games</h1>
+
+@foreach ($owned_games->games as $game)
+    {{$game->name}}
+@endforeach
 
 @stop

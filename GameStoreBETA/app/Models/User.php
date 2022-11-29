@@ -27,6 +27,12 @@ class User extends Authenticatable
     public function message(){
         return $this->hasMany(Message::class);
     }
+    
+    public function game(){
+        return $this->belongsToMany(Game::class, 'owned_games');
+    }
+
+    
 
     
 

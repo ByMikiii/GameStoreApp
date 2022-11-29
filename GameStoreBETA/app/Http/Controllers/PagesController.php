@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Game_genre;
 use App\Models\Genre;
+use App\Models\Owned_game;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
@@ -38,7 +39,11 @@ class PagesController extends Controller
 
     public function library(){
         if(Auth::check()){
-        return view('library');
+        return view('library',[
+            'title' => 'Library - Blast',
+            
+    
+        ]);
        }else {
         return redirect()->route('login');
        }
