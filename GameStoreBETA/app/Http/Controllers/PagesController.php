@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Game;
-use App\Models\Game_genre;
-use App\Models\Genre;
-use App\Models\Owned_game;
+use App\Http\Controllers\OwnedGamesController;
 use App\Models\User;
+use App\Models\Game;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,9 +39,7 @@ class PagesController extends Controller
         if(Auth::check()){
         return view('library',[
             'title' => 'Library - Blast',
-            
-    
-        ]);
+            'games' => (new OwnedGamesController)->getOwnedGames(Auth::user()->id),]);
        }else {
         return redirect()->route('login');
        }

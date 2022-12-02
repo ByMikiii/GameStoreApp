@@ -30,16 +30,16 @@ class Game extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function user(){
-        return $this->belongsToMany(User::class,'owned_games');
-    }
-
     public function basket_item(){
         return $this->belongsTo(Basket_item::class);
     }
 
     public function invoice_item(){
         return $this->belongsTo(Invoice_item::class);
+    }
+
+        public function users(){
+        return $this->belongsToMany(User::class,'owned_games');
     }
 
 

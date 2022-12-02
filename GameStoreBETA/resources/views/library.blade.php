@@ -6,8 +6,12 @@
 
 <h1>My Games</h1>
 
-@foreach ($owned_games->games as $game)
-    {{$game->name}}
+@foreach ($games as $game)
+   <p>{{$game->name}}</p> 
 @endforeach
+
+@if (!count($games))
+    You do not have any games 😢
+@endif
 
 @stop
