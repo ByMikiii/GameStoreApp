@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedInteger('requester_id');
-            $table->unsignedInteger('addressee_id');
-            $table->boolean('isAccepted');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('friend_id');
+            $table->boolean('isAccepted')->default(0);
 
-            $table->foreign('requester_id')->references('id')->on('users');
-            $table->foreign('addressee_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('friend_id')->references('id')->on('users');
         });
     }
 

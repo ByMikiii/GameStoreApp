@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\OwnedGamesController;
+use App\Http\Controllers\FriendsController;
+use App\Models\Friend;
 use App\Models\User;
 use App\Models\Game;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -49,16 +51,21 @@ class PagesController extends Controller
         if(Auth::check()){
             // $friends = Friend::where()->get();
         }
-        return view('community',[
+        return view('Community/community',[
             'title' => "Community - Blast",
-            'users' => User::all()->sortBy('id'),
+            'user' => User::all()->sortBy('id'),
             
         ]);
     }
 
     public function friends(){
         if(Auth::check()){
-        return view('friends');
+             $user = User::find(11);
+        return view('friends',[
+            'title' => "Friends - Blast",
+            'friends' => $user->friends
+          
+        ]);
     }else{
         return redirect()->route('login');
     }
@@ -86,12 +93,12 @@ class PagesController extends Controller
         public function user($username){
         $user = User::where("name", "=", $username)->get();
 
-        if(Auth::check() && $username === Auth::user()->name){
+        if(Auth::check() && $username == Auth::user()->name){
             return redirect()->action([PagesController::class, 'profile']);
         }
         else if(!$user->isEmpty()){    
         return view('username',[
-            'title' => $username,
+            'title' => $username." - Blast",
             'user' => $user,
         ]);
         }

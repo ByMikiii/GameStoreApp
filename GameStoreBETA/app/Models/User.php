@@ -21,9 +21,14 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
-    public function friend(){
-        return $this->belongsToMany(Friend::class);
+    public function friends(){
+        return $this->belongsToMany(User::class, 'friends', 'user_id','friend_id')->withPivot('isAccepted')->where('isAccepted', true);
     }
+
+     public function pendingFriends(){
+        return $this->belongsToMany(User::class, 'friends', 'user_id','friend_id')->withPivot('isAccepted')->where('isAccepted', false);
+    }
+
 
     public function message(){
         return $this->hasMany(Message::class);
@@ -55,6 +60,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'email',
+        'full_name',
+        'wallet',
+        'address',
         'password',
         'remember_token',
     ];

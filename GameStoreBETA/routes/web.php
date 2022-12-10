@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,8 @@ Route::get('/deposit', [PagesController::class, 'deposit']);
 
   Route::get('/stripe', [StripePaymentController::class, 'stripe']);
   Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
+  Route::post('/friends/create/{friend_id}', [FriendController::class, 'create']);
 
 
 Auth::routes();
