@@ -10,7 +10,7 @@
 
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
-<body class="bg-bg-color">
+<body class="h-screen">
   <header class="flex border-b">
       <a class="m-auto w-auto h-11 flex-shrink-0 flex" href="/">
         <img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo">
@@ -78,13 +78,15 @@
 
   <main id="app" class="text-yellow-300">
     @yield('content')
+
+    <flash-message text="{{session('flash')}}"></flash-message>
   </main>
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
 
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>
-  
+
   @yield('scripts')
 </body>
 </html>

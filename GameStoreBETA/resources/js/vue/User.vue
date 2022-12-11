@@ -26,10 +26,11 @@ export default {
     <li class="">
         <p class="text-red-500">{{ userData.name }}</p>
         <a class="mr-5" :href="'/user/' + userData.name">View Profile</a>
+
         <a
             class="cursor-pointer"
             @click="addFriend"
-            v-if="userData.id !== authUser"
+            v-if="(userData.id !== authUser) & (authUser !== '')"
             >Add Friend</a
         >
     </li>
