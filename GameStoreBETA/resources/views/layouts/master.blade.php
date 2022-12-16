@@ -80,6 +80,7 @@
     @yield('content')
 
     <flash-message text="{{session('flash')}}"></flash-message>
+
   </main>
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>

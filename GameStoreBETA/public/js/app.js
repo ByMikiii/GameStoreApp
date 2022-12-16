@@ -20845,7 +20845,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     show: function show() {
       var _this = this;
+      console.log("called show function :");
       this.isShown = true;
+      console.log(this.text + this.isShown);
       setTimeout(function () {
         return _this.hide();
       }, 3000);
@@ -20869,12 +20871,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _FlashMessage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FlashMessage.vue */ "./resources/js/vue/FlashMessage.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["userData", "authUser"],
   data: function data() {
-    return {
-      responseVar: 0
-    };
+    return {};
   },
   methods: {
     addFriend: function addFriend() {
@@ -20907,6 +20909,7 @@ var _hoisted_1 = {
   "class": "notification is-success"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
     name: "bounce",
     persisted: ""
@@ -20917,7 +20920,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _cache[0] || (_cache[0] = function () {
           return $options.hide && $options.hide.apply($options, arguments);
         })
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.text), 1 /* TEXT */)], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isShown]])];
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_this.text), 1 /* TEXT */)], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isShown]])];
     }),
     _: 1 /* STABLE */
   });
@@ -20949,7 +20952,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.userData.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "mr-5",
     href: '/user/' + $props.userData.name
-  }, "View Profile", 8 /* PROPS */, _hoisted_3), $props.userData.id !== $props.authUser & $props.authUser !== '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  }, "View Profile", 8 /* PROPS */, _hoisted_3), $props.userData.id !== $props.authUser & $props.authUser !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
     "class": "cursor-pointer",
     onClick: _cache[0] || (_cache[0] = function () {
@@ -20977,8 +20980,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({});
-app.component('user', _vue_User_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.component('flash-message', _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+app.component('user', _vue_User_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.mount('#app');
 
 /***/ }),

@@ -29,7 +29,7 @@ class FriendController extends Controller
         $already_exists = Friend::where("user_id", "=", Auth::user()->id)->where("friend_id", "=", $friend_id)->get();
 
 
-        if($already_exists->isEmpty()){
+        //if($already_exists->isEmpty()){
         $friend = new Friend();
         $friend->user_id = Auth::user()->id;
         $friend->friend_id = $friend_id;
@@ -38,11 +38,12 @@ class FriendController extends Controller
         return response()->json([
             'message' => 'Friend request sent!',
         ]);
-        }else{
-           return response()->json([
-            'message' => 'Friend request failed!',
-        ]); 
-        }
+
+        // }else{
+        //    return response()->json([
+        //     'message' => 'Friend request failed!',
+        // ]); 
+        // }
 
     }
 

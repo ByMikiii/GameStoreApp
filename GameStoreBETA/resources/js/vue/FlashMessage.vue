@@ -14,7 +14,10 @@ export default {
     },
     methods: {
         show() {
+            console.log("called show function :");
             this.isShown = true;
+
+            console.log(this.text + this.isShown);
             setTimeout(() => this.hide(), 3000);
         },
 
@@ -29,7 +32,7 @@ export default {
     <Transition name="bounce">
         <div class="notification is-success" v-show="isShown">
             <button class="delete" @click="hide"></button>
-            <span>{{ text }}</span>
+            <span>{{ this.text }}</span>
         </div>
     </Transition>
 </template>

@@ -1,11 +1,12 @@
 <script>
+import FlashMessageVue from "./FlashMessage.vue";
+
 export default {
     props: ["userData", "authUser"],
     data() {
-        return {
-            responseVar: 0,
-        };
+        return {};
     },
+
     methods: {
         addFriend() {
             axios
@@ -30,7 +31,7 @@ export default {
         <a
             class="cursor-pointer"
             @click="addFriend"
-            v-if="(userData.id !== authUser) & (authUser !== '')"
+            v-if="(userData.id !== authUser) & (authUser !== 0)"
             >Add Friend</a
         >
     </li>
