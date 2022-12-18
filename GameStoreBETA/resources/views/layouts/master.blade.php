@@ -75,8 +75,7 @@
     @endif
   </ul>
 
-
-  <main id="app" class="text-yellow-300">
+  <main id="app" class="text-yellow-300 mt-5">
     @yield('content')
 
     <flash-message text="{{session('flash')}}"></flash-message>

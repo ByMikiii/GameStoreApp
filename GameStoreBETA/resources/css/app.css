@@ -29,6 +29,20 @@
     overflow-y: hidden
   }
 
+  #community-list {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 80%;
+    gap: 20px;
+
+  }
+
+  .mybutton {
+    background-color: blue;
+    padding: 3px;
+  }
+
   @media only screen and (max-width: 950px) {
     #community-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -27,23 +27,25 @@ class FriendController extends Controller
     public function create($friend_id)
     {
         $already_exists = Friend::where("user_id", "=", Auth::user()->id)->where("friend_id", "=", $friend_id)->get();
+        if($already_exists->isEmpty()){
+            $already_exists = Friend::where("friend_id", "=", Auth::user()->id)->where("user_id", "=", $friend_id)->get();
+        }
 
-
-        //if($already_exists->isEmpty()){
+        if($already_exists->isEmpty()){
         $friend = new Friend();
         $friend->user_id = Auth::user()->id;
         $friend->friend_id = $friend_id;
         $friend->save();
 
         return response()->json([
-            'message' => 'Friend request sent!',
+            'message' => 'Request sent',
         ]);
 
-        // }else{
-        //    return response()->json([
-        //     'message' => 'Friend request failed!',
-        // ]); 
-        // }
+        }else{
+            return response()->json([
+             'message' => 'Add Friend',
+         ]); 
+         }
 
     }
 

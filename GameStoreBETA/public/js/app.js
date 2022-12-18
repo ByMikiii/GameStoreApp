@@ -20871,22 +20871,49 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _FlashMessage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FlashMessage.vue */ "./resources/js/vue/FlashMessage.vue");
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["userData", "authUser"],
+  props: ["userData", "authUser", "friends", "pendingFriendsTo", "pendingFriendsFrom"],
   data: function data() {
-    return {};
+    return {
+      friendButton: "Add Friend",
+      isPending: false
+    };
   },
   methods: {
     addFriend: function addFriend() {
+      var _this = this;
       axios.post("/friends/create/" + this.userData.id).then(function (response) {
-        console.log(response.data.message);
+        _this.friendButton = response.data.message;
+      });
+    },
+    acceptFriend: function acceptFriend() {
+      this.friendButton = "Remove Friend";
+      this.isPending = false;
+    },
+    declineFriend: function declineFriend() {
+      this.isPending = false;
+    },
+    checkStatus: function checkStatus() {
+      var _this2 = this;
+      this.friends.forEach(function (friendId) {
+        if (friendId == _this2.userData.id) {
+          _this2.friendButton = "Remove Friend";
+        }
+      });
+      this.pendingFriendsTo.forEach(function (pendingFriendToId) {
+        if (pendingFriendToId == _this2.userData.id) {
+          _this2.friendButton = "Request Pending";
+        }
+      });
+      this.pendingFriendsFrom.forEach(function (pendingFriendFromId) {
+        if (pendingFriendFromId == _this2.userData.id) {
+          _this2.isPending = true;
+        }
       });
     }
   },
   mounted: function mounted() {
-    console.log("het");
+    this.checkStatus();
   }
 });
 
@@ -20942,23 +20969,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": ""
+  "class": "h-20 grid"
 };
 var _hoisted_2 = {
-  "class": "text-red-500"
+  "class": "flex"
 };
-var _hoisted_3 = ["href"];
+var _hoisted_3 = ["src"];
+var _hoisted_4 = {
+  "class": "text-red-500 mt-auto mb-5"
+};
+var _hoisted_5 = {
+  "class": "h-full ml-auto"
+};
+var _hoisted_6 = ["href"];
+var _hoisted_7 = {
+  key: 1,
+  "class": "flex"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.userData.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "mr-5",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: $props.userData.profile_photo,
+    alt: "Profile Picture",
+    "class": "w-12 mr-3"
+  }, null, 8 /* PROPS */, _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.userData.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "mybutton mr-2",
     href: '/user/' + $props.userData.name
-  }, "View Profile", 8 /* PROPS */, _hoisted_3), $props.userData.id !== $props.authUser & $props.authUser !== 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  }, " View Profile ", 8 /* PROPS */, _hoisted_6), $props.userData.id !== $props.authUser & $props.authUser !== 0 & !this.isPending ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
-    "class": "cursor-pointer",
+    "class": "mybutton bg-green-500",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.addFriend && $options.addFriend.apply($options, arguments);
     })
-  }, "Add Friend")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.friendButton), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.isPending ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $options.acceptFriend && $options.acceptFriend.apply($options, arguments);
+    }),
+    "class": "mybutton bg-green-500"
+  }, "Accept"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[2] || (_cache[2] = function () {
+      return $options.declineFriend && $options.declineFriend.apply($options, arguments);
+    }),
+    "class": "mybutton bg-red-500"
+  }, "Decline")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),

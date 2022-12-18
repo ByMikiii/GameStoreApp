@@ -3,14 +3,11 @@
 @section('title', $title)
 
 @section('content')
-<ol class="user-list">
-
+<ol id='community-list' class="user-list">
 @foreach ($user as $u)
-
-      @include('community.show')
-
+<section id='user' class='bg-gray-800 p-4'>
+      @include('community.users')
+</section>
 @endforeach
-
 </ol>
-
 @stop

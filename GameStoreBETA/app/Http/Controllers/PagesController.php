@@ -29,7 +29,6 @@ class PagesController extends Controller
         return view('game',[
             'title' => $game->name." - Blast",
             'game' => $game,
-            
         ]);
         }
         else{
@@ -49,11 +48,24 @@ class PagesController extends Controller
 
     public function community(){
         if(Auth::check()){
-            // $friends = Friend::where()->get();
+            $friends = json_encode(Auth::user()->friends()->pluck('id')->all());
+            $pendingFriendsTo = Auth::user()->pendingFriendsTo()->get();
+            $pendingFriendsFrom = Auth::user()->pendingFriendsFrom()->get();
+            $pFriendsTo = [];
+            $pFriendsFrom = [];
+            foreach ($pendingFriendsTo as $pt){
+                array_push($pFriendsTo, $pt->id);
+            }
+            foreach ($pendingFriendsFrom as $pf){
+                array_push($pFriendsFrom, $pf->id);
+            }
         }
         return view('Community/community',[
             'title' => "Community - Blast",
             'user' => User::all()->sortBy('id'),
+            'friends' => $friends,
+            'pendingFriendsTo' => json_encode($pFriendsTo),
+            'pendingFriendsFrom' => json_encode($pFriendsFrom),
             
         ]);
     }

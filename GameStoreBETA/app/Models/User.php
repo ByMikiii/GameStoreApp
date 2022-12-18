@@ -21,13 +21,37 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
-    public function friends(){
-        return $this->belongsToMany(User::class, 'friends', 'user_id','friend_id')->withPivot('isAccepted')->where('isAccepted', true);
+    public function friendsTo(){
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+            ->withPivot('isAccepted');
+    }
+ 
+    public function friendsFrom(){
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+            ->withPivot('isAccepted');
     }
 
-     public function pendingFriends(){
-        return $this->belongsToMany(User::class, 'friends', 'user_id','friend_id')->withPivot('isAccepted')->where('isAccepted', false);
+    public function pendingFriendsTo(){
+        return $this->friendsTo()->wherePivot('isAccepted', false);
     }
+    
+    public function pendingFriendsFrom(){
+        return $this->friendsFrom()->wherePivot('isAccepted', false);
+    }
+    
+    public function acceptedFriendsTo(){
+        return $this->friendsTo()->wherePivot('isAccepted', true);
+    }
+    
+    public function acceptedFriendsFrom(){
+        return $this->friendsFrom()->wherePivot('isAccepted', true);
+    }
+
+    public function friends()
+    {
+        return $this->acceptedFriendsTo->merge($this->acceptedFriendsFrom);
+    }
+
 
 
     public function message(){
