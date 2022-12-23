@@ -59,6 +59,10 @@ class PagesController extends Controller
             foreach ($pendingFriendsFrom as $pf){
                 array_push($pFriendsFrom, $pf->id);
             }
+        }else {
+            $pFriendsTo = [];
+            $pFriendsFrom = [];
+             $friends = [];
         }
         return view('Community/community',[
             'title' => "Community - Blast",
@@ -72,10 +76,10 @@ class PagesController extends Controller
 
     public function friends(){
         if(Auth::check()){
-             $user = User::find(11);
+             $friends = json_encode(Auth::user()->friends()->all());
         return view('friends',[
             'title' => "Friends - Blast",
-            'friends' => $user->friends
+            'friends' => $friends
           
         ]);
     }else{

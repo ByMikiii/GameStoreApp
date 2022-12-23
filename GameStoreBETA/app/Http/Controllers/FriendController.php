@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,18 +38,8 @@ class FriendController extends Controller
         $friend->friend_id = $friend_id;
         $friend->save();
 
-        return response()->json([
-            'message' => 'Request sent',
-        ]);
-
-        }else{
-            return response()->json([
-             'message' => 'Add Friend',
-         ]); 
-         }
-
+        }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -82,26 +73,14 @@ class FriendController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($friend_id)
     {
-        //
+        Friend::where("user_id", "=", $friend_id)->where("friend_id", "=", Auth::user()->id)->update(['isAccepted' => 1]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy($friend_id)
     {
-        //
+       Friend::where("user_id", "=", Auth::user()->id)->where("friend_id", "=", $friend_id)->delete();
+       Friend::where("user_id", "=", $friend_id)->where("friend_id", "=", Auth::user()->id)->delete();
     }
 }

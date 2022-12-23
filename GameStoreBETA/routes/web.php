@@ -37,7 +37,10 @@ Route::get('/deposit', [PagesController::class, 'deposit']);
   Route::get('/stripe', [StripePaymentController::class, 'stripe']);
   Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
+  //Friends
   Route::post('/friends/create/{friend_id}', [FriendController::class, 'create']);
+  Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update']);
+  Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy']);
 
 
 Auth::routes();

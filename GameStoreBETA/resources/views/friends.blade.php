@@ -8,13 +8,6 @@
 
 
 
-{{-- <?php 
-$i = 1;
-?>
-@foreach ($friends as $friend)
-    <p>{{$i." ".$friend->name}}</p>
-  <p>{{$friend}}</p>
-   <?php $i++; ?> 
-@endforeach --}}
+{{$friends}}
 
 @stop
