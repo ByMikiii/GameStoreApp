@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Profile - '.$title)
+@section('title', $title)
 
 @section('content')
 

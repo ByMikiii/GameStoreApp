@@ -18,13 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'index']);
 Route::get('/game/{gameslug}', [PagesController::class, 'game']);
-Route::get('/library', [PagesController::class, 'library']);
+Route::get('/library', [PagesController::class, 'library'])->middleware('auth');
 Route::get('/community', [PagesController::class, 'community']);
-Route::get('/profile', [PagesController::class, 'profile']);
+Route::get('/profile', [PagesController::class, 'profile'])->middleware('auth');
 Route::get('/user/{username}', [PagesController::class, 'user']);
-Route::get('/friends', [PagesController::class, 'friends']);
-Route::get('/chat/{username}', [PagesController::class, 'chat']);
-Route::get('/deposit', [PagesController::class, 'deposit']);
+Route::get('/friends', [PagesController::class, 'friends'])->middleware('auth');
+Route::get('/chat', [PagesController::class, 'globalChat'])->middleware('auth');
+Route::get('/chat/{username}', [PagesController::class, 'chat'])->middleware('auth');
+Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
 
 
 
@@ -38,9 +39,9 @@ Route::get('/deposit', [PagesController::class, 'deposit']);
   Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
   //Friends
-  Route::post('/friends/create/{friend_id}', [FriendController::class, 'create']);
-  Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update']);
-  Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy']);
+  Route::post('/friends/create/{friend_id}', [FriendController::class, 'create'])->middleware('auth');
+  Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update'])->middleware('auth');
+  Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy'])->middleware('auth');
 
 
 Auth::routes();

@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('global_messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('sender_id');
-            $table->unsignedInteger('receiver_id');
-            $table->text('message_text');
             $table->timestamps();
-
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
         });
     }
 
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('global_messages');
     }
 };

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\OwnedGamesController;
-use App\Http\Controllers\FriendsController;
-use App\Models\Friend;
 use App\Models\User;
 use App\Models\Game;
-use Illuminate\Foundation\Auth\RedirectsUsers;
-use Illuminate\Http\Request;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
@@ -37,13 +34,9 @@ class PagesController extends Controller
     }
 
     public function library(){
-        if(Auth::check()){
         return view('library',[
             'title' => 'Library - Blast',
             'games' => (new OwnedGamesController)->getOwnedGames(Auth::user()->id),]);
-       }else {
-        return redirect()->route('login');
-       }
 }
 
     public function community(){
@@ -75,38 +68,26 @@ class PagesController extends Controller
     }
 
     public function friends(){
-        if(Auth::check()){
-             $friends = json_encode(Auth::user()->friends()->all());
+        $friends = json_encode(Auth::user()->friends()->all());
         return view('friends',[
             'title' => "Friends - Blast",
             'friends' => $friends
           
         ]);
-    }else{
-        return redirect()->route('login');
-    }
     }
 
     public function deposit(){
-        if(Auth::check()){
         return view('deposit');
-    }else{
-        return redirect()->route('login');
-    }
     }
 
     public function profile(){
-        if(Auth::check()){
         return view('profile',[
-            'title' => Auth::user()->name,
+            'title' => Auth::user()->name." - Blast",
             'user' => Auth::user()
         ]);
-       }else {
-        return redirect()->route('login');
-       }
     }
 
-        public function user($username){
+    public function user($username){
         $user = User::where("name", "=", $username)->get();
 
         if(Auth::check() && $username == Auth::user()->name){
@@ -123,11 +104,31 @@ class PagesController extends Controller
         }
 
     }
+    public function globalChat(){
+        return view('global-chat', [
+            'title' => "Global Chat - Blast",
+        ]);
+    }
 
     public function chat($username){
+        $user = User::where("name", "=", $username)->get();
+        
+        if(!$user->isEmpty()){
+            if(Auth::user()->friends()->where('name', $username)->isEmpty()){
+            return redirect()->action(
+                 [PagesController::class, 'user'], ['username' => $username]
+            );
+            }
+        $allMessages = Message::where('sender_id', Auth::user()->id)->orWhere('receiver_id', Auth::user()->id)->with('sender')->with('receiver')->get();
         return view('chat',[
             'title' => 'Chat '.$username,
-            'username' => $username
+            'username' => $username,
+            'messages' => $allMessages,
+            
         ]);
+        }
+        else{
+            return redirect()->action([PagesController::class, 'community']);
+        }
     }
 }

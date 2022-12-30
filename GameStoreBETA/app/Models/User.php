@@ -21,6 +21,7 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
+    //FRIENDS
     public function friendsTo(){
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
             ->withPivot('isAccepted');
@@ -52,12 +53,18 @@ class User extends Authenticatable
         return $this->acceptedFriendsTo->merge($this->acceptedFriendsFrom);
     }
 
-
-
-    public function message(){
+    //MESSAGES
+    public function messages()
+    {
         return $this->hasMany(Message::class);
     }
-    
+
+    public function senders()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    //GAMES
     public function games(){
         return $this->belongsToMany(Game::class, 'owned_games');
     }

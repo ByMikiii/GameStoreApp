@@ -26,6 +26,7 @@
     @if (Auth::check())
     <li class="list-item"><a  href="/library">Library</a></li>
     <li class="list-item"><a href="/friends">Friends</a></li>
+    <li class="list-item"><a  href="/chat">Chat</a></li>
     <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
     <li class="list-item ml-auto"><a href="/">{{Auth::user()->wallet}} €</a></li>
@@ -58,6 +59,7 @@
     @if (Auth::check())
     <li class="list-item border-b"><a  href="/library">Library</a></li>
     <li class="list-item border-b"><a href="/friends">Friends</a></li>
+    <li class="list-item border-b"><a  href="/chat">Chat</a></li>
     <li class="list-item border-b"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
     <li class="list-item ml-auto border-b"><a href="/">{{Auth::user()->wallet}} €</a></li>
@@ -79,6 +81,8 @@
     @yield('content')
 
     <flash-message text="{{session('flash')}}"></flash-message>
+
+
 
   </main>
 
