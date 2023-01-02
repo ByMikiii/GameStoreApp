@@ -64,6 +64,14 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'sender_id');
     }
 
+    //GLOBAL MESSAGES
+    public function globalMessages()
+    {
+        return $this->hasMany(GlobalMessage::class, 'sender_id');
+    }
+
+
+
     //GAMES
     public function games(){
         return $this->belongsToMany(Game::class, 'owned_games');

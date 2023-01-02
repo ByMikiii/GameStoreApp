@@ -14,10 +14,7 @@ export default {
     },
     methods: {
         show() {
-            console.log("called show function :");
             this.isShown = true;
-
-            console.log(this.text + this.isShown);
             setTimeout(() => this.hide(), 3000);
         },
 

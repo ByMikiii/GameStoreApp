@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +23,8 @@ Route::get('/library', [PagesController::class, 'library'])->middleware('auth');
 Route::get('/community', [PagesController::class, 'community']);
 Route::get('/profile', [PagesController::class, 'profile'])->middleware('auth');
 Route::get('/user/{username}', [PagesController::class, 'user']);
-Route::get('/friends', [PagesController::class, 'friends'])->middleware('auth');
-Route::get('/chat', [PagesController::class, 'globalChat'])->middleware('auth');
+Route::get('/friends', [PagesController::class, 'chat'])->middleware('auth');
+Route::get('/chat', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat/{username}', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
 
@@ -43,5 +44,9 @@ Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
   Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update'])->middleware('auth');
   Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy'])->middleware('auth');
 
+  //Global messages
+  Route::get('/globalmessages', [GlobalMessageController::class, 'index'])->middleware('auth');
+  Route::post('/globalmessages', [GlobalMessageController::class, 'store'])->middleware('auth');
 
-Auth::routes();
+
+  Auth::routes();

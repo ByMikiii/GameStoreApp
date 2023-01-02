@@ -102,33 +102,18 @@ class PagesController extends Controller
         else{
             return redirect()->action([PagesController::class, 'community']);
         }
-
-    }
-    public function globalChat(){
-        return view('global-chat', [
-            'title' => "Global Chat - Blast",
-        ]);
     }
 
-    public function chat($username){
-        $user = User::where("name", "=", $username)->get();
-        
-        if(!$user->isEmpty()){
-            if(Auth::user()->friends()->where('name', $username)->isEmpty()){
-            return redirect()->action(
-                 [PagesController::class, 'user'], ['username' => $username]
-            );
-            }
-        $allMessages = Message::where('sender_id', Auth::user()->id)->orWhere('receiver_id', Auth::user()->id)->with('sender')->with('receiver')->get();
+    public function chat($username = null){
+        $user = User::where("name", $username)->get();
+
+        $friends = json_encode(Auth::user()->friends()->all());
+
         return view('chat',[
             'title' => 'Chat '.$username,
-            'username' => $username,
-            'messages' => $allMessages,
-            
+            'user' => $user,
+            'friends' => $friends
         ]);
-        }
-        else{
-            return redirect()->action([PagesController::class, 'community']);
-        }
     }
+
 }

@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('global_messages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('sender_id')->unsigned();
+            $table->text('message_text');
             $table->timestamps();
+
+            $table->foreign('sender_id')->references('id')->on('users');
         });
     }
 

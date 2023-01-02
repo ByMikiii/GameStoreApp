@@ -10,7 +10,7 @@
 
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
-<body class="h-screen">
+<body class="h-full scroll-smooth">
   <header class="flex border-b">
       <a class="m-auto w-auto h-11 flex-shrink-0 flex" href="/">
         <img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo">
@@ -26,7 +26,6 @@
     @if (Auth::check())
     <li class="list-item"><a  href="/library">Library</a></li>
     <li class="list-item"><a href="/friends">Friends</a></li>
-    <li class="list-item"><a  href="/chat">Chat</a></li>
     <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
     <li class="list-item ml-auto"><a href="/">{{Auth::user()->wallet}} €</a></li>
@@ -59,8 +58,7 @@
     @if (Auth::check())
     <li class="list-item border-b"><a  href="/library">Library</a></li>
     <li class="list-item border-b"><a href="/friends">Friends</a></li>
-    <li class="list-item border-b"><a  href="/chat">Chat</a></li>
-    <li class="list-item border-b"><a  href="/profile">{{Auth::user()->name}}</a></li>
+    <li id="logged" class="list-item border-b"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
     <li class="list-item ml-auto border-b"><a href="/">{{Auth::user()->wallet}} €</a></li>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
@@ -81,9 +79,15 @@
     @yield('content')
 
     <flash-message text="{{session('flash')}}"></flash-message>
-
-
-
+    
+    @if (Auth::check())
+    <section id='global-chat' class='bg-bg-color fixed bottom-16 right-2 border w-96 h-5/6 rounded-sm flex-col flex invisible'>
+      <h1 class='text-center text-2xl w-full border-b p-1 pb-2'>Global Chat</h1>
+      <global-chat-log class='p-1 pr-3 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color' :messages="globalMessages" :auth="{{Auth::user()}}"></global-chat-log>
+      <global-chat-composer v-on:messagesent="addMessage" :auth="{{Auth::user()}}"></global-chat-composer>
+    </section>
+    <button class='fixed bottom-6 right-6' onclick="globalChat()">Global Chat</button>
+    @endif
   </main>
 
   <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
