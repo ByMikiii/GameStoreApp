@@ -24,12 +24,12 @@ class User extends Authenticatable
     //FRIENDS
     public function friendsTo(){
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
-            ->withPivot('isAccepted');
+            ->withPivot('isAccepted')->withPivot('latest_message_at');
     }
  
     public function friendsFrom(){
         return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
-            ->withPivot('isAccepted');
+            ->withPivot('isAccepted')->withPivot('latest_message_at');
     }
 
     public function pendingFriendsTo(){
@@ -55,11 +55,6 @@ class User extends Authenticatable
 
     //MESSAGES
     public function messages()
-    {
-        return $this->hasMany(Message::class);
-    }
-
-    public function senders()
     {
         return $this->hasMany(Message::class, 'sender_id');
     }

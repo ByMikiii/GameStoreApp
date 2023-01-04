@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('sender_id');
             $table->unsignedInteger('receiver_id');
-            $table->text('message_text');
+            $table->text('text');
+            $table->boolean('was_seen')->default(0);
+            $table->boolean('is_deleted')->default(0);
             $table->timestamps();
 
             $table->foreign('sender_id')->references('id')->on('users');

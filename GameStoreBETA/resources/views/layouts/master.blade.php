@@ -10,7 +10,7 @@
 
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
-<body class="h-full scroll-smooth">
+<body class="">
   <header class="flex border-b">
       <a class="m-auto w-auto h-11 flex-shrink-0 flex" href="/">
         <img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo">
@@ -84,7 +84,7 @@
     <section id='global-chat' class='bg-bg-color fixed bottom-16 right-2 border w-96 h-5/6 rounded-sm flex-col flex invisible'>
       <h1 class='text-center text-2xl w-full border-b p-1 pb-2'>Global Chat</h1>
       <global-chat-log class='p-1 pr-3 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color' :messages="globalMessages" :auth="{{Auth::user()}}"></global-chat-log>
-      <global-chat-composer v-on:messagesent="addMessage" :auth="{{Auth::user()}}"></global-chat-composer>
+      <global-chat-composer v-on:globalmessagesent="addMessage" :auth="{{Auth::user()}}"></global-chat-composer>
     </section>
     <button class='fixed bottom-6 right-6' onclick="globalChat()">Global Chat</button>
     @endif

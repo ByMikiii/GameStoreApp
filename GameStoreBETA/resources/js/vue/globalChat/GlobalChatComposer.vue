@@ -16,7 +16,7 @@ export default {
   methods: {
     sendMessage() {
       if (this.messageText !== '') {
-        this.$emit('messagesent', {
+        this.$emit('globalmessagesent', {
           message_text: this.messageText,
           user: {
             name: this.auth.name

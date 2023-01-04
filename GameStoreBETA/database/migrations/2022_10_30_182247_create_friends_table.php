@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->timestamp('latest_message_at')->nullable(true);
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('friend_id');
             $table->boolean('isAccepted')->default(0);

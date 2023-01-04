@@ -1,30 +1,36 @@
 <template>
   <div class="chat-composer flex p-1 border rounded-sm mt-auto w-full relative">
-    <input type="text" placeholder="Type something..." class="bg-transparent flex-auto outline-none" v-model="messageText" @keyup.enter="sendMessage">
-    <button class="button is-success w-24" @click="sendMessage" >Send</button>
+    <input type="text" placeholder="Type something..." class="bg-transparent flex-auto outline-none" v-model="privateMessageText" @keyup.enter="sendPrivateMessage">
+    <button class="button is-success w-24" @click="sendPrivateMessage" >Send</button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['auth'],
+  props: ['auth','currentUser'],
   data() {
     return {
-      messageText: '',
+      privateMessageText: '',
     }
   },
   methods: {
-    sendMessage() {
-      if (this.messageText !== '') {
+    sendPrivateMessage() {
+      if (this.privateMessageText !== '') {
         this.$emit('messagesent', {
-          message_text: this.messageText,
-          user: {
-            name: this.auth.name
-          }
+          sender_id: this.auth.id,
+          receiver_id: this.currentUser.id,
+          text: this.privateMessageText,
+          was_seen: 0,
+          is_deleted: 0,
+          sender: this.auth,
+          receiver: this.currentUser
         });
-        this.messageText = '';
+        this.privateMessageText = '';
       }
     },
+  },
+  updated() {
+    
   }
 }
 </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,12 @@ Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
   //Global messages
   Route::get('/globalmessages', [GlobalMessageController::class, 'index'])->middleware('auth');
   Route::post('/globalmessages', [GlobalMessageController::class, 'store'])->middleware('auth');
+
+  //Messages
+  Route::get('/messages/{id}', [MessageController::class, 'index'])->middleware('auth');
+  Route::post('/messages', [MessageController::class, 'store'])->middleware('auth');
+
+
 
 
   Auth::routes();

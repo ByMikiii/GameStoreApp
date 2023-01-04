@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
+use App\Models\Message;
+use Illuminate\Support\Facades\DB;
+
 
 class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $messages1 = Message::where('sender_id', Auth::user()->id)->where('receiver_id', $id)->with('sender')->with('receiver')->get();
+        $messages2 = Message::where('sender_id', $id)->where('receiver_id', Auth::user()->id)->with('sender')->with('receiver')->get();
+
+        $messages = array_merge($messages1->toArray(), $messages2->toArray());
+
+        usort($messages, function($a, $b){
+            return $a['created_at'] <=> $b['created_at'];
+        });
+        return $messages;
     }
 
     /**
@@ -34,7 +47,16 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $user = Auth::user();
+
+        Auth::user()->messages()->create([
+           'text' => $request->text,
+           'receiver_id' => $request->receiver_id,
+        ]);
+
+        DB::table('friends')->where('user_id', $request->receiver_id)->where('friend_id', Auth::user()->id)->update(['latest_message_at'=>now('cet')]);
+        DB::table('friends')->where('user_id', Auth::user()->id)->where('friend_id', $request->receiver_id)->update(['latest_message_at'=>now('cet')]);
+
     }
 
     /**

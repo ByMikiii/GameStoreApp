@@ -107,12 +107,24 @@ class PagesController extends Controller
     public function chat($username = null){
         $user = User::where("name", $username)->get();
 
-        $friends = json_encode(Auth::user()->friends()->all());
+        $friends = Auth::user()->friends()->sortByDesc('pivot.latest_message_at')->all();
+        $final_friends = [];
+        foreach($friends as $friend){
+            array_push($final_friends, $friend);
+        }
+
+        if(count($user) == 0 ){
+            $user = '';
+        }else $user = $user[0];
+
+        if(count($friends) == 0){
+            $friends = "";
+        }
 
         return view('chat',[
             'title' => 'Chat '.$username,
-            'user' => $user,
-            'friends' => $friends
+            'user' => json_encode($user),
+            'friends' => json_encode($final_friends),
         ]);
     }
 

@@ -11,7 +11,6 @@ import GlobalChatComposer from './vue/globalChat/GlobalChatComposer.vue';
 
 import PrivateChatPage from './vue/privateChat/PrivateChatPage.vue';
 import PrivateChatMessage from './vue/privateChat/PrivateChatMessage.vue';
-import PrivateChatLog from './vue/privateChat/PrivateChatLog.vue';
 import PrivateChatComposer from './vue/privateChat/PrivateChatComposer.vue';
 
 import axios from 'axios';
@@ -64,7 +63,6 @@ app.component('global-chat-composer', GlobalChatComposer)
 
 //PRIVATE MESSAGES
 app.component('private-chat-message', PrivateChatMessage)
-app.component('private-chat-log', PrivateChatLog)
 app.component('private-chat-composer', PrivateChatComposer)
 app.component('private-chat-page', PrivateChatPage)
 
