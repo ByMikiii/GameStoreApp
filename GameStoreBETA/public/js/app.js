@@ -20931,22 +20931,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['auth'],
+  props: ["auth"],
   data: function data() {
     return {
-      messageText: ''
+      messageText: ""
     };
   },
   methods: {
     sendMessage: function sendMessage() {
-      if (this.messageText !== '') {
-        this.$emit('globalmessagesent', {
+      if (this.messageText !== "") {
+        this.$emit("globalmessagesent", {
           message_text: this.messageText,
           user: {
             name: this.auth.name
           }
         });
-        this.messageText = '';
+        this.messageText = "";
       }
     }
   }
@@ -20998,7 +20998,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['message', 'auth']
+  props: ["message", "auth"]
 });
 
 /***/ }),
@@ -21015,16 +21015,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['auth', 'currentUser'],
+  props: ["auth", "currentUser"],
   data: function data() {
     return {
-      privateMessageText: ''
+      privateMessageText: ""
     };
   },
   methods: {
     sendPrivateMessage: function sendPrivateMessage() {
-      if (this.privateMessageText !== '') {
-        this.$emit('messagesent', {
+      if (this.privateMessageText !== "") {
+        this.$emit("messagesent", {
           sender_id: this.auth.id,
           receiver_id: this.currentUser.id,
           text: this.privateMessageText,
@@ -21033,11 +21033,10 @@ __webpack_require__.r(__webpack_exports__);
           sender: this.auth,
           receiver: this.currentUser
         });
-        this.privateMessageText = '';
+        this.privateMessageText = "";
       }
     }
-  },
-  updated: function updated() {}
+  }
 });
 
 /***/ }),
@@ -21054,8 +21053,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['message', 'auth'],
-  created: function created() {}
+  props: ["message", "auth"]
 });
 
 /***/ }),
@@ -21071,26 +21069,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['friends', 'auth', 'user'],
+  props: ["friends", "auth", "user"],
   data: function data() {
     return {
-      currentUser: '',
+      currentUser: "",
       noFriends: false,
-      messages: []
+      messages: [],
+      friendlist: this.friends
     };
   },
   mounted: function mounted() {
-    if (this.friends == '') {
+    if (this.friends == "") {
       this.noFriends = true;
     }
     if (this.user) {
       this.changeCurrentUser(this.user);
-    } else this.changeCurrentUser(this.friends[0]);
+    } else this.changeCurrentUser(this.friendlist[0]);
     this.getMessages();
   },
   updated: function updated() {
     this.scrollToEnd();
+  },
+  created: function created() {
+    var _this = this;
+    var chatChannel = window.Echo.channel("chat");
+    chatChannel.listen("MessagePosted", function (e) {
+      console.log(e);
+      _this.messages.push({
+        text: e.message.text,
+        id: e.message.id,
+        created_at: e.message.created_at,
+        updated_at: e.message.updated_at,
+        is_deleted: e.message.is_deleted,
+        was_seen: e.message.was_seen,
+        sender_id: e.message.sender_id,
+        receiver_id: e.message.receiver_id,
+        sender: e.sender,
+        receiver: e.receiver
+      });
+    });
   },
   methods: {
     changeCurrentUser: function changeCurrentUser(userr) {
@@ -21098,24 +21118,30 @@ __webpack_require__.r(__webpack_exports__);
       this.getMessages();
     },
     getMessages: function getMessages() {
-      var _this = this;
+      var _this2 = this;
       axios.get("/messages/" + this.currentUser.id).then(function (response) {
-        _this.messages = response.data;
+        _this2.messages = response.data;
       });
     },
     addPrivateMessage: function addPrivateMessage(message) {
+      var _this3 = this;
       this.messages.push(message);
-      axios.post('/messages', message).then(function (response) {
-        console.log(response.data);
+      axios.post("/messages", message);
+
+      //LATEST MESSAGE ON INDEX 0
+      var indexOfUser = this.friendlist.findIndex(function (object) {
+        return object.name === _this3.currentUser.name;
       });
+      this.friendlist.splice(indexOfUser, 1);
+      this.friendlist.unshift(this.currentUser);
     },
     scrollToEnd: function scrollToEnd() {
-      var _this2 = this;
+      var _this4 = this;
       var elm = this.$refs.privateChat;
       if (elm) {
         this.$nextTick(function () {
           elm.scrollTop = elm.scrollHeight;
-          _this2.scrollHeight = elm.scrollHeight;
+          _this4.scrollHeight = elm.scrollHeight;
         });
       }
     }
@@ -21270,7 +21296,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.sendMessage && $options.sendMessage.apply($options, arguments);
     })
-  }, "Send")]);
+  }, " Send ")]);
 }
 
 /***/ }),
@@ -21294,12 +21320,13 @@ var _hoisted_1 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_global_chat_message = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("global-chat-message");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.messages, function (message) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.messages, function (message, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_global_chat_message, {
+      key: index,
       message: message,
       auth: $props.auth
     }, null, 8 /* PROPS */, ["message", "auth"]);
-  }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */);
 }
 
 /***/ }),
@@ -21363,7 +21390,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.sendPrivateMessage && $options.sendPrivateMessage.apply($options, arguments);
     })
-  }, "Send")]);
+  }, " Send ")]);
 }
 
 /***/ }),
@@ -21436,26 +21463,29 @@ var _hoisted_9 = {
   "class": "text-5xl text-center mt-72"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _this = this;
   var _component_private_chat_message = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("private-chat-message");
   var _component_private_chat_composer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("private-chat-composer");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [!this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Friends "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.friends.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.friends, function (friend) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [!this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Friends "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.friendlist.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.friendlist, function (friend, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       id: "friend",
-      "class": "border-b p-2",
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["border-b p-2", friend.name === _this.currentUser.name ? 'bg-red-500' : null]),
+      key: index,
       onClick: function onClick($event) {
         return $options.changeCurrentUser(friend);
       }
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(friend.name), 1 /* TEXT */)], 8 /* PROPS */, _hoisted_5);
-  }), 256 /* UNKEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentUser.name) + " - Chat", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, function (message) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(friend.name), 1 /* TEXT */)], 10 /* CLASS, PROPS */, _hoisted_5);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentUser.name) + " - Chat ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, function (message, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_private_chat_message, {
+      key: index,
       auth: $props.auth,
       message: message
     }, null, 8 /* PROPS */, ["auth", "message"]);
-  }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_private_chat_composer, {
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_private_chat_composer, {
     onMessagesent: $options.addPrivateMessage,
     auth: $props.auth,
     currentUser: $data.currentUser
-  }, null, 8 /* PROPS */, ["onMessagesent", "auth", "currentUser"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_9, "You have no friends. 🥲")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }, null, 8 /* PROPS */, ["onMessagesent", "auth", "currentUser"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_9, " You have no friends. 🥲 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21470,14 +21500,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/FlashMessage.vue */ "./resources/js/vue/FlashMessage.vue");
-/* harmony import */ var _vue_Community_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/Community.vue */ "./resources/js/vue/Community.vue");
-/* harmony import */ var _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatMessage.vue */ "./resources/js/vue/globalChat/GlobalChatMessage.vue");
+/* harmony import */ var _vue_Community_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/Community.vue */ "./resources/js/vue/Community.vue");
+/* harmony import */ var _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/FlashMessage.vue */ "./resources/js/vue/FlashMessage.vue");
+/* harmony import */ var _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatComposer.vue */ "./resources/js/vue/globalChat/GlobalChatComposer.vue");
 /* harmony import */ var _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatLog.vue */ "./resources/js/vue/globalChat/GlobalChatLog.vue");
-/* harmony import */ var _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatComposer.vue */ "./resources/js/vue/globalChat/GlobalChatComposer.vue");
-/* harmony import */ var _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatPage.vue */ "./resources/js/vue/privateChat/PrivateChatPage.vue");
+/* harmony import */ var _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatMessage.vue */ "./resources/js/vue/globalChat/GlobalChatMessage.vue");
+/* harmony import */ var _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatComposer.vue */ "./resources/js/vue/privateChat/PrivateChatComposer.vue");
 /* harmony import */ var _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatMessage.vue */ "./resources/js/vue/privateChat/PrivateChatMessage.vue");
-/* harmony import */ var _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatComposer.vue */ "./resources/js/vue/privateChat/PrivateChatComposer.vue");
+/* harmony import */ var _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatPage.vue */ "./resources/js/vue/privateChat/PrivateChatPage.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
 
@@ -21495,32 +21525,21 @@ __webpack_require__.r(__webpack_exports__);
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({
   data: function data() {
     return {
-      globalMessages: ''
+      globalMessages: ""
     };
   },
   methods: {
     addMessage: function addMessage(message) {
       this.globalMessages.push(message);
-      axios__WEBPACK_IMPORTED_MODULE_11__["default"].post('/globalmessages', message);
+      axios__WEBPACK_IMPORTED_MODULE_11__["default"].post("/globalmessages", message);
     }
   },
   created: function created() {
     var _this = this;
-    if (document.getElementById('logged')) {
-      axios__WEBPACK_IMPORTED_MODULE_11__["default"].get('/globalmessages').then(function (response) {
-        _this.globalMessages = response.data;
-      });
-      var channel = window.Echo.channel('global-chat');
-      // channel.here((users) => {
-      //   console.log(users);
-      // })
-      // channel.joining(user => {
-      //   this.usersInChat.push(user);
-      // });
-      // channel.leaving(user => {
-      //   this.usersInChat = this.usersInChat.filter(u => u != user);
-      // });
-      channel.listen('GlobalMessagePosted', function (e) {
+    if (document.getElementById("logged")) {
+      axios__WEBPACK_IMPORTED_MODULE_11__["default"].get("/globalmessages");
+      var channel = window.Echo.channel("global-chat");
+      channel.listen("GlobalMessagePosted", function (e) {
         _this.globalMessages.push({
           message_text: e.message.message_text,
           user: e.user
@@ -21529,18 +21548,18 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({
     }
   }
 });
-app.component('flash-message', _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
-app.component('community', _vue_Community_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+app.component("flash-message", _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
+app.component("community", _vue_Community_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 //GLOBAL MESSAGES
-app.component('global-chat-message', _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-app.component('global-chat-log', _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-app.component('global-chat-composer', _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+app.component("global-chat-message", _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+app.component("global-chat-log", _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+app.component("global-chat-composer", _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
 //PRIVATE MESSAGES
-app.component('private-chat-message', _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
-app.component('private-chat-composer', _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
-app.component('private-chat-page', _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-app.mount('#app');
+app.component("private-chat-message", _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+app.component("private-chat-composer", _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
+app.component("private-chat-page", _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
+app.mount("#app");
 
 /***/ }),
 
@@ -21569,7 +21588,7 @@ window._ = (lodash__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 window.axios = axios__WEBPACK_IMPORTED_MODULE_2__["default"];
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -21580,7 +21599,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_3__["default"]({
-  broadcaster: 'pusher',
+  broadcaster: "pusher",
   key: "e786c4419671f18b8645",
   cluster: "eu",
   forceTLS: true
@@ -28820,7 +28839,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#privateMessage{\r\n  \r\n  max-width: 240px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#privateMessage {\r\n    max-width: 240px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28844,7 +28863,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#private-chat{\r\n  height: 85vh;\n}\n#friend{\r\n  min-height: 5rem;\r\n  width: auto;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#private-chat {\r\n    height: 85vh;\n}\n#friend {\r\n    min-height: 5rem;\r\n    width: auto;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -54237,7 +54256,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
       }
     }
 
-    if (_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFormData(requestData) && _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv) {
+    if (_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isFormData(requestData) && (_platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserEnv || _platform_index_js__WEBPACK_IMPORTED_MODULE_3__["default"].isStandardBrowserWebWorkerEnv)) {
       requestHeaders.setContentType(false); // Let the browser set it
     }
 
@@ -54265,7 +54284,7 @@ const isXHRAdapterSupported = typeof XMLHttpRequest !== 'undefined';
       const responseHeaders = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_1__["default"].from(
         'getAllResponseHeaders' in request && request.getAllResponseHeaders()
       );
-      const responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+      const responseData = !responseType || responseType === 'text' || responseType === 'json' ?
         request.responseText : request.response;
       const response = {
         data: responseData,
@@ -54453,6 +54472,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_spread_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./helpers/spread.js */ "./node_modules/axios/lib/helpers/spread.js");
 /* harmony import */ var _helpers_isAxiosError_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./helpers/isAxiosError.js */ "./node_modules/axios/lib/helpers/isAxiosError.js");
 /* harmony import */ var _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/AxiosHeaders.js */ "./node_modules/axios/lib/core/AxiosHeaders.js");
+/* harmony import */ var _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./helpers/HttpStatusCode.js */ "./node_modules/axios/lib/helpers/HttpStatusCode.js");
+
 
 
 
@@ -54525,9 +54546,14 @@ axios.spread = _helpers_spread_js__WEBPACK_IMPORTED_MODULE_11__["default"];
 // Expose isAxiosError
 axios.isAxiosError = _helpers_isAxiosError_js__WEBPACK_IMPORTED_MODULE_12__["default"];
 
+// Expose mergeConfig
+axios.mergeConfig = _core_mergeConfig_js__WEBPACK_IMPORTED_MODULE_3__["default"];
+
 axios.AxiosHeaders = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_13__["default"];
 
 axios.formToJSON = thing => (0,_helpers_formDataToJSON_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_utils_js__WEBPACK_IMPORTED_MODULE_2__["default"].isHTMLForm(thing) ? new FormData(thing) : thing);
+
+axios.HttpStatusCode = _helpers_HttpStatusCode_js__WEBPACK_IMPORTED_MODULE_15__["default"];
 
 axios.default = axios;
 
@@ -55527,7 +55553,7 @@ function throwIfCancellationRequested(config) {
   }
 
   if (config.signal && config.signal.aborted) {
-    throw new _cancel_CanceledError_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    throw new _cancel_CanceledError_js__WEBPACK_IMPORTED_MODULE_0__["default"](null, config);
   }
 }
 
@@ -56040,7 +56066,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "VERSION": () => (/* binding */ VERSION)
 /* harmony export */ });
-const VERSION = "1.2.0";
+const VERSION = "1.2.2";
 
 /***/ }),
 
@@ -56114,6 +56140,92 @@ prototype.toString = function toString(encoder) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AxiosURLSearchParams);
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/HttpStatusCode.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/HttpStatusCode.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const HttpStatusCode = {
+  Continue: 100,
+  SwitchingProtocols: 101,
+  Processing: 102,
+  EarlyHints: 103,
+  Ok: 200,
+  Created: 201,
+  Accepted: 202,
+  NonAuthoritativeInformation: 203,
+  NoContent: 204,
+  ResetContent: 205,
+  PartialContent: 206,
+  MultiStatus: 207,
+  AlreadyReported: 208,
+  ImUsed: 226,
+  MultipleChoices: 300,
+  MovedPermanently: 301,
+  Found: 302,
+  SeeOther: 303,
+  NotModified: 304,
+  UseProxy: 305,
+  Unused: 306,
+  TemporaryRedirect: 307,
+  PermanentRedirect: 308,
+  BadRequest: 400,
+  Unauthorized: 401,
+  PaymentRequired: 402,
+  Forbidden: 403,
+  NotFound: 404,
+  MethodNotAllowed: 405,
+  NotAcceptable: 406,
+  ProxyAuthenticationRequired: 407,
+  RequestTimeout: 408,
+  Conflict: 409,
+  Gone: 410,
+  LengthRequired: 411,
+  PreconditionFailed: 412,
+  PayloadTooLarge: 413,
+  UriTooLong: 414,
+  UnsupportedMediaType: 415,
+  RangeNotSatisfiable: 416,
+  ExpectationFailed: 417,
+  ImATeapot: 418,
+  MisdirectedRequest: 421,
+  UnprocessableEntity: 422,
+  Locked: 423,
+  FailedDependency: 424,
+  TooEarly: 425,
+  UpgradeRequired: 426,
+  PreconditionRequired: 428,
+  TooManyRequests: 429,
+  RequestHeaderFieldsTooLarge: 431,
+  UnavailableForLegalReasons: 451,
+  InternalServerError: 500,
+  NotImplemented: 501,
+  BadGateway: 502,
+  ServiceUnavailable: 503,
+  GatewayTimeout: 504,
+  HttpVersionNotSupported: 505,
+  VariantAlsoNegotiates: 506,
+  InsufficientStorage: 507,
+  LoopDetected: 508,
+  NotExtended: 510,
+  NetworkAuthenticationRequired: 511,
+};
+
+Object.entries(HttpStatusCode).forEach(([key, value]) => {
+  HttpStatusCode[value] = key;
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HttpStatusCode);
 
 
 /***/ }),
@@ -56741,7 +56853,7 @@ function speedometer(samplesCount, min) {
 
     const passed = startedAt && now - startedAt;
 
-    return  passed ? Math.round(bytesCount * 1000 / passed) : undefined;
+    return passed ? Math.round(bytesCount * 1000 / passed) : undefined;
   };
 }
 
@@ -57269,6 +57381,25 @@ const isStandardBrowserEnv = (() => {
   return typeof window !== 'undefined' && typeof document !== 'undefined';
 })();
 
+/**
+ * Determine if we're running in a standard browser webWorker environment
+ *
+ * Although the `isStandardBrowserEnv` method indicates that
+ * `allows axios to run in a web worker`, the WebWorker will still be
+ * filtered out due to its judgment standard
+ * `typeof window !== 'undefined' && typeof document !== 'undefined'`.
+ * This leads to a problem when axios post `FormData` in webWorker
+ */
+ const isStandardBrowserWebWorkerEnv = (() => {
+  return (
+    typeof WorkerGlobalScope !== 'undefined' &&
+    // eslint-disable-next-line no-undef
+    self instanceof WorkerGlobalScope &&
+    typeof self.importScripts === 'function'
+  );
+})();
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   isBrowser: true,
   classes: {
@@ -57277,6 +57408,7 @@ const isStandardBrowserEnv = (() => {
     Blob
   },
   isStandardBrowserEnv,
+  isStandardBrowserWebWorkerEnv,
   protocols: ['http', 'https', 'file', 'blob', 'url', 'data']
 });
 
@@ -57574,7 +57706,11 @@ function findKey(obj, key) {
   return null;
 }
 
-const _global = typeof self === "undefined" ? typeof global === "undefined" ? undefined : global : self;
+const _global = (() => {
+  /*eslint no-undef:0*/
+  if (typeof globalThis !== "undefined") return globalThis;
+  return typeof self !== "undefined" ? self : (typeof window !== 'undefined' ? window : global)
+})();
 
 const isContextDefined = (context) => !isUndefined(context) && context !== _global;
 

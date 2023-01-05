@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\Models\User;
-use App\Models\GlobalMessage;
+use App\Models\Message;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -13,33 +13,42 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GlobalMessagePosted implements ShouldBroadcast
+class MessagePosted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Message
      * 
-     * @var \App\Models\GlobalMessage
+     * @var \App\Models\Message
      */
     public $message;
 
-    /**
-     * User
+     /**
+     * Sender
      * 
      * @var \App\Models\User
      */
-    public $user;
+    public $sender;
+
+     /**
+     * Receiver
+     * 
+     * @var \App\Models\User
+     */
+    public $receiver;
+
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(GlobalMessage $message, User $user)
+    public function __construct(Message $message, User $receiver, User $sender )
     {
         $this->message = $message;
-        $this->user = $user;
+        $this->sender = $sender;
+        $this->receiver = $receiver;
     }
 
     /**
@@ -49,7 +58,6 @@ class GlobalMessagePosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('global-chat');
+        return new Channel('chat');
     }
-
 }

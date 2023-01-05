@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Events\MessagePosted;
 
 
 class MessageController extends Controller
@@ -47,12 +49,17 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-         $user = Auth::user();
+        $auth = Auth::user();
 
-        Auth::user()->messages()->create([
+        $message = Auth::user()->messages()->create([
            'text' => $request->text,
            'receiver_id' => $request->receiver_id,
         ]);
+
+        $receiver = User::where('id',$request->receiver_id)->get();
+
+        broadcast(new MessagePosted($message, $receiver[0], $auth))->toOthers();
+
 
         DB::table('friends')->where('user_id', $request->receiver_id)->where('friend_id', Auth::user()->id)->update(['latest_message_at'=>now('cet')]);
         DB::table('friends')->where('user_id', Auth::user()->id)->where('friend_id', $request->receiver_id)->update(['latest_message_at'=>now('cet')]);
