@@ -58,6 +58,6 @@ class MessagePosted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new PrivateChannel("chat.{$this->receiver->id}");
     }
 }

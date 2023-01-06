@@ -9,7 +9,7 @@
 
 @stop
 {{-- 
-  TODO: CHANGE ORDER IN JS, PUSHER,STYLING...
+  TODO: ADD TIMESTAMPS, STORE, PAYMANT...
   
   
   --}}

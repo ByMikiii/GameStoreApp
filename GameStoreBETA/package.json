@@ -32,6 +32,7 @@
         "vue-template-compiler": "^2.7.14"
     },
     "dependencies": {
+        "dayjs": "^1.11.7",
         "vue-multivue": "^1.0.1",
         "webpack": "^5.75.0"
     }

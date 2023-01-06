@@ -18,7 +18,7 @@
                     @click="changeCurrentUser(friend)"
                     v-bind:class="
                         friend.name === this.currentUser.name
-                            ? 'bg-red-500'
+                            ? 'bg-green-500'
                             : null
                     "
                 >
@@ -82,9 +82,8 @@ export default {
         this.scrollToEnd();
     },
     created() {
-        let chatChannel = window.Echo.channel("chat");
+        let chatChannel = window.Echo.private("chat." + this.auth.id);
         chatChannel.listen("MessagePosted", (e) => {
-            console.log(e);
             this.messages.push({
                 text: e.message.text,
                 id: e.message.id,
