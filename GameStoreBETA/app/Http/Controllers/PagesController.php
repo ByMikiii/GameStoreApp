@@ -77,7 +77,9 @@ class PagesController extends Controller
     }
 
     public function deposit(){
-        return view('deposit');
+        return view('deposit',[
+            'title' => "Deposit - Blast",
+        ]);
     }
 
     public function profile(){

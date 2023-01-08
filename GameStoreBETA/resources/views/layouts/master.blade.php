@@ -28,7 +28,7 @@
     <li class="list-item"><a href="/friends">Friends</a></li>
     <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
-    <li class="list-item ml-auto"><a href="/">{{Auth::user()->wallet}} €</a></li>
+    <li class="list-item ml-auto">{{Auth::user()->wallet}} € <a href="/deposit" class="">+</a></li>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
         <li><button type="submit" class="btn btn-primary text-red-600">Logout</button></li>
@@ -78,6 +78,7 @@
   <main id="app" class="text-yellow-300 mt-5">
     @yield('content')
 
+    
     <flash-message text="{{session('flash')}}"></flash-message>
     
     @if (Auth::check())

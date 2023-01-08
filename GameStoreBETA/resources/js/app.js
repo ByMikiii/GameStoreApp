@@ -13,6 +13,8 @@ import PrivateChatComposer from "./vue/privateChat/PrivateChatComposer.vue";
 import PrivateChatMessage from "./vue/privateChat/PrivateChatMessage.vue";
 import PrivateChatPage from "./vue/privateChat/PrivateChatPage.vue";
 
+import Payment from "./vue/Payment.vue";
+
 import axios from "axios";
 import Echo from "laravel-echo";
 
@@ -30,7 +32,9 @@ const app = createApp({
     },
     created() {
         if (document.getElementById("logged")) {
-            axios.get("/globalmessages");
+            axios.get("/globalmessages").then((response) => {
+                this.globalMessages = response.data;
+            });
 
             let channel = window.Echo.channel("global-chat");
             channel.listen("GlobalMessagePosted", (e) => {
@@ -42,8 +46,13 @@ const app = createApp({
         }
     },
 });
+
+//FLASH MESSAGES
 app.component("flash-message", FlashMessage);
+
+//COMMUNITY
 app.component("community", Community);
+
 //GLOBAL MESSAGES
 app.component("global-chat-message", GlobalChatMessage);
 app.component("global-chat-log", GlobalChatLog);
@@ -53,5 +62,8 @@ app.component("global-chat-composer", GlobalChatComposer);
 app.component("private-chat-message", PrivateChatMessage);
 app.component("private-chat-composer", PrivateChatComposer);
 app.component("private-chat-page", PrivateChatPage);
+
+//PAYMENT
+app.component("payment", Payment);
 
 app.mount("#app");
