@@ -8,7 +8,7 @@ use Auth;
 
 class StripePaymentController extends Controller
 {
-     public function getSession(){
+     public function getSession($amount){
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $checkout = $stripe->checkout->sessions->create([
@@ -17,15 +17,16 @@ class StripePaymentController extends Controller
                 'line_items' => [
                     [
                     'price_data' => [
-                        'currency' => 'USD',
-                        'unit_amount' => 5000,
+                        'currency' => 'EUR',
+                        'unit_amount' => $amount*100,
                         'product_data' => [
-                            'name' => 'ITEM NAME NEHGEE' ,
+                            'name' => 'Order - Blast' ,
                         ],
                     ],
                     'quantity' => 1,
                     ],
                 ],
+                'client_reference_id' => Auth::user()->id,
                 'mode' => 'payment',
         ]);
 
@@ -33,7 +34,7 @@ class StripePaymentController extends Controller
     }
 
     public function webhook(Request $request){
-        \Log::info("webhook");
+        \Log::info("wggg");
 
         $endpoint_secret = env('STRIPE_END_SECRET');
         $payload = @file_get_contents('php://input');
@@ -53,7 +54,13 @@ class StripePaymentController extends Controller
 
         if($request->type == 'checkout.session.completed'){
             //ADD CREDIT TO THE USER
-            \Log::info("DONE");
+            \Log::info($request);
+            \Log::info('-------------------');
+            $balanceDeposit = $request['data']['object']['amount_total'] / 100;
+            \Log::info($balanceDeposit.' eur');
+
+           
+
         }
         
 

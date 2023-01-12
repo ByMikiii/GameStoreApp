@@ -128,6 +128,11 @@ class PagesController extends Controller
             'user' => json_encode($user),
             'friends' => json_encode($final_friends),
         ]);
+        
+    }
+
+     public function any(){
+        return redirect()->action([PagesController::class, 'index']);
     }
 
 }

@@ -1,9 +1,15 @@
 <template>
     <stripe-checkout
-        v-if="sessionId"
         ref="checkoutRef"
         :pk="publishableKey"
         :sessionId="sessionId"
+    />
+    <input
+        v-model="amount"
+        type="number"
+        min="5"
+        placeholder="€"
+        class="text-black"
     />
     <button @click="submit">Pay now!</button>
 </template>
@@ -16,25 +22,23 @@ export default {
     components: {
         StripeCheckout,
     },
-    mounted() {
-        this.getSession();
+    updated() {
+        console.log(this.publishableKey);
     },
     data() {
         return {
+            amount: 10,
             sessionId: null,
-
-            publishableKey:
-                "pk_test_51M30mIE4BzPYXBbZv1N7qDNdVM8mDwDHSELGZrKJqXQjBCYlRJ1vn0p5DCb5gecAY7KJzimoEjpHmbAUVHtiTvQe00JU4Acv2l",
+            publishableKey: process.env.STRIPE_PUBLISHER_KEY,
         };
     },
     methods: {
-        getSession() {
-            axios.get("getSession").then((res) => {
-                this.sessionId = res.data.id;
-            });
-        },
         submit() {
-            this.$refs.checkoutRef.redirectToCheckout();
+            axios.get("getSession/" + this.amount).then((res) => {
+                this.sessionId = res.data.id;
+
+                this.$refs.checkoutRef.redirectToCheckout();
+            });
         },
     },
 };

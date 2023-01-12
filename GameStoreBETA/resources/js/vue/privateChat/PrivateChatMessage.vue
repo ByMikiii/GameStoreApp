@@ -8,14 +8,17 @@
                 : null
         "
     >
-        <small class="text-xs block m-0 mr-2 ml-2">{{
-            this.message.sender.name
-        }}</small>
+        <a
+            class="text-xs block m-0 mr-2 ml-2"
+            :href="'user/' + this.message.sender.name"
+        >
+            {{ this.message.sender.name }}
+        </a>
 
         <span class="block m-0 mr-2 ml-2">{{ this.message.text }}</span>
 
         <small class="text-xs block m-0 mr-2 ml-2">{{
-            convertTime(this.message.created_at)
+            this.messageTimeAgo
         }}</small>
     </div>
 </template>
@@ -28,11 +31,21 @@ dayjs.extend(relativeTime);
 export default {
     props: ["message", "auth"],
     methods: {
-        convertTime(time) {
-            return dayjs(time).fromNow();
+        convertTime() {
+            this.messageTimeAgo = dayjs(this.message.created_at).fromNow();
         },
     },
-    created() {},
+    created() {
+        this.convertTime();
+        setInterval(() => {
+            this.convertTime();
+        }, 15000);
+    },
+    data() {
+        return {
+            messageTimeAgo: null,
+        };
+    },
 };
 </script>
 

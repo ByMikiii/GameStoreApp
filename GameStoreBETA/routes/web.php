@@ -53,10 +53,14 @@ Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
   Route::get('/messages/{id}', [MessageController::class, 'index'])->middleware('auth');
   Route::post('/messages', [MessageController::class, 'store'])->middleware('auth');
 
-  //Streipe Payment
-  Route::get('/getSession', [StripePaymentController::class, 'getSession'])->middleware('auth');
+  //Stripe Payment
+  Route::get('/getSession/{amount}', [StripePaymentController::class, 'getSession'])->middleware('auth');
   Route::get('/success', [PagesController::class, 'index'])->middleware('auth');
   Route::get('/cancel', [PagesController::class, 'index'])->middleware('auth');
+
+
+  //Any other page
+  Route::get('{any}', [PagesController::class, 'index']);
 
 
 
