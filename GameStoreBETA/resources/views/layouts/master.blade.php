@@ -1,3 +1,9 @@
+<?php
+if(Auth::check()){
+App::setLocale('sk');
+}else App::setLocale('sk');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,24 +26,24 @@
     <nav class="w-full my-auto">
     <ul id="nav-pc" class="h-12 w-full font-bold flex">
 
-    <li class="list-item"><a href="/">Market</a></li>
-    <li class="list-item"><a  href="/community">Community</a></li>
+    <li class="list-item"><a href="/">{{__('master.market')}}</a></li>
+    <li class="list-item"><a  href="/community">{{__('master.community')}}</a></li>
 
     @if (Auth::check())
-    <li class="list-item"><a  href="/library">Library</a></li>
-    <li class="list-item"><a href="/friends">Friends</a></li>
+    <li class="list-item"><a  href="/library">{{__('master.library')}}</a></li>
+    <li class="list-item"><a href="/friends">{{__('master.friends')}}</a></li>
     <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
-    <li class="list-item ml-auto">{{Auth::user()->wallet}} € <a href="/deposit" class="">+</a></li>
+    <a href="/balance" class="list-item ml-auto">{{Auth::user()->wallet}} € </a>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
-        <li><button type="submit" class="btn btn-primary text-red-600">Logout</button></li>
+        <li><button type="submit" class="btn btn-primary text-red-600">{{__('master.logout')}}</button></li>
     </form>
 
 
     @else
-    <li class="list-item ml-auto"><a href="/login">Login</a></li>
-    <li class="list-item"><a  href="/register">Register</a></li>
+    <li class="list-item ml-auto"><a href="/login">{{__('master.login')}}</a></li>
+    <li class="list-item"><a  href="/register">{{__('master.register')}}</a></li>
 
     @endif
     </ul>
@@ -91,7 +97,7 @@
     @endif
   </main>
 
-  <footer class="text-xs fixed bottom-0 left-0">©2022 ByMikiii</footer>
+  <footer class="text-xs fixed bottom-0 left-0">©2023 ByMikiii</footer>
 
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>

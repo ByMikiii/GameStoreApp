@@ -13,11 +13,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    //COUNTRIES
     public function country(){
         return $this->belongsTo(Country::class);
     }
 
-    public function invoice(){
+    //INVOICES
+    public function invoices(){
         return $this->hasMany(Invoice::class);
     }
 

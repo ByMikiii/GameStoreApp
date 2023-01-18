@@ -27,7 +27,7 @@ Route::get('/user/{username}', [PagesController::class, 'user']);
 Route::get('/friends', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat/{username}', [PagesController::class, 'chat'])->middleware('auth');
-Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
+Route::get('/balance', [PagesController::class, 'balance'])->middleware('auth');
 
 
 
@@ -55,7 +55,7 @@ Route::get('/deposit', [PagesController::class, 'deposit'])->middleware('auth');
 
   //Stripe Payment
   Route::get('/getSession/{amount}', [StripePaymentController::class, 'getSession'])->middleware('auth');
-  Route::get('/success', [PagesController::class, 'index'])->middleware('auth');
+  Route::get('/success' , [PagesController::class, 'index'])->middleware('auth');
   Route::get('/cancel', [PagesController::class, 'index'])->middleware('auth');
 
 

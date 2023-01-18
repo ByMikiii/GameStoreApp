@@ -22,7 +22,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->float('wallet')->default(0);
+            $table->string('locale', 2)->default('sk');
             $table->string('address', 100)->nullable();
+            $table->boolean('is_admin')->default(0);
             $table->string('profile_photo', 200)->default("https://eu.ui-avatars.com/api/?name=a&background=random");
             $table->rememberToken();
             $table->timestamps();

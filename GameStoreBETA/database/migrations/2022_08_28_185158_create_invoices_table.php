@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->timestamp('date');
+            $table->float('total_price');
+            // 0 = deposit; 1 = In app purchase
+            $table->boolean('type');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

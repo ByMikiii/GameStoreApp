@@ -15,6 +15,8 @@ class PagesController extends Controller
         return view('index',[
             'games' => Game::all(),
             'title' => 'Market - Blast',
+            
+            
         ]);
     }
 
@@ -57,7 +59,7 @@ class PagesController extends Controller
             $pFriendsFrom = [];
              $friends = [];
         }
-        return view('Community/community',[
+        return view('community',[
             'title' => "Community - Blast",
             'user' => User::all()->sortBy('id'),
             'friends' => $friends,
@@ -76,9 +78,10 @@ class PagesController extends Controller
         ]);
     }
 
-    public function deposit(){
-        return view('deposit',[
-            'title' => "Deposit - Blast",
+    public function balance(){
+        return view('balance',[
+            'title' => "Balance - Blast",
+            'invoices' => Auth::user()->invoices()->latest('created_at')->get(),
         ]);
     }
 

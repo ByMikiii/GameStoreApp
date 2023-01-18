@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Stripe;
-use Session;
-use Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Invoice;
 
 class StripePaymentController extends Controller
 {
@@ -29,12 +30,10 @@ class StripePaymentController extends Controller
                 'client_reference_id' => Auth::user()->id,
                 'mode' => 'payment',
         ]);
-
         return $checkout;
     }
 
     public function webhook(Request $request){
-        \Log::info("wggg");
 
         $endpoint_secret = env('STRIPE_END_SECRET');
         $payload = @file_get_contents('php://input');
@@ -54,16 +53,24 @@ class StripePaymentController extends Controller
 
         if($request->type == 'checkout.session.completed'){
             //ADD CREDIT TO THE USER
-            \Log::info($request);
-            \Log::info('-------------------');
             $balanceDeposit = $request['data']['object']['amount_total'] / 100;
-            \Log::info($balanceDeposit.' eur');
 
-           
+            $userId = $request['data']['object']['client_reference_id'];
+            
+            User::where('id', $userId)->increment('wallet', $balanceDeposit);
 
+            
+
+            \Log::info($request);
+            
+
+        }else{
+            
         }
         
 
         return response()->json(["status" => "success"]);
     }
+
+
 }

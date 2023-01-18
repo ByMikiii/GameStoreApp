@@ -4,14 +4,15 @@
         :pk="publishableKey"
         :sessionId="sessionId"
     />
+    <h2 class="text-xl">Add balance</h2>
     <input
         v-model="amount"
         type="number"
         min="5"
         placeholder="€"
-        class="text-black"
+        class="text-black w-10 h-6 text-center"
     />
-    <button @click="submit">Pay now!</button>
+    <button class="button is-success h-6 w-20" @click="submit">Pay now!</button>
 </template>
 
 <script>
@@ -22,14 +23,13 @@ export default {
     components: {
         StripeCheckout,
     },
-    updated() {
-        console.log(this.publishableKey);
-    },
+    updated() {},
     data() {
         return {
             amount: 10,
             sessionId: null,
-            publishableKey: process.env.STRIPE_PUBLISHER_KEY,
+            publishableKey:
+                "pk_test_51M30mIE4BzPYXBbZv1N7qDNdVM8mDwDHSELGZrKJqXQjBCYlRJ1vn0p5DCb5gecAY7KJzimoEjpHmbAUVHtiTvQe00JU4Acv2l",
         };
     },
     methods: {
@@ -42,6 +42,8 @@ export default {
         },
     },
 };
+
+console.log();
 </script>
 
 <style></style>

@@ -92,6 +92,20 @@
     font-weight: 100;
   }
 
+  #invoices {
+    height: 60vh;
+  }
+
+  #invoices-list {
+    height: 56vh;
+  }
+
+  .invoice {
+    height: 28px;
+    flex: 1 0 21%;
+  }
+
+
 }
 
 @import 'bulma/css/bulma.min.css';
