@@ -59,7 +59,11 @@ class StripePaymentController extends Controller
             
             User::where('id', $userId)->increment('wallet', $balanceDeposit);
 
-            
+            $invoice = new Invoice();
+            $invoice->user_id = $userId;
+            $invoice->total_price = $balanceDeposit;
+            $invoice->type = 0;
+            $invoice->save();
 
             \Log::info($request);
             

@@ -97,6 +97,7 @@ App::setLocale('sk');
     @endif
   </main>
 
+
   <footer class="text-xs fixed bottom-0 left-0">©2023 ByMikiii</footer>
 
   <script src="{{ asset('js/app.js')}}"></script>

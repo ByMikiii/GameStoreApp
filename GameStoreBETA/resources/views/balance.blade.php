@@ -11,7 +11,7 @@
 <div class="flex flex-wrap">
      <h1 class="text-xl border-b invoice">ID</h1>
 
-     <h1 class="text-xl border-b invoice">PRICE (€)</h1>
+     <h1 class="text-xl border-b invoice">PRICE</h1>
 
      <h1 class="text-xl border-b invoice">TYPE</h1>
 
@@ -21,8 +21,8 @@
 <div id="invoices-list" class="flex flex-wrap overflow-hidden scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
      @foreach ($invoices as $invoice)
         <span class="invoice">{{$invoice->id}}</span>
-        <span class="invoice">{{$invoice->total_price}}</span>
-        <span class="invoice">{{$invoice->type}}</span>
+        <span class="invoice <?php if($invoice->type == 0){echo 'text-green-600';} else echo 'text-red-600';?>">{{$invoice->total_price}}€</span>
+        <span class="invoice"><?php if($invoice->type == 0){echo 'Deposit';} else echo 'Purchase';?></span>
         <span class="invoice">{{$invoice->created_at}}</span>
      @endforeach
 </div>

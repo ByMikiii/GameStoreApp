@@ -12,6 +12,16 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'email' => 'Email Address',
+    'name' => 'Name',
+    'password' => 'Password',
+    'passwordconf' => 'Confirm Password',
+    'remember' => 'Remember Me',
+    'login' => 'Login',
+    'register' => 'Register',
+    'loginin' => 'Login',
+    'registerin' => 'Register',
+    'forgot' => 'Forgot Your Password?',
 
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
