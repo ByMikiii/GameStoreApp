@@ -6,7 +6,6 @@
 
 @section('content')
 
-<section class="w-3/5 mx-auto">
 <h1 class="text-2xl">ALL GAMES</h1>
 <ol id='games-list' class="">
 @foreach ($games as $game)
@@ -16,5 +15,4 @@
 </a>
 @endforeach
 </ol>
-</section>
 @stop

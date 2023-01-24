@@ -12,7 +12,7 @@ export default {
             friendStatus: 0,
         };
     },
-    //Frined status 0 - Not friends
+    //Friend status 0 - Not friends
     //              1 - Friends
     //              2 - Pending To
     //              3 - Pending From

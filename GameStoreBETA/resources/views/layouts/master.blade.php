@@ -81,7 +81,7 @@ App::setLocale('sk');
     @endif
   </ul>
 
-  <main id="app" class="text-yellow-300 mt-5">
+  <main id="app" class="text-yellow-300 mt-5 w-2/3 text-center mx-auto">
     @yield('content')
 
     
