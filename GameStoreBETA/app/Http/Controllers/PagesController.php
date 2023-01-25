@@ -98,10 +98,24 @@ class PagesController extends Controller
         if(Auth::check() && $username == Auth::user()->name){
             return redirect()->action([PagesController::class, 'profile']);
         }
-        else if(!$user->isEmpty()){    
-        return view('username',[
-            'title' => $username." - Blast",
-            'user' => $user,
+        else if(!$user->isEmpty()){  
+            $friends = json_encode(Auth::user()->friends()->pluck('id')->all());
+            $pendingFriendsTo = Auth::user()->pendingFriendsTo()->get();
+            $pendingFriendsFrom = Auth::user()->pendingFriendsFrom()->get();
+            $pFriendsTo = [];
+            $pFriendsFrom = [];
+            foreach ($pendingFriendsTo as $pt){
+                array_push($pFriendsTo, $pt->id);
+            }
+            foreach ($pendingFriendsFrom as $pf){
+                array_push($pFriendsFrom, $pf->id);
+            }   
+         return view('profile',[
+            'title' => $user[0]->name." - Blast",
+            'user' => $user[0],
+            'friends' => $friends,
+            'pendingFriendsTo' => json_encode($pFriendsTo),
+            'pendingFriendsFrom' => json_encode($pFriendsFrom),
         ]);
         }
         else{

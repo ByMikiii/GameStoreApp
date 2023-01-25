@@ -11,7 +11,14 @@
 <button class="button is-success w-24">
             Edit Profile
         </button>
-<?php endif; ?>
+<?php else: ?>
+    <addfriend :user="{{$user}}"
+               :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
+               :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 
+               :pending-friends-from="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" >
+    </addfriend>
+<?php endif;?>
+
 
 <h2 class="text-2xl text-left">Owned Games</h2>
 

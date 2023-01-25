@@ -15,10 +15,36 @@ class FriendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getFriends()
     {
-        //
+        return Auth::user()->friends()->pluck('id')->all();
     }
+
+    public function getPendingFriendsTo()
+    {
+        $pendingFriendsTo = Auth::user()->pendingFriendsTo()->get();
+        $pFriendsTo = [];
+            
+        foreach ($pendingFriendsTo as $pt){
+            array_push($pFriendsTo, $pt->id);
+        }
+
+        return json_encode($pFriendsTo);
+            
+    }
+
+    public function getPendingFriendsFrom()
+    {
+        $pendingFriendsFrom = Auth::user()->pendingFriendsFrom()->get();
+        $pFriendsFrom = [];
+
+        foreach ($pendingFriendsFrom as $pf){
+                array_push($pFriendsFrom, $pf->id);
+            }
+        
+            return json_encode($pFriendsFrom);
+    }
+
 
     /**
      * Show the form for creating a new resource.

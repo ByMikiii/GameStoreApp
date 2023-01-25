@@ -2,7 +2,8 @@ import "./bootstrap";
 
 import { createApp, VueElement } from "vue";
 
-import Community from "./vue/Community.vue";
+import AddFriend from "./vue/AddFriend.vue";
+
 import FlashMessage from "./vue/FlashMessage.vue";
 
 import GlobalChatComposer from "./vue/globalChat/GlobalChatComposer.vue";
@@ -50,8 +51,8 @@ const app = createApp({
 //FLASH MESSAGES
 app.component("flash-message", FlashMessage);
 
-//COMMUNITY
-app.component("community", Community);
+//ADD FRIEND BUTTON
+app.component("addfriend", AddFriend);
 
 //GLOBAL MESSAGES
 app.component("global-chat-message", GlobalChatMessage);

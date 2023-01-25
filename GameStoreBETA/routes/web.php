@@ -41,6 +41,10 @@ Route::get('/balance', [PagesController::class, 'balance'])->middleware('auth');
   Route::post('/stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
   //Friends
+  Route::get('/getFriendsIds', [FriendController::class, 'getFriends'])->middleware('auth');
+  Route::get('/getPendingFriendsToIds', [FriendController::class, 'getPendingFriendsTo'])->middleware('auth');
+  Route::get('/getPendingFriendsFromIds', [FriendController::class, 'getPendingFriendsFrom'])->middleware('auth');
+
   Route::post('/friends/create/{friend_id}', [FriendController::class, 'create'])->middleware('auth');
   Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update'])->middleware('auth');
   Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy'])->middleware('auth');
