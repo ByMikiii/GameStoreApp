@@ -65,7 +65,6 @@ class StripePaymentController extends Controller
             $invoice->type = 0;
             $invoice->save();
 
-            \Log::info($request);
             
 
         }else{

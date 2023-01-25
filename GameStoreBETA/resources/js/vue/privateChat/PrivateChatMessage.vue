@@ -1,10 +1,10 @@
 <template>
     <div
         id="privateMessage"
-        class="bg-blue-500 rounded-xl mr-2 mb-2"
+        class="bg-blue-500 rounded-xl rounded-bl-none mr-2 mb-2 text-left"
         v-bind:class="
             this.message.sender.name === this.auth.name
-                ? 'ml-auto text-right'
+                ? 'ml-auto text-right rounded-bl-xl rounded-br-none'
                 : null
         "
     >

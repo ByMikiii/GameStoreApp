@@ -23,10 +23,14 @@
             >
             <?php endif; ?>
         </a>
+        <?php if(Auth::user()->id != $u->id):?>
         <addfriend :user="{{$u}}"
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                    :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 
                    :pending-friends-from="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" > </addfriend>
+        <?php else: ?>
+                <a class="mybutton bg-blue-500"  href="/profile">View Profile</a>
+        <?php endif;?>
 </section>
 @endforeach
 </ol>

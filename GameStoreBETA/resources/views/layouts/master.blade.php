@@ -34,7 +34,8 @@ App::setLocale('sk');
     <li class="list-item"><a href="/friends">{{__('master.friends')}}</a></li>
     <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
-    <a href="/balance" class="list-item ml-auto">{{Auth::user()->wallet}} € </a>
+    <a href="/balance" class="list-item ml-auto ">{{Auth::user()->wallet}} € </a>
+    <img class="list-item invert w-10 h-10" src="{{ asset('/images/basket.png') }}" alt="Basket">
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
         <li><button type="submit" class="btn btn-primary text-red-600">{{__('master.logout')}}</button></li>
@@ -65,6 +66,7 @@ App::setLocale('sk');
     <li class="list-item border-b"><a  href="/library">Library</a></li>
     <li class="list-item border-b"><a href="/friends">Friends</a></li>
     <li id="logged" class="list-item border-b"><a  href="/profile">{{Auth::user()->name}}</a></li>
+
 
     <li class="list-item ml-auto border-b"><a href="/">{{Auth::user()->wallet}} €</a></li>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">

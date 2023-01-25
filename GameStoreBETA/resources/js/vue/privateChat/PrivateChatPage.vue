@@ -2,7 +2,7 @@
     <section
         id="private-chat"
         v-if="!this.noFriends"
-        class="bg-bg-color relative border-2 w-2/3 rounded-sm flex mx-auto"
+        class="bg-bg-color relative border-2 rounded-sm flex mx-auto"
     >
         <div class="flex-grow">
             <h1 class="text-center text-2xl border-b p-1">
@@ -84,18 +84,23 @@ export default {
     created() {
         let chatChannel = window.Echo.private("chat." + this.auth.id);
         chatChannel.listen("MessagePosted", (e) => {
-            this.messages.push({
-                text: e.message.text,
-                id: e.message.id,
-                created_at: e.message.created_at,
-                updated_at: e.message.updated_at,
-                is_deleted: e.message.is_deleted,
-                was_seen: e.message.was_seen,
-                sender_id: e.message.sender_id,
-                receiver_id: e.message.receiver_id,
-                sender: e.sender,
-                receiver: e.receiver,
-            });
+            if (
+                e.receiver.id == this.auth.id &&
+                e.sender.id == this.currentUser.id
+            ) {
+                this.messages.push({
+                    text: e.message.text,
+                    id: e.message.id,
+                    created_at: e.message.created_at,
+                    updated_at: e.message.updated_at,
+                    is_deleted: e.message.is_deleted,
+                    was_seen: e.message.was_seen,
+                    sender_id: e.message.sender_id,
+                    receiver_id: e.message.receiver_id,
+                    sender: e.sender,
+                    receiver: e.receiver,
+                });
+            }
         });
     },
     methods: {
