@@ -67,10 +67,13 @@ class User extends Authenticatable
         return $this->hasMany(GlobalMessage::class, 'sender_id');
     }
 
+    //BASKET
+    public function basketitems(){
+        return $this->belongsToMany(Game::class, 'basket_items');
+    }
 
-
-    //GAMES
-    public function games(){
+    //LIBRARY
+    public function ownedGames(){
         return $this->belongsToMany(Game::class, 'owned_games');
     }
 

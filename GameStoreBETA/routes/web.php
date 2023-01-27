@@ -5,6 +5,8 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\BasketController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,8 @@ Route::get('/friends', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat/{username}', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/balance', [PagesController::class, 'balance'])->middleware('auth');
+Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
+
 
 
 
@@ -62,6 +66,12 @@ Route::get('/balance', [PagesController::class, 'balance'])->middleware('auth');
   Route::get('/success' , [PagesController::class, 'index'])->middleware('auth');
   Route::get('/cancel', [PagesController::class, 'index'])->middleware('auth');
 
+  //Basket 
+  Route::post('/addToBasket/{game_id}', [BasketController::class, 'store'])->middleware('auth');
+  Route::delete('/basket/delete/{game_id}', [BasketController::class, 'destroy'])->middleware('auth');
+
+  //Purchases
+  Route::post('/makePurchase', [PurchaseController::class, 'makePurchase'])->middleware('auth');
 
   //Any other page
   Route::get('{any}', [PagesController::class, 'index']);

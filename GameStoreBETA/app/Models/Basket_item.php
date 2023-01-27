@@ -9,11 +9,13 @@ class Basket_item extends Model
 {
     use HasFactory;
 
-    public function basket(){
-        return $this->belongsTo(Basket::class);
+    protected $fillable = ['user_id', 'game_id'];
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public function game(){
-        return $this->hasOne(Game::class);
+        return $this->belongsTo(Game::class);
     }
 }

@@ -6,7 +6,7 @@
 
 <h1 class='text-center text-3xl'>Invoices</h1>
 
-<div id="invoices" class="border w-4/5 mx-auto mt-2 text-center">
+<div id="invoices" class="border mx-auto mt-2 text-center">
 
 <div class="flex flex-wrap">
      <h1 class="text-xl border-b invoice">ID</h1>

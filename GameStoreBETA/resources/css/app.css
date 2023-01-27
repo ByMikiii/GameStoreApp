@@ -110,6 +110,18 @@
     flex: 1 0 21%;
   }
 
+  .basket-badge {
+    position: absolute;
+    margin-top: 17px;
+    margin-left: 16px;
+  }
+
+  .basket-item {
+    height: 42px;
+    flex: 1 0 21%;
+    margin-top: auto;
+  }
+
 
 }
 

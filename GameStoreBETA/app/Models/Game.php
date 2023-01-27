@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Game extends Model
 {
     use HasFactory;
-    
+
     protected $hidden = [
         
     ];
@@ -30,16 +30,22 @@ class Game extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function basket_item(){
-        return $this->belongsTo(Basket_item::class);
-    }
-
     public function invoice_item(){
         return $this->belongsTo(Invoice_item::class);
     }
 
-        public function users(){
+    public function users(){
         return $this->belongsToMany(User::class,'owned_games');
+    }
+
+    //Basket
+    public function basketusers(){
+        return $this->belongsToMany(Basketitems::class, 'basket_items');
+    }
+
+    //Library
+    public function ownedBy(){
+        return $this->belongsToMany(OwnedGame::class, 'owned_games');
     }
 
 

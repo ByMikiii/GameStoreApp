@@ -4,6 +4,10 @@ import { createApp, VueElement } from "vue";
 
 import AddFriend from "./vue/AddFriend.vue";
 
+import Basket from "./vue/Basket.vue";
+
+import GamePage from "./vue/GamePage.vue";
+
 import FlashMessage from "./vue/FlashMessage.vue";
 
 import GlobalChatComposer from "./vue/globalChat/GlobalChatComposer.vue";
@@ -48,6 +52,9 @@ const app = createApp({
     },
 });
 
+//BASKET
+app.component("basket", Basket);
+
 //FLASH MESSAGES
 app.component("flash-message", FlashMessage);
 
@@ -66,5 +73,8 @@ app.component("private-chat-page", PrivateChatPage);
 
 //PAYMENT
 app.component("payment", Payment);
+
+//GAME
+app.component("gamepage", GamePage);
 
 app.mount("#app");

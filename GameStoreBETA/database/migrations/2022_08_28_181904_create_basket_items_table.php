@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('basket_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('basket_id');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('game_id');
-            $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('basket_id')->references('id')->on('baskets');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('game_id')->references('id')->on('games');
         });
     }

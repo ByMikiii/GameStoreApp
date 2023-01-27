@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\OwnedGamesController;
 use App\Models\User;
 use App\Models\Game;
+use App\Models\Basket_item;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +39,8 @@ class PagesController extends Controller
     public function library(){
         return view('library',[
             'title' => 'Library - Blast',
-            'games' => (new OwnedGamesController)->getOwnedGames(Auth::user()->id),]);
+            'games' => Auth::user()->ownedGames()->get(),
+            ]);
 }
 
     public function community(){
@@ -147,7 +149,23 @@ class PagesController extends Controller
         ]);
         
     }
+    public function basket(){
+        $basketitems = Auth::user()->basketitems()->get();
+        $totalprice = 0;
+        foreach($basketitems as $basketitem){
+            if($basketitem->is_sale == 1){
+                $totalprice += $basketitem->sale_price;
+            }else{$totalprice += $basketitem->original_price;}  
+        }
+        
+        return view('basket', [
+            'title' => 'Basket - Blast',
+            'basketitems' => $basketitems,
+            'totalprice' => $totalprice
+        ]);
+    }
 
+    
      public function any(){
         return redirect()->action([PagesController::class, 'index']);
     }

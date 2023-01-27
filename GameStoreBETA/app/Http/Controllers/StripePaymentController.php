@@ -13,7 +13,7 @@ class StripePaymentController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
         $checkout = $stripe->checkout->sessions->create([
-                'success_url' => 'http://localhost:3000/success',
+                'success_url' => 'http://localhost:3000/balance',
                 'cancel_url' => 'http://localhost:3000/cancel',
                 'line_items' => [
                     [
