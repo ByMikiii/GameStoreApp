@@ -68,14 +68,18 @@ export default {
             } else {
                 this.total_price -= item.sale_price;
             }
-            this.basket_items.splice(this.basket_items.indexOf(item), 2);
+            this.basket_items.splice(this.basket_items.indexOf(item), 1);
             axios.delete("/basket/delete/" + item.id);
         },
         makePurchase() {
             axios.post("makePurchase");
-            this.basket_items.forEach((basketitem) => {
-                this.removeItem(basketitem);
-            });
+
+            // this.basket_items.forEach((basketitem) => {
+            //     axios.delete("/basket/delete/" + basketitem.id);
+            // });
+
+            // this.basket_items = {};
+            // this.total_price = 0;
         },
     },
     updated() {
@@ -84,4 +88,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>

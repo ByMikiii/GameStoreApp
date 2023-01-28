@@ -90,6 +90,9 @@ App::setLocale('sk');
   <main id="app" class="text-yellow-300 mt-5 w-2/3 text-center mx-auto">
     @yield('content')
 
+    <?php if(Auth::check()): ?>
+    <notification :auth="{{Auth::user()}}"></notification>
+    <?php endif; ?>
 
     <flash-message text="{{session('flash')}}"></flash-message>
     

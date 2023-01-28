@@ -10,6 +10,8 @@ import GamePage from "./vue/GamePage.vue";
 
 import FlashMessage from "./vue/FlashMessage.vue";
 
+import Notification from "./vue/Notification.vue";
+
 import GlobalChatComposer from "./vue/globalChat/GlobalChatComposer.vue";
 import GlobalChatLog from "./vue/globalChat/GlobalChatLog.vue";
 import GlobalChatMessage from "./vue/globalChat/GlobalChatMessage.vue";
@@ -57,6 +59,9 @@ app.component("basket", Basket);
 
 //FLASH MESSAGES
 app.component("flash-message", FlashMessage);
+
+//NOTIFICATIONS
+app.component("notification", Notification);
 
 //ADD FRIEND BUTTON
 app.component("addfriend", AddFriend);

@@ -20929,15 +20929,18 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.total_price -= item.sale_price;
       }
-      this.basket_items.splice(this.basket_items.indexOf(item), 2);
+      this.basket_items.splice(this.basket_items.indexOf(item), 1);
       axios__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]("/basket/delete/" + item.id);
     },
     makePurchase: function makePurchase() {
-      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_1__["default"].post("makePurchase");
-      this.basket_items.forEach(function (basketitem) {
-        _this.removeItem(basketitem);
-      });
+
+      // this.basket_items.forEach((basketitem) => {
+      //     axios.delete("/basket/delete/" + basketitem.id);
+      // });
+
+      // this.basket_items = {};
+      // this.total_price = 0;
     }
   },
   updated: function updated() {
@@ -21006,6 +21009,50 @@ __webpack_require__.r(__webpack_exports__);
     addToBasket: function addToBasket() {
       axios.post("/addToBasket/" + this.game.id);
     }
+  },
+  updated: function updated() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["auth"],
+  data: function data() {
+    return {
+      isShown: false,
+      notification_text: ""
+    };
+  },
+  methods: {
+    show: function show() {
+      var _this = this;
+      this.isShown = true;
+      setTimeout(function () {
+        return _this.hide();
+      }, 3000);
+    },
+    hide: function hide() {
+      this.isShown = false;
+    }
+  },
+  created: function created() {
+    var _this2 = this;
+    var notificationChannel = window.Echo["private"]("notification." + this.auth.id);
+    notificationChannel.listen("NotificationSent", function (e) {
+      _this2.notification_text = e.text;
+      _this2.show();
+    });
   },
   updated: function updated() {}
 });
@@ -21506,6 +21553,41 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "notification is-success bg-red-600"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+    name: "bounce",
+    persisted: ""
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        "class": "delete",
+        onClick: _cache[0] || (_cache[0] = function () {
+          return $options.hide && $options.hide.apply($options, arguments);
+        })
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.notification_text), 1 /* TEXT */)], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isShown]])];
+    }),
+    _: 1 /* STABLE */
+  });
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Payment.vue?vue&type=template&id=8c656662":
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Payment.vue?vue&type=template&id=8c656662 ***!
@@ -21795,15 +21877,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_Basket_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/Basket.vue */ "./resources/js/vue/Basket.vue");
 /* harmony import */ var _vue_GamePage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue/GamePage.vue */ "./resources/js/vue/GamePage.vue");
 /* harmony import */ var _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vue/FlashMessage.vue */ "./resources/js/vue/FlashMessage.vue");
-/* harmony import */ var _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatComposer.vue */ "./resources/js/vue/globalChat/GlobalChatComposer.vue");
-/* harmony import */ var _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatLog.vue */ "./resources/js/vue/globalChat/GlobalChatLog.vue");
-/* harmony import */ var _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatMessage.vue */ "./resources/js/vue/globalChat/GlobalChatMessage.vue");
-/* harmony import */ var _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatComposer.vue */ "./resources/js/vue/privateChat/PrivateChatComposer.vue");
-/* harmony import */ var _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatMessage.vue */ "./resources/js/vue/privateChat/PrivateChatMessage.vue");
-/* harmony import */ var _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatPage.vue */ "./resources/js/vue/privateChat/PrivateChatPage.vue");
-/* harmony import */ var _vue_Payment_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./vue/Payment.vue */ "./resources/js/vue/Payment.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+/* harmony import */ var _vue_Notification_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/Notification.vue */ "./resources/js/vue/Notification.vue");
+/* harmony import */ var _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatComposer.vue */ "./resources/js/vue/globalChat/GlobalChatComposer.vue");
+/* harmony import */ var _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatLog.vue */ "./resources/js/vue/globalChat/GlobalChatLog.vue");
+/* harmony import */ var _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/globalChat/GlobalChatMessage.vue */ "./resources/js/vue/globalChat/GlobalChatMessage.vue");
+/* harmony import */ var _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatComposer.vue */ "./resources/js/vue/privateChat/PrivateChatComposer.vue");
+/* harmony import */ var _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatMessage.vue */ "./resources/js/vue/privateChat/PrivateChatMessage.vue");
+/* harmony import */ var _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./vue/privateChat/PrivateChatPage.vue */ "./resources/js/vue/privateChat/PrivateChatPage.vue");
+/* harmony import */ var _vue_Payment_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./vue/Payment.vue */ "./resources/js/vue/Payment.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
+
 
 
 
@@ -21828,13 +21912,13 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({
   methods: {
     addMessage: function addMessage(message) {
       this.globalMessages.push(message);
-      axios__WEBPACK_IMPORTED_MODULE_14__["default"].post("/globalmessages", message);
+      axios__WEBPACK_IMPORTED_MODULE_15__["default"].post("/globalmessages", message);
     }
   },
   created: function created() {
     var _this = this;
     if (document.getElementById("logged")) {
-      axios__WEBPACK_IMPORTED_MODULE_14__["default"].get("/globalmessages").then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_15__["default"].get("/globalmessages").then(function (response) {
         _this.globalMessages = response.data;
       });
       var channel = window.Echo.channel("global-chat");
@@ -21854,21 +21938,24 @@ app.component("basket", _vue_Basket_vue__WEBPACK_IMPORTED_MODULE_3__["default"])
 //FLASH MESSAGES
 app.component("flash-message", _vue_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
+//NOTIFICATIONS
+app.component("notification", _vue_Notification_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+
 //ADD FRIEND BUTTON
 app.component("addfriend", _vue_AddFriend_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 //GLOBAL MESSAGES
-app.component("global-chat-message", _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
-app.component("global-chat-log", _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-app.component("global-chat-composer", _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+app.component("global-chat-message", _vue_globalChat_GlobalChatMessage_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
+app.component("global-chat-log", _vue_globalChat_GlobalChatLog_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+app.component("global-chat-composer", _vue_globalChat_GlobalChatComposer_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
 
 //PRIVATE MESSAGES
-app.component("private-chat-message", _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
-app.component("private-chat-composer", _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
-app.component("private-chat-page", _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
+app.component("private-chat-message", _vue_privateChat_PrivateChatMessage_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
+app.component("private-chat-composer", _vue_privateChat_PrivateChatComposer_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
+app.component("private-chat-page", _vue_privateChat_PrivateChatPage_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
 
 //PAYMENT
-app.component("payment", _vue_Payment_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
+app.component("payment", _vue_Payment_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
 
 //GAME
 app.component("gamepage", _vue_GamePage_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -54009,6 +54096,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/vue/Notification.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/vue/Notification.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notification.vue?vue&type=template&id=a0076d1c */ "./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c");
+/* harmony import */ var _Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notification.vue?vue&type=script&lang=js */ "./resources/js/vue/Notification.vue?vue&type=script&lang=js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Notification.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/vue/Payment.vue":
 /*!**************************************!*\
   !*** ./resources/js/vue/Payment.vue ***!
@@ -54275,6 +54390,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/vue/Notification.vue?vue&type=script&lang=js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/vue/Notification.vue?vue&type=script&lang=js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Notification.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/vue/Payment.vue?vue&type=script&lang=js":
 /*!**************************************************************!*\
   !*** ./resources/js/vue/Payment.vue?vue&type=script&lang=js ***!
@@ -54447,6 +54578,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_GamePage_vue_vue_type_template_id_46d342b0__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_GamePage_vue_vue_type_template_id_46d342b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./GamePage.vue?vue&type=template&id=46d342b0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/GamePage.vue?vue&type=template&id=46d342b0");
+
+
+/***/ }),
+
+/***/ "./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c":
+/*!*************************************************************************!*\
+  !*** ./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Notification.vue?vue&type=template&id=a0076d1c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c");
 
 
 /***/ }),
