@@ -99,6 +99,6 @@ class BasketController extends Controller
     public function destroy($game_id)
     {
         Basket_item::where(['game_id' => $game_id])->delete();
-        broadcast(new NotificationSent('Item was removed from basket!', Auth::user(), 'green'));
+        //broadcast(new NotificationSent('Item was removed from basket!', Auth::user(), 'green'));
     }
 }

@@ -10,6 +10,10 @@ import GamePage from "./vue/GamePage.vue";
 
 import FlashMessage from "./vue/FlashMessage.vue";
 
+import Library from "./vue/Library.vue";
+
+import Reviews from "./vue/Reviews.vue";
+
 import Notification from "./vue/Notification.vue";
 
 import GlobalChatComposer from "./vue/globalChat/GlobalChatComposer.vue";
@@ -81,5 +85,11 @@ app.component("payment", Payment);
 
 //GAME
 app.component("gamepage", GamePage);
+
+//LIBRARY
+app.component("library", Library);
+
+//REVIEWS
+app.component("reviews", Reviews);
 
 app.mount("#app");

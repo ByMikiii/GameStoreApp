@@ -18,7 +18,7 @@
      <h1 class="text-xl border-b invoice">DATE</h1>
 </div>
 
-<div id="invoices-list" class="flex flex-wrap overflow-hidden scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
+<div id="invoices-list" class="flex flex-wrap h-5/6 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
      @foreach ($invoices as $invoice)
         <span class="invoice">{{$invoice->id}}</span>
         <span class="invoice <?php if($invoice->type == 0){echo 'text-green-600';} else echo 'text-red-600';?>">{{$invoice->total_price}}€</span>

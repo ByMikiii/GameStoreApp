@@ -14,6 +14,10 @@
         <span class="">{{ $game->description }}</span>
     </div>
 
+<?php if(Auth::check()): ?>
 <gamepage :game="{{$game}}"></gamepage>
+<?php endif;?>
+
+<review></review>
 
 @stop

@@ -12,7 +12,7 @@
             <ul class="h-full">
                 <li
                     id="friend"
-                    class="border-b p-2"
+                    class="border-b p-2 cursor-pointer"
                     v-for="(friend, index) in friendlist"
                     :key="index"
                     @click="changeCurrentUser(friend)"

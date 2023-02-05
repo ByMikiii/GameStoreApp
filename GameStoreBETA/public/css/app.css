@@ -756,6 +756,12 @@ body {
 .h-6 {
   height: 1.5rem;
 }
+.h-96 {
+  height: 24rem;
+}
+.h-24 {
+  height: 6rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -812,6 +818,9 @@ body {
 }
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));

@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Invioce_item extends Model
+class Invoice_item extends Model
 {
+    protected $fillable = [
+        'game_id', 'quantity', 'invoice_id'
+    ];
+
     use HasFactory;
 
         public function game(){
