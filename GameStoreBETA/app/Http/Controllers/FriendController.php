@@ -6,6 +6,7 @@ use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\NotificationSent;
 
 
 class FriendController extends Controller
@@ -64,6 +65,12 @@ class FriendController extends Controller
         $friend->friend_id = $friend_id;
         $friend->save();
 
+        $friend = User::where("id", $friend_id)->get()[0];
+
+        broadcast(new NotificationSent( Auth::user()->name.' sent you friend request!', $friend, 'green'));
+
+        broadcast(new NotificationSent( 'Friend request sent!', Auth::user(), 'green'));
+
         }
     }
     /**
@@ -102,11 +109,16 @@ class FriendController extends Controller
     public function update($friend_id)
     {
         Friend::where("user_id", "=", $friend_id)->where("friend_id", "=", Auth::user()->id)->update(['isAccepted' => 1]);
+
+        broadcast(new NotificationSent( 'Friend request accepted!', Auth::user(), 'green'));
     }
 
     public function destroy($friend_id)
     {
        Friend::where("user_id", "=", Auth::user()->id)->where("friend_id", "=", $friend_id)->delete();
        Friend::where("user_id", "=", $friend_id)->where("friend_id", "=", Auth::user()->id)->delete();
+
+        broadcast(new NotificationSent( 'Friend successfully removed!', Auth::user(), 'green'));
+
     }
 }

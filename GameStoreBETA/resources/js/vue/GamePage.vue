@@ -1,13 +1,4 @@
 <template>
-    <p class="text-left text-4xl">{{ this.game.name }}</p>
-    <div class="flex">
-        <img
-            class="w-1/2"
-            src="//localhost:3000/images/games/example.jpg"
-            alt="Game Image"
-        />
-        <span class="">{{ this.game.description }}</span>
-    </div>
     <button class="button" @click="addToBasket">Add To Basket</button>
 </template>
 
@@ -18,8 +9,16 @@ export default {
         return {};
     },
     methods: {
+        recalculateBasketItems() {
+            axios.get("/basketItems").then((response) => {
+                document.getElementById("basketitemscount").innerHTML =
+                    response.data;
+            });
+        },
         addToBasket() {
-            axios.post("/addToBasket/" + this.game.id);
+            axios
+                .post("/addToBasket/" + this.game.id)
+                .then(this.recalculateBasketItems());
         },
     },
     updated() {},

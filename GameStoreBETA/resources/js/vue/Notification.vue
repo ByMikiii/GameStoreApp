@@ -1,6 +1,14 @@
 <template>
     <Transition name="bounce">
-        <div class="notification is-success bg-red-600" v-show="isShown">
+        <div
+            class="notification"
+            v-bind:class="
+                this.notification_color !== ''
+                    ? 'bg-' + this.notification_color + '-400'
+                    : 'bg-blue-400'
+            "
+            v-if="this.isShown"
+        >
             <button class="delete" @click="hide"></button>
             <span>{{ notification_text }}</span>
         </div>
@@ -11,7 +19,11 @@
 export default {
     props: ["auth"],
     data() {
-        return { isShown: false, notification_text: "" };
+        return {
+            isShown: false,
+            notification_text: "",
+            notification_color: "",
+        };
     },
 
     methods: {
@@ -31,6 +43,7 @@ export default {
         );
         notificationChannel.listen("NotificationSent", (e) => {
             this.notification_text = e.text;
+            this.notification_color = e.color;
             this.show();
         });
     },

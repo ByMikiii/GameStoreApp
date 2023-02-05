@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Events\MessagePosted;
+use App\Events\NotificationSent;
 
 
 class MessageController extends Controller
@@ -59,6 +60,9 @@ class MessageController extends Controller
         $receiver = User::where('id',$request->receiver_id)->get();
 
         broadcast(new MessagePosted($message, $receiver[0], $auth))->toOthers();
+
+        broadcast(new NotificationSent( Auth::user()->name.' sent you a message!', $receiver[0], 'blue'));
+
 
 
         DB::table('friends')->where('user_id', $request->receiver_id)->where('friend_id', Auth::user()->id)->update(['latest_message_at'=>now('cet')]);

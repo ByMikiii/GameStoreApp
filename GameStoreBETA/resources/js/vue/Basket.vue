@@ -9,7 +9,7 @@
         id="invoices"
         class="h-3/5 border mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
     >
-        <!-- <h1 class="my-56 text-4xl">Your basket is empty. 🥲</h1> -->
+        <h1 v-if="isEmpty" class="my-56 text-4xl">Your basket is empty. 🥲</h1>
         <div
             class="mt-2 flex flex-wrap"
             v-for="basketitem in this.basket_items"
@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { assertExpressionStatement } from "@babel/types";
 import axios from "axios";
 
 export default {
@@ -59,6 +58,7 @@ export default {
         return {
             total_price: this.totalprice,
             basket_items: this.basketitems,
+            isEmpty: null,
         };
     },
     methods: {
@@ -69,21 +69,42 @@ export default {
                 this.total_price -= item.sale_price;
             }
             this.basket_items.splice(this.basket_items.indexOf(item), 1);
-            axios.delete("/basket/delete/" + item.id);
+            axios
+                .delete("/basket/delete/" + item.id)
+                .then(this.recalculateBasketItems());
+        },
+        recalculateBalance() {
+            axios.get("/loggedUserBalance").then((response) => {
+                document.getElementById("wallet").innerHTML =
+                    response.data + " €";
+            });
+        },
+        recalculateBasketItems() {
+            axios.get("/basketItems").then((response) => {
+                document.getElementById("basketitemscount").innerHTML =
+                    response.data;
+            });
         },
         makePurchase() {
-            axios.post("makePurchase");
+            axios.post("makePurchase").then((e) => {
+                this.recalculateBalance();
+                this.recalculateBasketItems();
+            });
+            this.basket_items.forEach((basketitem) => {
+                axios.delete("/basket/delete/" + basketitem.id);
+            });
 
-            // this.basket_items.forEach((basketitem) => {
-            //     axios.delete("/basket/delete/" + basketitem.id);
-            // });
-
-            // this.basket_items = {};
-            // this.total_price = 0;
+            this.basket_items = {};
+            this.total_price = 0;
         },
     },
     updated() {
         this.total_price = Math.round(this.total_price * 100) / 100;
+        if (this.basket_items.length === 0) {
+            this.isEmpty = true;
+        } else {
+            this.isEmpty = false;
+        }
     },
 };
 </script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
@@ -67,11 +68,14 @@ Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
   Route::get('/cancel', [PagesController::class, 'index'])->middleware('auth');
 
   //Basket 
+  Route::get('/basketItems', [BasketController::class, 'index'])->middleware('auth');
   Route::post('/addToBasket/{game_id}', [BasketController::class, 'store'])->middleware('auth');
   Route::delete('/basket/delete/{game_id}', [BasketController::class, 'destroy'])->middleware('auth');
 
   //Purchases
   Route::post('/makePurchase', [PurchaseController::class, 'makePurchase'])->middleware('auth');
+  Route::get('/loggedUserBalance', [UserController::class, 'balance'])->middleware('auth');
+
 
   //Any other page
   Route::get('{any}', [PagesController::class, 'index']);

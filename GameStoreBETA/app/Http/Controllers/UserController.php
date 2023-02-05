@@ -24,4 +24,8 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+    public function balance() {
+        return Auth::user()->wallet;
+    }
 }

@@ -6,6 +6,8 @@ use Auth;
 use App\Models\Basket_item;
 use App\Models\OwnedGame;
 use Illuminate\Http\Request;
+use App\Events\NotificationSent;
+
 
 class BasketController extends Controller
 {
@@ -16,7 +18,7 @@ class BasketController extends Controller
      */
     public function index()
     {
-        //
+       return Auth::user()->basketitems()->get()->count();
     }
 
     /**
@@ -40,10 +42,17 @@ class BasketController extends Controller
         $alreadyInBasket = Basket_item::where('game_id', $game_id)->where('user_id', Auth::user()->id)->get();
         $alreadyOwned = OwnedGame::where('game_id', $game_id)->where('user_id', Auth::user()->id)->get();
 
-        if($alreadyInBasket->isempty() && $alreadyOwned->isempty()){
-        Basket_item::create([
-            'user_id' => Auth::user()->id,
-            'game_id' => $game_id]);
+        if(!$alreadyInBasket->isempty()){
+            broadcast(new NotificationSent('Item already in basket!', Auth::user(), 'red'));
+        }
+        else if(!$alreadyOwned->isempty()){
+            broadcast(new NotificationSent('You already own this game!', Auth::user(), 'red'));
+        }
+        else{
+            Basket_item::create([
+                'user_id' => Auth::user()->id,
+                'game_id' => $game_id]);
+            broadcast(new NotificationSent('Item was added to basket!', Auth::user(), 'green'));
         }
     }
 
@@ -90,5 +99,6 @@ class BasketController extends Controller
     public function destroy($game_id)
     {
         Basket_item::where(['game_id' => $game_id])->delete();
+        broadcast(new NotificationSent('Item was removed from basket!', Auth::user(), 'green'));
     }
 }
