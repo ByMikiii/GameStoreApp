@@ -21700,7 +21700,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_this.isShown ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
         key: 0,
-        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["notification", _this.notification_color !== '' ? 'bg-' + _this.notification_color + '-400' : 'bg-blue-400'])
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["notification", _this.notification_color !== '' ? 'bg-' + _this.notification_color + '-500' : 'bg-blue-400'])
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         "class": "delete",
         onClick: _cache[0] || (_cache[0] = function () {
@@ -22075,6 +22075,26 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({
           user: e.user
         });
       });
+    }
+    var pagePath = window.location.pathname;
+    if (pagePath.includes("community")) {
+      document.getElementById("community").style.color = "white";
+    } else if (pagePath.includes("library")) {
+      document.getElementById("library").style.color = "white";
+    } else if (pagePath.includes("friends")) {
+      document.getElementById("friends").style.color = "white";
+    } else if (pagePath.includes("profile")) {
+      document.getElementById("profile").style.color = "white";
+    } else if (pagePath.includes("balance")) {
+      document.getElementById("balance").style.color = "white";
+    } else if (pagePath.includes("basket")) {
+      document.getElementById("basket").style.color = "white";
+    } else if (pagePath.includes("login")) {
+      document.getElementById("login").style.color = "white";
+    } else if (pagePath.includes("register")) {
+      document.getElementById("register").style.color = "white";
+    } else {
+      document.getElementById("market").style.color = "white";
     }
   }
 });

@@ -13,10 +13,13 @@ class PagesController extends Controller
 {
 
     public function index(){
+        $newGames = Game::orderBy('created_at', 'desc')->get()->slice(0, 4);
+        $saleGames = Game::where('is_sale', 1)->orderBy('original_price', 'desc')->get();
         return view('index',[
-            'games' => Game::all(),
+            'games' => Game::orderBy('name', 'asc')->get(),
+            'newGames' => $newGames,
+            'saleGames' => $saleGames,
             'title' => 'Market - Blast',
-            
             
         ]);
     }

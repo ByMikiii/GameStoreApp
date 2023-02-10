@@ -4,7 +4,7 @@
             class="notification"
             v-bind:class="
                 this.notification_color !== ''
-                    ? 'bg-' + this.notification_color + '-400'
+                    ? 'bg-' + this.notification_color + '-500'
                     : 'bg-blue-400'
             "
             v-if="this.isShown"

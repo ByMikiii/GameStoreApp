@@ -23,7 +23,7 @@
             >
             <?php endif; ?>
         </a>
-        <?php if(Auth::user()->id != $u->id):?>
+        <?php if(Auth::check() && Auth::user()->id != $u->id):?>
         <addfriend :user="{{$u}}"
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                    :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 

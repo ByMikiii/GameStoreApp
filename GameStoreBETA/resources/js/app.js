@@ -55,6 +55,26 @@ const app = createApp({
                 });
             });
         }
+        let pagePath = window.location.pathname;
+        if (pagePath.includes("community")) {
+            document.getElementById("community").style.color = "white";
+        } else if (pagePath.includes("library")) {
+            document.getElementById("library").style.color = "white";
+        } else if (pagePath.includes("friends")) {
+            document.getElementById("friends").style.color = "white";
+        } else if (pagePath.includes("profile")) {
+            document.getElementById("profile").style.color = "white";
+        } else if (pagePath.includes("balance")) {
+            document.getElementById("balance").style.color = "white";
+        } else if (pagePath.includes("basket")) {
+            document.getElementById("basket").style.color = "white";
+        } else if (pagePath.includes("login")) {
+            document.getElementById("login").style.color = "white";
+        } else if (pagePath.includes("register")) {
+            document.getElementById("register").style.color = "white";
+        } else {
+            document.getElementById("market").style.color = "white";
+        }
     },
 });
 

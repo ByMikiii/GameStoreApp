@@ -1,17 +1,81 @@
-
 @extends('layouts.master')
-
 
 @section('title', $title)
 
 @section('content')
 
-<h1 class="text-2xl">ALL GAMES</h1>
-<ol id='games-list' class="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
+<h1 class="text-3xl heading text-left mb-4">NOVINKY</h1>
+<ol id='games-list' class="h-full mb-16 mx-auto">
+@foreach ($newGames as $newgame)
+<a href="/game/{{$newgame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color">
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$newgame->name}}"> 
+<div class="flex text-left h-1/3 p-3">
+    <div class="w-56 truncate">
+        <span class="font-semibold">{{$newgame->name}}</span>
+        <p class="text-xs text-gray-500">{{$newgame->publisher->name}}</p>
+    </div>
+    <span class="ml-auto py-2.5 font-semibold">
+        <?php
+            if($newgame->original_price == 0){
+                echo "Free";
+            }else if($newgame->is_sale == 1){
+                echo $newgame->sale_price."€";
+            }else {echo $newgame->original_price."€";}
+
+            ?>
+    </span>
+</div>
+</a>
+@endforeach
+</ol>
+
+<h1 class="text-3xl heading text-left mb-4">ZĽAVY</h1>
+<ol id='games-list' class="h-full mb-16">
+@foreach ($saleGames as $saleGame)
+<a href="/game/{{$saleGame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color mb-14">
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$saleGame->name}}"> 
+<div class="flex text-left h-1/3 p-3">
+    <div class="w-56 truncate">
+        <span class="font-semibold">{{$saleGame->name}}</span>
+        <p class="text-xs text-gray-500">{{$saleGame->publisher->name}}</p>
+    </div>
+    <span class="ml-auto py-2.5 font-semibold">
+        <?php
+            if($saleGame->original_price == 0){
+                echo "Free";
+            }else if($saleGame->is_sale == 1){
+                echo $saleGame->sale_price."€";
+            }else {echo $saleGame->original_price."€";}
+
+            ?>
+    </span>
+</div>
+</a>
+@endforeach
+</ol>
+
+
+<h1 class="text-3xl heading text-left mb-4">VŠETKY HRY</h1>
+<ol id='games-list' class="h-full">
 @foreach ($games as $game)
-<a href="/game/{{$game->slug}}" class="">
-    <img src="{{ asset('/images/games/example.jpg') }}" alt="{{$game->name}} image" class="">
-    <span class="">{{$game->name}}</span>
+<a href="/game/{{$game->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color mb-14">
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$game->name}}"> 
+<div class="flex text-left h-1/3 p-3">
+    <div class="w-56 truncate">
+        <span class="font-semibold">{{$game->name}}</span>
+        <p class="text-xs text-gray-500">{{$game->publisher->name}}</p>
+    </div>
+    <span class="ml-auto py-2.5 font-semibold">
+        <?php
+            if($game->original_price == 0){
+                echo "Free";
+            }else if($game->is_sale == 1){
+                echo $game->sale_price."€";
+            }else {echo $game->original_price."€";}
+
+            ?>
+    </span>
+</div>
 </a>
 @endforeach
 </ol>

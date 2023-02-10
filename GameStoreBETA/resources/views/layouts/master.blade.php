@@ -16,7 +16,7 @@ App::setLocale('sk');
 
   <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
 </head>
-<body class="h-full">
+<body class="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
   <header class="flex border-b">
       <a class="m-auto w-auto h-11 flex-shrink-0 flex" href="/">
         <img class="h-full my-auto" src="{{ asset('favicon.png') }}" alt="logo">
@@ -26,18 +26,18 @@ App::setLocale('sk');
     <nav class="w-full my-auto">
     <ul id="nav-pc" class="h-12 w-full font-bold flex">
 
-    <li class="list-item"><a href="/">{{__('master.market')}}</a></li>
-    <li class="list-item"><a  href="/community">{{__('master.community')}}</a></li>
+    <li id="market" class="list-item"><a href="/">{{__('master.market')}}</a></li>
+    <li id="community" class="list-item"><a  href="/community">{{__('master.community')}}</a></li>
 
     @if (Auth::check())
-    <li class="list-item"><a  href="/library">{{__('master.library')}}</a></li>
-    <li class="list-item"><a href="/friends">{{__('master.friends')}}</a></li>
-    <li class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
+    <li id="library" class="list-item"><a  href="/library">{{__('master.library')}}</a></li>
+    <li id="friends" class="list-item"><a href="/friends">{{__('master.friends')}}</a></li>
+    <li id="profile" class="list-item"><a  href="/profile">{{Auth::user()->name}}</a></li>
 
-    <a href="/balance" class="list-item ml-auto" id="wallet">{{Auth::user()->wallet}} € </a>
-    <a href="/basket" class="flex">
-      <svg class="list-item w-10 h-10 hover:fill-red-600" fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#181a1b; --darkreader-inline-stroke:#e8e6e3;" stroke="#ffffff" data-darkreader-inline-stroke=""><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z M685.766,247.188l-67.077,262.64H131.199L81.928,246.756L685.766,247.188z"></path> <path d="M578.418,825.641c59.961,0,108.743-48.783,108.743-108.744s-48.782-108.742-108.743-108.742H168.717 c-59.961,0-108.744,48.781-108.744,108.742s48.782,108.744,108.744,108.744c59.962,0,108.743-48.783,108.743-108.744 c0-14.4-2.821-28.152-7.927-40.742h208.069c-5.107,12.59-7.928,26.342-7.928,40.742 C469.675,776.858,518.457,825.641,578.418,825.641z M209.46,716.897c0,22.467-18.277,40.744-40.743,40.744 c-22.466,0-40.744-18.277-40.744-40.744c0-22.465,18.277-40.742,40.744-40.742C191.183,676.155,209.46,694.432,209.46,716.897z M619.162,716.897c0,22.467-18.277,40.744-40.743,40.744s-40.743-18.277-40.743-40.744c0-22.465,18.277-40.742,40.743-40.742 S619.162,694.432,619.162,716.897z"></path> </g> </g> </g></svg>
-      <span class="basket-badge text-xs font-thin text-yellow-400" id="basketitemscount">
+    <a id="balance" href="/balance" class="list-item ml-auto" id="wallet">{{Auth::user()->wallet}} € </a>
+    <a id="basket" href="/basket" class="flex">
+      <svg class="list-item w-10 h-10 hover:fill-yellow-300" fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86" xml:space="preserve" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#181a1b; --darkreader-inline-stroke:#e8e6e3;" stroke="#ffffff" data-darkreader-inline-stroke=""><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M671.504,577.829l110.485-432.609H902.86v-68H729.174L703.128,179.2L0,178.697l74.753,399.129h596.751V577.829z M685.766,247.188l-67.077,262.64H131.199L81.928,246.756L685.766,247.188z"></path> <path d="M578.418,825.641c59.961,0,108.743-48.783,108.743-108.744s-48.782-108.742-108.743-108.742H168.717 c-59.961,0-108.744,48.781-108.744,108.742s48.782,108.744,108.744,108.744c59.962,0,108.743-48.783,108.743-108.744 c0-14.4-2.821-28.152-7.927-40.742h208.069c-5.107,12.59-7.928,26.342-7.928,40.742 C469.675,776.858,518.457,825.641,578.418,825.641z M209.46,716.897c0,22.467-18.277,40.744-40.743,40.744 c-22.466,0-40.744-18.277-40.744-40.744c0-22.465,18.277-40.742,40.744-40.742C191.183,676.155,209.46,694.432,209.46,716.897z M619.162,716.897c0,22.467-18.277,40.744-40.743,40.744s-40.743-18.277-40.743-40.744c0-22.465,18.277-40.742,40.743-40.742 S619.162,694.432,619.162,716.897z"></path> </g> </g> </g></svg>
+      <span class="basket-badge text-xs text-yellow-300" id="basketitemscount">
         {{Auth::user()->basketitems()->get()->count()}}</span>
     </a>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
@@ -47,8 +47,8 @@ App::setLocale('sk');
 
 
     @else
-    <li class="list-item ml-auto"><a href="/login">{{__('master.login')}}</a></li>
-    <li class="list-item"><a  href="/register">{{__('master.register')}}</a></li>
+    <li id="login" class="list-item ml-auto"><a href="/login">{{__('master.login')}}</a></li>
+    <li id="register" class="list-item"><a  href="/register">{{__('master.register')}}</a></li>
 
     @endif
     </ul>
@@ -87,7 +87,7 @@ App::setLocale('sk');
     @endif
   </ul>
 
-  <main id="app" class="text-yellow-300 mt-5 w-2/3 text-center mx-auto">
+  <main id="app" class="text-yellow-300 mt-5 w-5/6 text-center mx-auto">
     @yield('content')
 
     <?php if(Auth::check()): ?>
@@ -98,16 +98,17 @@ App::setLocale('sk');
     
     @if (Auth::check())
     <section id='global-chat' class='bg-bg-color fixed bottom-16 right-2 border w-96 h-5/6 rounded-sm flex-col flex invisible'>
-      <h1 class='text-center text-2xl w-full border-b p-1 pb-2'>Global Chat</h1>
+      <h1 class='text-center text-2xl w-full border-b p-1 pb-2 heading'>Global Chat</h1>
       <global-chat-log class='p-1 pr-3 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color' :messages="globalMessages" :auth="{{Auth::user()}}"></global-chat-log>
       <global-chat-composer v-on:globalmessagesent="addMessage" :auth="{{Auth::user()}}"></global-chat-composer>
     </section>
-    <button class='fixed bottom-6 right-6' onclick="globalChat()">Global Chat</button>
+    <button class='fixed bottom-6 right-6' onclick="globalChat()"><svg class="w-10 invert hover:brightness-125" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 448c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9c-5.5 9.2-11.1 16.6-15.2 21.6c-2.1 2.5-3.7 4.4-4.9 5.7c-.6 .6-1 1.1-1.3 1.4l-.3 .3 0 0 0 0 0 0 0 0c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c28.7 0 57.6-8.9 81.6-19.3c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9zM128 208a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm128 0a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm96 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg></button>
+    
     @endif
   </main>
 
 
-  <footer class="text-xs fixed bottom-0 left-0">©2023 ByMikiii</footer>
+  <footer class="text-xs fixed bottom-0 left-0">©2023 Bardáč</footer>
 
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>
