@@ -38,10 +38,11 @@
                                         {{ __('auth.remember') }}
                                     </label>
                                 </div>
-                    </form>
-                    <button type="submit" class="">
+                                <button type="submit" class="">
                                     {{ __('auth.loginin') }}
                                 </button>
+                    </form>
+                    
                             <br>
                                 @if (Route::has('password.request'))
                                     <a class="mt-auto mb-0" href="{{ route('password.request') }}">
