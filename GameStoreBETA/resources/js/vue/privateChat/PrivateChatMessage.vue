@@ -1,7 +1,7 @@
 <template>
     <div
         id="privateMessage"
-        class="bg-blue-500 rounded-xl rounded-bl-none mr-2 mb-2 text-left"
+        class="bg-blue-500 rounded-xl rounded-bl-none mb-2 text-left"
         v-bind:class="
             this.message.sender.name === this.auth.name
                 ? 'ml-auto text-right rounded-bl-xl rounded-br-none'
@@ -17,9 +17,7 @@
 
         <span class="block m-0 mr-2 ml-2">{{ this.message.text }}</span>
 
-        <small class="text-xs block m-0 mr-2 ml-2">{{
-            this.messageTimeAgo
-        }}</small>
+        <small class="text-xs block">{{ this.messageTimeAgo }}</small>
     </div>
 </template>
 

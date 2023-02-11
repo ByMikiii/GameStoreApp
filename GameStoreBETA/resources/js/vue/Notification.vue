@@ -29,7 +29,7 @@ export default {
     methods: {
         show() {
             this.isShown = true;
-            setTimeout(() => this.hide(), 3000);
+            setTimeout(() => this.hide(), 5000);
         },
 
         hide() {

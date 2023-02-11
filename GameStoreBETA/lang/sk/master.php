@@ -1,13 +1,13 @@
 <?php 
 return [
-  'market' => 'Obchod',
-  'community' => 'Komunita',
-  'library' => 'Knižnica',
-  'friends' => 'Priatelia',
-  'logout' => 'Odhlásiť sa',
-  'globalchat' => 'Global Chat',
-  'login' => 'Prihlásiť sa',
-  'register' => 'Vytvoriť účet',
+  'market' => 'OBCHOD',
+  'community' => 'KOMUNITA',
+  'library' => 'KNIŽNICA',
+  'friends' => 'PRIATELIA',
+  'logout' => 'ODHLÁSIŤ SA',
+  'globalchat' => 'VEREJNÝ CHAT',
+  'login' => 'PRIHLÁSIŤ SA',
+  'register' => 'VYTVORIŤ ÚČET',
 
 ]
 

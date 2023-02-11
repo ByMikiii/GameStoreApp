@@ -67,7 +67,7 @@ const app = createApp({
         } else if (pagePath.includes("balance")) {
             document.getElementById("balance").style.color = "white";
         } else if (pagePath.includes("basket")) {
-            document.getElementById("basket").style.color = "white";
+            document.getElementById("basket").style.fill = "white";
         } else if (pagePath.includes("login")) {
             document.getElementById("login").style.color = "white";
         } else if (pagePath.includes("register")) {

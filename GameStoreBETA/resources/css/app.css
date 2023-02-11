@@ -10,11 +10,12 @@
   --bgcolor: #0b0418;
   --scndcolor: #2B053E;
   --txcolor: rgb(255, 230, 0);
-  --linkcolor: rgb(255, 230, 0);
+  --linkcolor: rgb(223, 223, 223);
 }
 
 @layer components {
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@100;400;500;600;700&display=swap');
 
   html {
     background-color: #0b0418;
@@ -47,12 +48,14 @@
   }
 
   .heading {
-    font-family: "Paytone One"
+    font-family: "Paytone One";
+    color: rgb(253 224 71);
   }
 
   .mybutton {
     background-color: blue;
     padding: 3px;
+    border-radius: 0.1rem
   }
 
   @media only screen and (max-width: 950px) {
@@ -102,27 +105,34 @@
     margin: 8px 2px;
     padding: 4px;
     padding-top: 6px;
-    font-weight: 600;
-    color: grey;
+    font-weight: 800;
+    color: rgb(153, 153, 153);
+    font-family: 'Montserrat';
+  }
+
+  .list-item:hover a:hover {
+    color: rgb(223, 223, 223)
   }
 
   #invoices {
-    height: 60vh;
+    height: 68vh;
   }
 
-  #invoices-list {
-    max-height: full;
-  }
-
-  .invoice {
-    height: 28px;
+  .invoice-header {
+    height: 32px;
     flex: 1 0 21%;
   }
 
+  .invoice {
+    height: 36px;
+    flex: 1 0 21%;
+    padding: 8px;
+  }
+
   .basket-badge {
-    position: absolute;
-    margin-top: 12px;
-    margin-left: 4px;
+    position: relative;
+    left: 18px;
+    bottom: -10px;
   }
 
   .basket-item {
@@ -134,8 +144,6 @@
   #live-page {
     color: rgb(255, 230, 0);
   }
-
-
 }
 
 @import 'bulma/css/bulma.min.css';

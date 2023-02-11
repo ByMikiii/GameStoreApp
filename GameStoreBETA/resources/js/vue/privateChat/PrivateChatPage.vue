@@ -2,38 +2,51 @@
     <section
         id="private-chat"
         v-if="!this.noFriends"
-        class="bg-bg-color relative border-2 rounded-sm flex mx-auto"
+        class="bg-scnd-color w-5/6 relative rounded-md flex mx-auto"
     >
         <div class="flex-grow">
-            <h1 class="text-center text-2xl border-b p-1">
+            <h1 class="text-center text-2xl p-1 heading">
                 Friends <small>({{ this.friendlist.length }})</small>
             </h1>
 
-            <ul class="h-full">
+            <ul class="h-full text-left">
                 <li
                     id="friend"
-                    class="border-b p-2 cursor-pointer"
+                    class="p-2 cursor-pointer flex"
                     v-for="(friend, index) in friendlist"
                     :key="index"
                     @click="changeCurrentUser(friend)"
                     v-bind:class="
                         friend.name === this.currentUser.name
-                            ? 'bg-green-500'
+                            ? 'bg-amber-500'
                             : null
                     "
                 >
-                    <span>{{ friend.name }}</span>
+                    <img
+                        class="ml-2 w-12 h-12 rounded-full mt-2"
+                        :src="friend.profile_photo"
+                        :alt="friend.name + ' profile photo'"
+                    />
+                    <div class="ml-4 mt-3">
+                        <span class="truncate w-5/6">{{ friend.name }}</span>
+                        <p class="truncate text-gray-400 text-xs w-52">
+                            {{ friend.pivot.latest_message_text }}
+                        </p>
+                    </div>
                 </li>
             </ul>
         </div>
-        <div id="private-chat" class="w-3/4 flex flex-col border-l">
-            <h1 class="text-center text-2xl border-b p-1">
+        <div
+            id="private-chat"
+            class="w-3/4 flex flex-col border-l border-bg-color"
+        >
+            <h1 class="text-center text-2xl p-1 heading">
                 {{ this.currentUser.name }} - Chat
             </h1>
 
             <div
                 ref="privateChat"
-                class="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+                class="h-full overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color p-4"
             >
                 <private-chat-message
                     v-for="(message, index) in messages"
@@ -50,7 +63,7 @@
             ></private-chat-composer>
         </div>
     </section>
-    <h1 v-if="this.noFriends" class="text-5xl text-center mt-72">
+    <h1 v-if="this.noFriends" class="text-5xl text-center mt-72 heading">
         You have no friends. 🥲
     </h1>
 </template>
@@ -66,6 +79,7 @@ export default {
             noFriends: false,
             messages: [],
             friendlist: this.friends,
+            latestMessage: "",
         };
     },
     mounted() {
@@ -88,6 +102,11 @@ export default {
                 e.receiver.id == this.auth.id &&
                 e.sender.id == this.currentUser.id
             ) {
+                this.friendlist.forEach((friend) => {
+                    if (friend.id == e.sender.id) {
+                        friend.pivot.latest_message_text = e.message.text;
+                    }
+                });
                 this.messages.push({
                     text: e.message.text,
                     id: e.message.id,
@@ -117,6 +136,12 @@ export default {
             this.messages.push(message);
             axios.post("/messages", message);
 
+            this.friendlist.forEach((friend) => {
+                if (friend.id == message.receiver_id) {
+                    friend.pivot.latest_message_text = message.text;
+                }
+            });
+
             //LATEST MESSAGE ON INDEX 0
             let indexOfUser = this.friendlist.findIndex((object) => {
                 return object.name === this.currentUser.name;
@@ -140,7 +165,7 @@ export default {
 
 <style>
 #private-chat {
-    height: 85vh;
+    height: 80vh;
 }
 #friend {
     min-height: 5rem;

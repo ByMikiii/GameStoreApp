@@ -20932,7 +20932,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     recalculateBalance: function recalculateBalance() {
       axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/loggedUserBalance").then(function (response) {
-        document.getElementById("wallet").innerHTML = response.data + " €";
+        document.getElementById("balance").innerHTML = response.data + " €";
       });
     },
     recalculateBasketItems: function recalculateBasketItems() {
@@ -21050,7 +21050,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["games", "currentgamee"],
   data: function data() {
     return {
-      noGames: false,
+      noGames: true,
       gamelist: this.games,
       currentGame: this.currentgamee
     };
@@ -21091,7 +21091,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isShown = true;
       setTimeout(function () {
         return _this.hide();
-      }, 3000);
+      }, 5000);
     },
     hide: function hide() {
       this.isShown = false;
@@ -21204,7 +21204,8 @@ __webpack_require__.r(__webpack_exports__);
         this.messageText = "";
       }
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -21355,7 +21356,8 @@ __webpack_require__.r(__webpack_exports__);
       currentUser: "",
       noFriends: false,
       messages: [],
-      friendlist: this.friends
+      friendlist: this.friends,
+      latestMessage: ""
     };
   },
   mounted: function mounted() {
@@ -21375,6 +21377,11 @@ __webpack_require__.r(__webpack_exports__);
     var chatChannel = window.Echo["private"]("chat." + this.auth.id);
     chatChannel.listen("MessagePosted", function (e) {
       if (e.receiver.id == _this.auth.id && e.sender.id == _this.currentUser.id) {
+        _this.friendlist.forEach(function (friend) {
+          if (friend.id == e.sender.id) {
+            friend.pivot.latest_message_text = e.message.text;
+          }
+        });
         _this.messages.push({
           text: e.message.text,
           id: e.message.id,
@@ -21405,6 +21412,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
       this.messages.push(message);
       axios.post("/messages", message);
+      this.friendlist.forEach(function (friend) {
+        if (friend.id == message.receiver_id) {
+          friend.pivot.latest_message_text = message.text;
+        }
+      });
 
       //LATEST MESSAGE ON INDEX 0
       var indexOfUser = this.friendlist.findIndex(function (object) {
@@ -21442,44 +21454,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  key: 1
+  key: 1,
+  "class": "ml-auto mt-auto"
 };
 var _hoisted_2 = ["href"];
 var _hoisted_3 = {
-  key: 3
+  key: 3,
+  "class": "mt-auto ml-auto"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [this.friendStatus == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
-    "class": "mybutton bg-green-500",
+    "class": "mt-auto mybutton bg-green-500 ml-auto",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.addFriend && $options.addFriend.apply($options, arguments);
     })
   }, "Add Friend")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "mybutton bg-green-500 mr-2",
+    "class": "mybutton bg-blue-500 mr-2",
+    href: '/chat/' + this.user.name
+  }, "Chat", 8 /* PROPS */, _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": "mybutton bg-green-500",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
-  }, "Remove Friend"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "mybutton bg-blue-500",
-    href: '/chat/' + this.user.name
-  }, "Chat", 8 /* PROPS */, _hoisted_2)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  }, "Remove Friend")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 2,
-    "class": "mybutton bg-green-500",
+    "class": "mt-auto mybutton bg-green-500 w-40 ml-auto",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
   }, "Request Pending")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[3] || (_cache[3] = function () {
-      return $options.acceptFriend && $options.acceptFriend.apply($options, arguments);
-    }),
-    "class": "mybutton bg-green-500 mr-2"
-  }, "Accept"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    onClick: _cache[4] || (_cache[4] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     }),
-    "class": "mybutton bg-red-500"
-  }, "Decline")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+    "class": "mybutton bg-red-500 mr-2"
+  }, "Decline"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[4] || (_cache[4] = function () {
+      return $options.acceptFriend && $options.acceptFriend.apply($options, arguments);
+    }),
+    "class": "mybutton bg-green-500"
+  }, "Accept")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21497,62 +21511,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"mt-2 flex flex-wrap border border-b-0\"><span class=\"basket-item h-8\">PRODUCT NAME</span><span class=\"basket-item h-8\">QUANTITY</span><span class=\"basket-item h-8\">PRICE</span><span class=\"basket-item h-8\"></span></div>", 1);
-var _hoisted_2 = {
-  id: "invoices",
-  "class": "h-3/5 border mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
-};
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<h1 class=\"text-3xl heading mb-5&#39;\">Nákupný košík</h1><div class=\"mt-2 flex flex-wrap bg-scnd-color rounded-t-md border-b border-bg-color\"><span class=\"basket-item h-9 mt-1.5 text-xl\">MENO PRODUKTU</span><span class=\"basket-item h-9 mt-1.5 text-xl\">POČET KUSOV</span><span class=\"basket-item h-9 mt-1.5 text-xl\">CENA</span><span class=\"basket-item h-9 mt-1.5 text-xl\"></span></div>", 2);
 var _hoisted_3 = {
+  id: "invoices",
+  "class": "h-3/5 bg-scnd-color rounded-b-md mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+};
+var _hoisted_4 = {
   key: 0,
   "class": "my-56 text-4xl"
 };
-var _hoisted_4 = {
+var _hoisted_5 = {
   "class": "mt-2 flex flex-wrap"
 };
-var _hoisted_5 = {
+var _hoisted_6 = {
   "class": "basket-item"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "basket-item"
 }, "1", -1 /* HOISTED */);
-var _hoisted_7 = {
+var _hoisted_8 = {
   key: 0,
   "class": "basket-item"
 };
-var _hoisted_8 = {
+var _hoisted_9 = {
   key: 1,
   "class": "basket-item"
 };
-var _hoisted_9 = {
+var _hoisted_10 = {
   "class": "basket-item"
 };
-var _hoisted_10 = ["onClick"];
-var _hoisted_11 = {
+var _hoisted_11 = ["onClick"];
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
+}, null, -1 /* HOISTED */);
+var _hoisted_13 = {
   "class": "flex"
 };
-var _hoisted_12 = {
+var _hoisted_14 = {
   "class": "text-left w-full"
 };
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "/"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "button bg-gray-500 mr-2 mt-1 hover:text-red-600"
-}, " Continue Shopping ")], -1 /* HOISTED */);
+  "class": "mybutton bg-blue-500 h-8 mt-1 w-64 mr-3"
+}, " Pokračovať v nakupovaní ")], -1 /* HOISTED */);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [$data.isEmpty ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_3, "Your basket is empty. 🥲")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.basket_items, function (basketitem) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.name), 1 /* TEXT */), _hoisted_6, basketitem.is_sale === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.original_price), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), basketitem.is_sale === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.sale_price), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-      "class": "button h-8 bg-red-600",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [$data.isEmpty ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_4, " Váš nákupný košík je prázdny 🥲 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.basket_items, function (basketitem) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.name), 1 /* TEXT */), _hoisted_7, basketitem.is_sale === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.original_price), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), basketitem.is_sale === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(basketitem.sale_price), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+      "class": "w-4 fill-red-400 hover:fill-red-600 cursor-pointer mx-auto",
       onClick: function onClick($event) {
         return $options.removeItem(basketitem);
-      }
-    }, " Remove ", 8 /* PROPS */, _hoisted_10)])]);
-  }), 256 /* UNKEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, "TOTAL PRICE: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.total_price + " €"), 1 /* TEXT */), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "button bg-green-500 mt-1",
+      },
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 320 512"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. "), _hoisted_12], 8 /* PROPS */, _hoisted_11))])]);
+  }), 256 /* UNKEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_14, "CELKOVÁ CENA: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.total_price + " €"), 1 /* TEXT */), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "mybutton bg-green-500 h-8 mt-1 w-32",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.makePurchase && $options.makePurchase.apply($options, arguments);
     })
-  }, " Pay Now ")])], 64 /* STABLE_FRAGMENT */);
+  }, " Zaplatiť ")])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21631,50 +21650,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  key: 0,
   id: "private-chat",
-  "class": "bg-bg-color relative border-2 rounded-sm flex mx-auto"
+  "class": "bg-scnd-color w-5/6 relative rounded-md flex mx-auto"
 };
 var _hoisted_2 = {
   "class": "flex-grow"
 };
 var _hoisted_3 = {
-  "class": "text-center text-2xl border-b p-1"
+  "class": "text-center text-2xl p-1 heading"
 };
 var _hoisted_4 = {
-  "class": "h-full"
+  "class": "h-full text-left"
 };
 var _hoisted_5 = ["onClick"];
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  href: "/",
-  "class": "text-xl"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " + ")], -1 /* HOISTED */);
+var _hoisted_6 = {
+  "class": "p-2.5"
+};
 var _hoisted_7 = {
-  id: "private-chat",
-  "class": "w-3/4 flex flex-col border-l"
+  "class": "truncate w-5/6"
 };
 var _hoisted_8 = {
-  "class": "text-center text-2xl border-b p-1"
+  id: "private-chat",
+  "class": "w-3/4 flex flex-col border-l border-bg-color"
 };
 var _hoisted_9 = {
-  "class": "h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+  "class": "text-center text-2xl p-1 heading"
 };
 var _hoisted_10 = {
-  key: 1,
-  "class": "text-5xl text-center mt-72"
+  ref: "privateChat",
+  "class": "h-full overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color p-4"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [!this.noGames ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" My Games "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.gamelist.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.gamelist, function (game, index) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Games "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.gamelist.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.gamelist, function (game, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-      id: "friend",
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["border-b p-2 cursor-pointer", game.name === _this.currentGame.name ? 'bg-green-500' : null]),
+      id: "game",
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer flex", game.name === _this.currentGame.name ? 'bg-amber-500' : null]),
       key: index,
       onClick: function onClick($event) {
         return $options.changeCurrentGame(game);
       }
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(game.name), 1 /* TEXT */)], 10 /* CLASS, PROPS */, _hoisted_5);
-  }), 128 /* KEYED_FRAGMENT */)), _hoisted_6])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentGame.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentGame.description), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.noGames ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_10, " You have no games. 🥲 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(game.name), 1 /* TEXT */)])], 10 /* CLASS, PROPS */, _hoisted_5);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentGame.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, null, 512 /* NEED_PATCH */)]);
 }
 
 /***/ }),
@@ -21728,29 +21745,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "text-xl"
-}, "Add balance", -1 /* HOISTED */);
-
+  "class": "text-3xl heading mb-2"
+}, "Vklad", -1 /* HOISTED */);
+var _hoisted_2 = {
+  "class": "h-10"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_stripe_checkout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("stripe-checkout");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_stripe_checkout, {
     ref: "checkoutRef",
     pk: $data.publishableKey,
     sessionId: $data.sessionId
-  }, null, 8 /* PROPS */, ["pk", "sessionId"]), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, ["pk", "sessionId"]), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.amount = $event;
     }),
     type: "number",
     min: "5",
     placeholder: "€",
-    "class": "text-black w-10 h-6 text-center"
+    "class": "text-black w-14 h-8 text-xl text-center mr-6"
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.amount]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "button is-success h-6 w-20",
+    "class": "mybutton bg-green-500 h-8",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.submit && $options.submit.apply($options, arguments);
     })
-  }, "Pay now!")], 64 /* STABLE_FRAGMENT */);
+  }, " Zaplatiť ")])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21880,13 +21899,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "chat-composer flex p-1 border rounded-sm mt-auto w-full relative"
+  "class": "chat-composer flex rounded-md mt-auto w-full relative"
 };
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 512 512"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  d: "M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"
+})], -1 /* HOISTED */);
+var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
+    maxlength: "255",
     placeholder: "Type something...",
-    "class": "bg-transparent flex-auto outline-none",
+    "class": "bg-transparent flex-auto outline-none p-2",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.privateMessageText = $event;
     }),
@@ -21894,11 +21921,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.sendPrivateMessage && $options.sendPrivateMessage.apply($options, arguments);
     }, ["enter"]))
   }, null, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.privateMessageText]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "button is-success w-24",
+    "class": "rounded-none rounded-br-md w-8 h-8 pr-2 pt-1 fill-gray-400 hover:fill-white",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.sendPrivateMessage && $options.sendPrivateMessage.apply($options, arguments);
     })
-  }, " Send ")]);
+  }, _hoisted_3)]);
 }
 
 /***/ }),
@@ -21921,12 +21948,12 @@ var _hoisted_2 = {
   "class": "block m-0 mr-2 ml-2"
 };
 var _hoisted_3 = {
-  "class": "text-xs block m-0 mr-2 ml-2"
+  "class": "text-xs block"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     id: "privateMessage",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bg-blue-500 rounded-xl rounded-bl-none mr-2 mb-2 text-left", this.message.sender.name === this.auth.name ? 'ml-auto text-right rounded-bl-xl rounded-br-none' : null])
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bg-blue-500 rounded-xl rounded-bl-none mb-2 text-left", this.message.sender.name === this.auth.name ? 'ml-auto text-right rounded-bl-xl rounded-br-none' : null])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "text-xs block m-0 mr-2 ml-2",
     href: 'user/' + this.message.sender.name
@@ -21951,32 +21978,42 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   key: 0,
   id: "private-chat",
-  "class": "bg-bg-color relative border-2 rounded-sm flex mx-auto"
+  "class": "bg-scnd-color w-5/6 relative rounded-md flex mx-auto"
 };
 var _hoisted_2 = {
   "class": "flex-grow"
 };
 var _hoisted_3 = {
-  "class": "text-center text-2xl border-b p-1"
+  "class": "text-center text-2xl p-1 heading"
 };
 var _hoisted_4 = {
-  "class": "h-full"
+  "class": "h-full text-left"
 };
 var _hoisted_5 = ["onClick"];
-var _hoisted_6 = {
-  id: "private-chat",
-  "class": "w-3/4 flex flex-col border-l"
-};
+var _hoisted_6 = ["src", "alt"];
 var _hoisted_7 = {
-  "class": "text-center text-2xl border-b p-1"
+  "class": "ml-4 mt-3"
 };
 var _hoisted_8 = {
-  ref: "privateChat",
-  "class": "h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+  "class": "truncate w-5/6"
 };
 var _hoisted_9 = {
+  "class": "truncate text-gray-400 text-xs w-52"
+};
+var _hoisted_10 = {
+  id: "private-chat",
+  "class": "w-3/4 flex flex-col border-l border-bg-color"
+};
+var _hoisted_11 = {
+  "class": "text-center text-2xl p-1 heading"
+};
+var _hoisted_12 = {
+  ref: "privateChat",
+  "class": "h-full overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color p-4"
+};
+var _hoisted_13 = {
   key: 1,
-  "class": "text-5xl text-center mt-72"
+  "class": "text-5xl text-center mt-72 heading"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
@@ -21985,13 +22022,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [!this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Friends "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.friendlist.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.friendlist, function (friend, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       id: "friend",
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["border-b p-2 cursor-pointer", friend.name === _this.currentUser.name ? 'bg-green-500' : null]),
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["p-2 cursor-pointer flex", friend.name === _this.currentUser.name ? 'bg-amber-500' : null]),
       key: index,
       onClick: function onClick($event) {
         return $options.changeCurrentUser(friend);
       }
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(friend.name), 1 /* TEXT */)], 10 /* CLASS, PROPS */, _hoisted_5);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentUser.name) + " - Chat ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, function (message, index) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      "class": "ml-2 w-12 h-12 rounded-full mt-2",
+      src: friend.profile_photo,
+      alt: friend.name + ' profile photo'
+    }, null, 8 /* PROPS */, _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(friend.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(friend.pivot.latest_message_text), 1 /* TEXT */)])], 10 /* CLASS, PROPS */, _hoisted_5);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentUser.name) + " - Chat ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.messages, function (message, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_private_chat_message, {
       key: index,
       auth: $props.auth,
@@ -22001,7 +22042,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onMessagesent: $options.addPrivateMessage,
     auth: $props.auth,
     currentUser: $data.currentUser
-  }, null, 8 /* PROPS */, ["onMessagesent", "auth", "currentUser"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_9, " You have no friends. 🥲 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }, null, 8 /* PROPS */, ["onMessagesent", "auth", "currentUser"])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.noFriends ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h1", _hoisted_13, " You have no friends. 🥲 ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22088,7 +22129,7 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)({
     } else if (pagePath.includes("balance")) {
       document.getElementById("balance").style.color = "white";
     } else if (pagePath.includes("basket")) {
-      document.getElementById("basket").style.color = "white";
+      document.getElementById("basket").style.fill = "white";
     } else if (pagePath.includes("login")) {
       document.getElementById("login").style.color = "white";
     } else if (pagePath.includes("register")) {
@@ -29388,7 +29429,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.notification,\n.is-succes {\n    font-size: small;\n    position: fixed;\n    right: 16px;\n    bottom: 16px;\n}\n.bounce-enter-active {\n    animation: bounce-in 0.5s;\n}\n.bounce-leave-active {\n    animation: bounce-in 0.5s reverse;\n}\n@keyframes bounce-in {\n0% {\n        transform: scale(0);\n}\n50% {\n        transform: scale(1.25);\n}\n100% {\n        transform: scale(1);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.notification,\r\n.is-succes {\r\n    font-size: small;\r\n    position: fixed;\r\n    right: 16px;\r\n    bottom: 16px;\n}\n.bounce-enter-active {\r\n    animation: bounce-in 0.5s;\n}\n.bounce-leave-active {\r\n    animation: bounce-in 0.5s reverse;\n}\n@keyframes bounce-in {\n0% {\r\n        transform: scale(0);\n}\n50% {\r\n        transform: scale(1.25);\n}\n100% {\r\n        transform: scale(1);\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29412,7 +29453,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#privateMessage {\n    max-width: 240px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#privateMessage {\r\n    max-width: 240px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29436,7 +29477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#private-chat {\n    height: 85vh;\n}\n#friend {\n    min-height: 5rem;\n    width: auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#private-chat {\r\n    height: 80vh;\n}\n#friend {\r\n    min-height: 5rem;\r\n    width: auto;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53935,13 +53976,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _AddFriend_vue_vue_type_template_id_045e5eb0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddFriend.vue?vue&type=template&id=045e5eb0 */ "./resources/js/vue/AddFriend.vue?vue&type=template&id=045e5eb0");
 /* harmony import */ var _AddFriend_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddFriend.vue?vue&type=script&lang=js */ "./resources/js/vue/AddFriend.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AddFriend_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AddFriend_vue_vue_type_template_id_045e5eb0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/AddFriend.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_AddFriend_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_AddFriend_vue_vue_type_template_id_045e5eb0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/AddFriend.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -53963,13 +54004,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Basket_vue_vue_type_template_id_3cbed7e6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Basket.vue?vue&type=template&id=3cbed7e6 */ "./resources/js/vue/Basket.vue?vue&type=template&id=3cbed7e6");
 /* harmony import */ var _Basket_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Basket.vue?vue&type=script&lang=js */ "./resources/js/vue/Basket.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Basket_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Basket_vue_vue_type_template_id_3cbed7e6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Basket.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Basket_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Basket_vue_vue_type_template_id_3cbed7e6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Basket.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -53992,7 +54033,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FlashMessage_vue_vue_type_template_id_220d347e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FlashMessage.vue?vue&type=template&id=220d347e */ "./resources/js/vue/FlashMessage.vue?vue&type=template&id=220d347e");
 /* harmony import */ var _FlashMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FlashMessage.vue?vue&type=script&lang=js */ "./resources/js/vue/FlashMessage.vue?vue&type=script&lang=js");
 /* harmony import */ var _FlashMessage_vue_vue_type_style_index_0_id_220d347e_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FlashMessage.vue?vue&type=style&index=0&id=220d347e&lang=css */ "./resources/js/vue/FlashMessage.vue?vue&type=style&index=0&id=220d347e&lang=css");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -54000,7 +54041,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_FlashMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FlashMessage_vue_vue_type_template_id_220d347e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/FlashMessage.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_FlashMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FlashMessage_vue_vue_type_template_id_220d347e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/FlashMessage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54022,13 +54063,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _GamePage_vue_vue_type_template_id_46d342b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GamePage.vue?vue&type=template&id=46d342b0 */ "./resources/js/vue/GamePage.vue?vue&type=template&id=46d342b0");
 /* harmony import */ var _GamePage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GamePage.vue?vue&type=script&lang=js */ "./resources/js/vue/GamePage.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GamePage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GamePage_vue_vue_type_template_id_46d342b0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/GamePage.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GamePage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GamePage_vue_vue_type_template_id_46d342b0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/GamePage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54050,13 +54091,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Library_vue_vue_type_template_id_1d7245f8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Library.vue?vue&type=template&id=1d7245f8 */ "./resources/js/vue/Library.vue?vue&type=template&id=1d7245f8");
 /* harmony import */ var _Library_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Library.vue?vue&type=script&lang=js */ "./resources/js/vue/Library.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Library_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Library_vue_vue_type_template_id_1d7245f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Library.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Library_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Library_vue_vue_type_template_id_1d7245f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Library.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54078,13 +54119,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Notification.vue?vue&type=template&id=a0076d1c */ "./resources/js/vue/Notification.vue?vue&type=template&id=a0076d1c");
 /* harmony import */ var _Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Notification.vue?vue&type=script&lang=js */ "./resources/js/vue/Notification.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Notification.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Notification_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Notification_vue_vue_type_template_id_a0076d1c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Notification.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54106,13 +54147,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Payment_vue_vue_type_template_id_8c656662__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Payment.vue?vue&type=template&id=8c656662 */ "./resources/js/vue/Payment.vue?vue&type=template&id=8c656662");
 /* harmony import */ var _Payment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Payment.vue?vue&type=script&lang=js */ "./resources/js/vue/Payment.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Payment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Payment_vue_vue_type_template_id_8c656662__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Payment.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Payment_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Payment_vue_vue_type_template_id_8c656662__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Payment.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54134,13 +54175,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Reviews_vue_vue_type_template_id_67b7fc64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Reviews.vue?vue&type=template&id=67b7fc64 */ "./resources/js/vue/Reviews.vue?vue&type=template&id=67b7fc64");
 /* harmony import */ var _Reviews_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Reviews.vue?vue&type=script&lang=js */ "./resources/js/vue/Reviews.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Reviews_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Reviews_vue_vue_type_template_id_67b7fc64__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Reviews.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Reviews_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Reviews_vue_vue_type_template_id_67b7fc64__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/Reviews.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54162,13 +54203,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _GlobalChatComposer_vue_vue_type_template_id_c15d6ed0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GlobalChatComposer.vue?vue&type=template&id=c15d6ed0 */ "./resources/js/vue/globalChat/GlobalChatComposer.vue?vue&type=template&id=c15d6ed0");
 /* harmony import */ var _GlobalChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GlobalChatComposer.vue?vue&type=script&lang=js */ "./resources/js/vue/globalChat/GlobalChatComposer.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatComposer_vue_vue_type_template_id_c15d6ed0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatComposer.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatComposer_vue_vue_type_template_id_c15d6ed0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatComposer.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54190,13 +54231,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _GlobalChatLog_vue_vue_type_template_id_31ffba08__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GlobalChatLog.vue?vue&type=template&id=31ffba08 */ "./resources/js/vue/globalChat/GlobalChatLog.vue?vue&type=template&id=31ffba08");
 /* harmony import */ var _GlobalChatLog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GlobalChatLog.vue?vue&type=script&lang=js */ "./resources/js/vue/globalChat/GlobalChatLog.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatLog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatLog_vue_vue_type_template_id_31ffba08__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatLog.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatLog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatLog_vue_vue_type_template_id_31ffba08__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatLog.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54218,13 +54259,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _GlobalChatMessage_vue_vue_type_template_id_3b8a5382__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GlobalChatMessage.vue?vue&type=template&id=3b8a5382 */ "./resources/js/vue/globalChat/GlobalChatMessage.vue?vue&type=template&id=3b8a5382");
 /* harmony import */ var _GlobalChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GlobalChatMessage.vue?vue&type=script&lang=js */ "./resources/js/vue/globalChat/GlobalChatMessage.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatMessage_vue_vue_type_template_id_3b8a5382__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatMessage.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_GlobalChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_GlobalChatMessage_vue_vue_type_template_id_3b8a5382__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/globalChat/GlobalChatMessage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54246,13 +54287,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PrivateChatComposer_vue_vue_type_template_id_3522e070__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrivateChatComposer.vue?vue&type=template&id=3522e070 */ "./resources/js/vue/privateChat/PrivateChatComposer.vue?vue&type=template&id=3522e070");
 /* harmony import */ var _PrivateChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrivateChatComposer.vue?vue&type=script&lang=js */ "./resources/js/vue/privateChat/PrivateChatComposer.vue?vue&type=script&lang=js");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PrivateChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatComposer_vue_vue_type_template_id_3522e070__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatComposer.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PrivateChatComposer_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatComposer_vue_vue_type_template_id_3522e070__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatComposer.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54275,7 +54316,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PrivateChatMessage_vue_vue_type_template_id_526ae367__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrivateChatMessage.vue?vue&type=template&id=526ae367 */ "./resources/js/vue/privateChat/PrivateChatMessage.vue?vue&type=template&id=526ae367");
 /* harmony import */ var _PrivateChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrivateChatMessage.vue?vue&type=script&lang=js */ "./resources/js/vue/privateChat/PrivateChatMessage.vue?vue&type=script&lang=js");
 /* harmony import */ var _PrivateChatMessage_vue_vue_type_style_index_0_id_526ae367_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PrivateChatMessage.vue?vue&type=style&index=0&id=526ae367&lang=css */ "./resources/js/vue/privateChat/PrivateChatMessage.vue?vue&type=style&index=0&id=526ae367&lang=css");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -54283,7 +54324,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_PrivateChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatMessage_vue_vue_type_template_id_526ae367__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatMessage.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_PrivateChatMessage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatMessage_vue_vue_type_template_id_526ae367__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatMessage.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -54306,7 +54347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PrivateChatPage_vue_vue_type_template_id_e7c16342__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrivateChatPage.vue?vue&type=template&id=e7c16342 */ "./resources/js/vue/privateChat/PrivateChatPage.vue?vue&type=template&id=e7c16342");
 /* harmony import */ var _PrivateChatPage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrivateChatPage.vue?vue&type=script&lang=js */ "./resources/js/vue/privateChat/PrivateChatPage.vue?vue&type=script&lang=js");
 /* harmony import */ var _PrivateChatPage_vue_vue_type_style_index_0_id_e7c16342_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PrivateChatPage.vue?vue&type=style&index=0&id=e7c16342&lang=css */ "./resources/js/vue/privateChat/PrivateChatPage.vue?vue&type=style&index=0&id=e7c16342&lang=css");
-/* harmony import */ var _Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -54314,7 +54355,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_Users_bymikiii_Desktop_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_PrivateChatPage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatPage_vue_vue_type_template_id_e7c16342__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatPage.vue"]])
+const __exports__ = /*#__PURE__*/(0,c_laragon_www_GameStoreApp_GameStoreBETA_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_PrivateChatPage_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PrivateChatPage_vue_vue_type_template_id_e7c16342__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/vue/privateChat/PrivateChatPage.vue"]])
 /* hot reload */
 if (false) {}
 

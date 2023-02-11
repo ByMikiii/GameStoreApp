@@ -4,6 +4,8 @@
 
 @section('content')
 
+<h1 class="text-4xl heading text-center mb-6">OBCHOD</h1>
+
 <h1 class="text-3xl heading text-left mb-4">NOVINKY</h1>
 <ol id='games-list' class="h-full mb-16 mx-auto">
 @foreach ($newGames as $newgame)
@@ -12,7 +14,7 @@
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$newgame->name}}</span>
-        <p class="text-xs text-gray-500">{{$newgame->publisher->name}}</p>
+        <p class="text-xs text-gray-400">{{$newgame->publisher->name}}</p>
     </div>
     <span class="ml-auto py-2.5 font-semibold">
         <?php
@@ -37,7 +39,7 @@
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$saleGame->name}}</span>
-        <p class="text-xs text-gray-500">{{$saleGame->publisher->name}}</p>
+        <p class="text-xs text-gray-400">{{$saleGame->publisher->name}}</p>
     </div>
     <span class="ml-auto py-2.5 font-semibold">
         <?php
@@ -63,7 +65,7 @@
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$game->name}}</span>
-        <p class="text-xs text-gray-500">{{$game->publisher->name}}</p>
+        <p class="text-xs text-gray-400">{{$game->publisher->name}}</p>
     </div>
     <span class="ml-auto py-2.5 font-semibold">
         <?php

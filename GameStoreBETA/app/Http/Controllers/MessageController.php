@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Message;
+use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Events\MessagePosted;
@@ -56,6 +57,8 @@ class MessageController extends Controller
            'text' => $request->text,
            'receiver_id' => $request->receiver_id,
         ]);
+
+        Friend::where('friend_id', $request->receiver_id)->where('user_id', $auth->id)->update(['latest_message_text' => $request->text]);
 
         $receiver = User::where('id',$request->receiver_id)->get();
 

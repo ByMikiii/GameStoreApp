@@ -1,15 +1,21 @@
 <template>
-    <div class="mt-2 flex flex-wrap border border-b-0">
-        <span class="basket-item h-8">PRODUCT NAME</span>
-        <span class="basket-item h-8">QUANTITY</span>
-        <span class="basket-item h-8">PRICE</span>
-        <span class="basket-item h-8"></span>
+    <h1 class="text-3xl heading mb-5'">Nákupný košík</h1>
+
+    <div
+        class="mt-2 flex flex-wrap bg-scnd-color rounded-t-md border-b border-bg-color"
+    >
+        <span class="basket-item h-9 mt-1.5 text-xl">MENO PRODUKTU</span>
+        <span class="basket-item h-9 mt-1.5 text-xl">POČET KUSOV</span>
+        <span class="basket-item h-9 mt-1.5 text-xl">CENA</span>
+        <span class="basket-item h-9 mt-1.5 text-xl"></span>
     </div>
     <div
         id="invoices"
-        class="h-3/5 border mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+        class="h-3/5 bg-scnd-color rounded-b-md mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
     >
-        <h1 v-if="isEmpty" class="my-56 text-4xl">Your basket is empty. 🥲</h1>
+        <h1 v-if="isEmpty" class="my-56 text-4xl">
+            Váš nákupný košík je prázdny 🥲
+        </h1>
         <div
             class="mt-2 flex flex-wrap"
             v-for="basketitem in this.basket_items"
@@ -23,28 +29,35 @@
                 basketitem.sale_price
             }}</span>
 
-            <span class="basket-item"
-                ><button
-                    class="button h-8 bg-red-600"
+            <span class="basket-item">
+                <svg
+                    class="w-4 fill-red-400 hover:fill-red-600 cursor-pointer mx-auto"
                     @click="removeItem(basketitem)"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 320 512"
                 >
-                    Remove
-                </button></span
-            >
+                    <!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                        d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
+                    />
+                </svg>
+            </span>
         </div>
     </div>
     <div class="flex">
         <span class="text-left w-full"
-            >TOTAL PRICE: {{ this.total_price + " €" }}</span
+            >CELKOVÁ CENA: {{ this.total_price + " €" }}</span
         >
-
         <a href="/"
-            ><button class="button bg-gray-500 mr-2 mt-1 hover:text-red-600">
-                Continue Shopping
+            ><button class="mybutton bg-blue-500 h-8 mt-1 w-64 mr-3">
+                Pokračovať v nakupovaní
             </button></a
         >
-        <button class="button bg-green-500 mt-1" @click="makePurchase">
-            Pay Now
+        <button
+            class="mybutton bg-green-500 h-8 mt-1 w-32"
+            @click="makePurchase"
+        >
+            Zaplatiť
         </button>
     </div>
 </template>
@@ -75,7 +88,7 @@ export default {
         },
         recalculateBalance() {
             axios.get("/loggedUserBalance").then((response) => {
-                document.getElementById("wallet").innerHTML =
+                document.getElementById("balance").innerHTML =
                     response.data + " €";
             });
         },

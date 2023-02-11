@@ -1,30 +1,28 @@
 <template>
     <a
-        class="mybutton bg-green-500"
+        class="mt-auto mybutton bg-green-500 ml-auto"
         @click="addFriend"
         v-if="this.friendStatus == 0"
         >Add Friend</a
     >
 
-    <div v-if="this.friendStatus == 1">
-        <a class="mybutton bg-green-500 mr-2" @click="removeFriend"
-            >Remove Friend</a
-        >
-        <a class="mybutton bg-blue-500" :href="'/chat/' + this.user.name"
+    <div class="ml-auto mt-auto" v-if="this.friendStatus == 1">
+        <a class="mybutton bg-blue-500 mr-2" :href="'/chat/' + this.user.name"
             >Chat</a
         >
+        <a class="mybutton bg-green-500" @click="removeFriend">Remove Friend</a>
     </div>
 
     <a
-        class="mybutton bg-green-500"
+        class="mt-auto mybutton bg-green-500 w-40 ml-auto"
         @click="removeFriend"
         v-if="this.friendStatus == 2"
         >Request Pending</a
     >
 
-    <div v-if="this.friendStatus == 3">
-        <a @click="acceptFriend" class="mybutton bg-green-500 mr-2">Accept</a>
-        <a @click="removeFriend" class="mybutton bg-red-500">Decline</a>
+    <div class="mt-auto ml-auto" v-if="this.friendStatus == 3">
+        <a @click="removeFriend" class="mybutton bg-red-500 mr-2">Decline</a>
+        <a @click="acceptFriend" class="mybutton bg-green-500">Accept</a>
     </div>
 </template>
 <script>

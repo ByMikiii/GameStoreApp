@@ -3,19 +3,25 @@
 @section('title', $title)
 
 @section('content')
+<h1 class="heading text-4xl mb-8">Komunita</h1>
 <ol id='community-list' class="user-list">
-@foreach ($user as $u)
-<section id='user' class='bg-gray-800 p-4'>
-    <div class="h-20 grid text-black">
-        <a href="/user/{{$u->name}}" class="flex">
+@foreach ($user as $user)
+<section class='bg-scnd-color p-4 rounded-md h-32'>
+    <div class="h-full grid text-black">
+        <a href="/user/{{$user->name}}" class="flex">
+            <div class="rounded-full w-24">
             <img
-                src="{{$u->profile_photo}}"
+                src="{{$user->profile_photo}}"
                 alt="Profile Picture"
                 class="rounded-full"
             />
-            <p class="text-red-500 mt-2">{{ $u->name }}</p>
+            </div>
+            <div class="mt-1 ml-3 w-full text-left">
+            <p class="text-white">{{ $user->name }}</p>
+            <p class="text-gray-400 text-sm">{{$user->full_name}}</p>
+            </div>
 
-            <?php if(Auth::user()->id == $u->id): ?>
+            <?php if(Auth::user()->id == $user->id): ?>
             <strong
                 class="text-white mt-2"
             >
@@ -23,8 +29,8 @@
             >
             <?php endif; ?>
         </a>
-        <?php if(Auth::check() && Auth::user()->id != $u->id):?>
-        <addfriend :user="{{$u}}"
+        <?php if(Auth::check() && Auth::user()->id != $user->id):?>
+        <addfriend :user="{{$user}}"
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                    :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 
                    :pending-friends-from="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" > </addfriend>

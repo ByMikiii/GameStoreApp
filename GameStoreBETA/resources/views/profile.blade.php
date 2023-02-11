@@ -4,11 +4,13 @@
 
 @section('content')
 
-<img src="{{$user->profile_photo}}" alt="User Profile Photo" class="mx-auto rounded-full w-48 outline outline-2 outline-white">
+<div class="flex mx-auto w-72">
+<img src="{{$user->profile_photo}}" alt="User Profile Photo" class="rounded-full w-32">
 
-<h1 class="text-4xl">{{$user->name}}</h1>
+<div>
+<h1 class="text-left text-4xl heading">{{$user->name}}</h1>
 <?php if($user->name == Auth::user()->name):?>
-<button class="button is-success w-24">
+<button class="mybutton bg-green-500">
             Edit Profile
         </button>
 <?php else: ?>
@@ -18,12 +20,12 @@
                :pending-friends-from="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" >
     </addfriend>
 <?php endif;?>
+</div>
+</div>
 
+<h2 class="text-2xl text-left heading">Owned Games</h2>
 
-<h2 class="text-2xl text-left">Owned Games</h2>
-
-<h2 class="text-2xl text-left">Reviews</h2>
-
+<h2 class="text-2xl text-left heading">Reviews</h2>
 
 
 @stop

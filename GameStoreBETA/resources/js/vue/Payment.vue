@@ -4,15 +4,19 @@
         :pk="publishableKey"
         :sessionId="sessionId"
     />
-    <h2 class="text-xl">Add balance</h2>
-    <input
-        v-model="amount"
-        type="number"
-        min="5"
-        placeholder="€"
-        class="text-black w-10 h-6 text-center"
-    />
-    <button class="button is-success h-6 w-20" @click="submit">Pay now!</button>
+    <h2 class="text-3xl heading mb-2">Vklad</h2>
+    <div class="h-10">
+        <input
+            v-model="amount"
+            type="number"
+            min="5"
+            placeholder="€"
+            class="text-black w-14 h-8 text-xl text-center mr-6"
+        />
+        <button class="mybutton bg-green-500 h-8" @click="submit">
+            Zaplatiť
+        </button>
+    </div>
 </template>
 
 <script>

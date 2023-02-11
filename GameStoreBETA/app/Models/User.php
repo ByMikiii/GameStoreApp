@@ -26,12 +26,12 @@ class User extends Authenticatable
     //FRIENDS
     public function friendsTo(){
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
-            ->withPivot('isAccepted')->withPivot('latest_message_at');
+            ->withPivot('isAccepted')->withPivot('latest_message_at')->withPivot('latest_message_text');
     }
  
     public function friendsFrom(){
         return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
-            ->withPivot('isAccepted')->withPivot('latest_message_at');
+            ->withPivot('isAccepted')->withPivot('latest_message_at')->withPivot('latest_message_text');
     }
 
     public function pendingFriendsTo(){
@@ -87,6 +87,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'full_name',
         'name',
         'email',
         'password',
@@ -100,7 +101,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'email',
-        'full_name',
         'wallet',
         'address',
         'password',
