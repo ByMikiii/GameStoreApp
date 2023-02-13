@@ -9,11 +9,11 @@
 
 <div>
 <h1 class="text-left text-4xl heading">{{$user->name}}</h1>
-<?php if($user->name == Auth::user()->name):?>
+<?php if($user->name == Auth::user()?->name):?>
 <button class="mybutton bg-green-500">
             Edit Profile
         </button>
-<?php else: ?>
+<?php elseif(Auth::check()): ?>
     <addfriend :user="{{$user}}"
                :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 

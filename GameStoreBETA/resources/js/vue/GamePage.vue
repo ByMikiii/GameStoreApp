@@ -1,5 +1,10 @@
 <template>
-    <button class="button" @click="addToBasket">Add To Basket</button>
+    <button
+        class="mybutton bg-green-500 p-2 text-black hover:brightness-110"
+        @click="addToBasket"
+    >
+        Add To Basket
+    </button>
 </template>
 
 <script>

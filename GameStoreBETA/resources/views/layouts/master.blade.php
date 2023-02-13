@@ -1,6 +1,6 @@
 <?php
 if(Auth::check()){
-App::setLocale('sk');
+App::setLocale(Auth::user()->locale);
 }else App::setLocale('sk');
 ?>
 
@@ -85,11 +85,12 @@ App::setLocale('sk');
     <a class="list-item ml-auto pr-36" href="/login">Login</a>
     <a class="list-item mr-auto pl-36" href="/register">Register</a>
     </li>
-    @endif
+    @endif 
   </ul>
 
   <main id="app" class="mt-5 w-5/6 h-full text-center mx-auto">
     @yield('content')
+
 
     <?php if(Auth::check()): ?>
     <notification :auth="{{Auth::user()}}"></notification>

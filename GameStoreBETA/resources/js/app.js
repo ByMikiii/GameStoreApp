@@ -40,6 +40,14 @@ const app = createApp({
             this.globalMessages.push(message);
             axios.post("/globalmessages", message);
         },
+        async getLang(lang) {
+            try {
+                const response = await axios.get(`/lang/${lang}`);
+                console.log(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        },
     },
     created() {
         if (document.getElementById("logged")) {
@@ -75,6 +83,8 @@ const app = createApp({
         } else {
             document.getElementById("market").style.color = "white";
         }
+
+        //this.getLang("en");
     },
 });
 

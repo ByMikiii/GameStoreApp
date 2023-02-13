@@ -10,7 +10,7 @@
 <ol id='games-list' class="h-full mb-16 mx-auto">
 @foreach ($newGames as $newgame)
 <a href="/game/{{$newgame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color">
-    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$newgame->name}}"> 
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$newgame->slug.'/banner-1.jpg') }}" alt="Image of {{$newgame->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$newgame->name}}</span>
@@ -35,7 +35,7 @@
 <ol id='games-list' class="h-full mb-16">
 @foreach ($saleGames as $saleGame)
 <a href="/game/{{$saleGame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color mb-14">
-    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$saleGame->name}}"> 
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$saleGame->slug.'/banner-1.jpg') }}" alt="Image of {{$saleGame->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$saleGame->name}}</span>
@@ -61,7 +61,7 @@
 <ol id='games-list' class="h-full">
 @foreach ($games as $game)
 <a href="/game/{{$game->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color mb-14">
-    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/example.jpg') }}" alt="Image of {{$game->name}}"> 
+    <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$game->slug.'/banner-1.jpg') }}" alt="Image of {{$game->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
         <span class="font-semibold">{{$game->name}}</span>

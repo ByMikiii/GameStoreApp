@@ -7,6 +7,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,7 @@ Route::get('/balance', [PagesController::class, 'balance'])->middleware('auth');
 Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
 
 
-
+  Route::get('/lang/{lang}', [LangController::class, 'index']);
 
   Route::get('/login','LoginController@show_login_form')->name('Login');
   Route::post('/login','LoginController@process_login')->name('Loginn');
@@ -76,6 +77,8 @@ Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
   Route::post('/makePurchase', [PurchaseController::class, 'makePurchase'])->middleware('auth');
   Route::get('/loggedUserBalance', [UserController::class, 'balance'])->middleware('auth');
 
+  //Reviews
+  Route::get('/reviews/{game_id}', [ReviewController::class, 'index']);
 
   //Any other page
   Route::get('{any}', [PagesController::class, 'index']);

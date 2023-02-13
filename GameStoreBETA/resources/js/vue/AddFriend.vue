@@ -24,6 +24,14 @@
         <a @click="removeFriend" class="mybutton bg-red-500 mr-2">Decline</a>
         <a @click="acceptFriend" class="mybutton bg-green-500">Accept</a>
     </div>
+
+    <div class="ml-auto mt-auto" v-if="this.friendStatus == 4">
+        <a
+            class="mybutton bg-blue-500 mr-2 w-14"
+            :href="'/user/' + this.user.name"
+            >Profil</a
+        >
+    </div>
 </template>
 <script>
 export default {
@@ -40,6 +48,7 @@ export default {
         //              1 - Friends
         //              2 - Pending To
         //              3 - Pending From
+        //              4 - Pending From
 
         addFriend() {
             axios.post("/friends/create/" + this.user.id);
@@ -57,23 +66,27 @@ export default {
         },
 
         checkStatus() {
-            this.friends.forEach((friendId) => {
-                if (friendId == this.user.id) {
-                    this.friendStatus = 1;
-                }
-            });
-
-            this.pendingFriendsTo.forEach((pendingFriendToId) => {
-                if (pendingFriendToId == this.user.id) {
-                    this.friendStatus = 2;
-                }
-            });
-
-            this.pendingFriendsFrom.forEach((pendingFriendFromId) => {
-                if (pendingFriendFromId == this.user.id) {
-                    this.friendStatus = 3;
-                }
-            });
+            if (this.friends != "0") {
+                this.friends.forEach((friendId) => {
+                    if (friendId == this.user.id) {
+                        this.friendStatus = 1;
+                    }
+                });
+            } else if (this.pendingFriendsTo != "0") {
+                this.pendingFriendsTo.forEach((pendingFriendToId) => {
+                    if (pendingFriendToId == this.user.id) {
+                        this.friendStatus = 2;
+                    }
+                });
+            } else if (this.pendingFriendsFrom != "0") {
+                this.pendingFriendsFrom.forEach((pendingFriendFromId) => {
+                    if (pendingFriendFromId == this.user.id) {
+                        this.friendStatus = 3;
+                    }
+                });
+            } else {
+                this.friendStatus = 4;
+            }
         },
     },
 

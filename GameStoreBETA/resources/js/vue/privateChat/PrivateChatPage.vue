@@ -18,7 +18,7 @@
                     @click="changeCurrentUser(friend)"
                     v-bind:class="
                         friend.name === this.currentUser.name
-                            ? 'bg-amber-500'
+                            ? 'bg-yellow-400 text-black'
                             : null
                     "
                 >
@@ -41,7 +41,7 @@
             class="w-3/4 flex flex-col border-l border-bg-color"
         >
             <h1 class="text-center text-2xl p-1 heading">
-                {{ this.currentUser.name }} - Chat
+                {{ this.currentUser.name }}
             </h1>
 
             <div

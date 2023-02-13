@@ -17,11 +17,20 @@
                     @click="changeCurrentGame(game)"
                     v-bind:class="
                         game.name === this.currentGame.name
-                            ? 'bg-amber-500'
+                            ? 'bg-yellow-400 text-black'
                             : null
                     "
                 >
-                    <div class="p-2.5">
+                    <div class="p-2.5 flex">
+                        <img
+                            class="w-6 h-6 mr-2 rounded-sm object-cover"
+                            :src="
+                                '//localhost:3000/images/games/' +
+                                game.slug +
+                                '/banner-1.jpg'
+                            "
+                            alt="Game "
+                        />
                         <span class="truncate w-5/6">{{ game.name }}</span>
                     </div>
                 </li>
@@ -29,17 +38,34 @@
         </div>
         <div
             id="private-chat"
-            class="w-3/4 flex flex-col border-l border-bg-color"
+            class="flex flex-col border-l rounded-r-md border-bg-color overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color pb-40"
         >
             <h1 class="text-center text-2xl p-1 heading">
                 {{ this.currentGame.name }}
             </h1>
-        </div>
+            <img
+                class="rounded-md w-4/6 mx-auto h-auto m-4"
+                :src="
+                    '//localhost:3000/images/games/' +
+                    this.currentGame.slug +
+                    '/banner-1.jpg'
+                "
+                alt="Game "
+            />
+            <span class="text-center mx-24">{{
+                this.currentGame.description
+            }}</span>
 
-        <div
-            ref="privateChat"
-            class="h-full overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color p-4"
-        ></div>
+            <button
+                class="mybutton bg-blue-500 p-2 mt-4 text-black hover:brightness-110 w-40 mx-auto"
+            >
+                <a
+                    class="hover:text-black"
+                    :href="'/game/' + this.currentGame.slug"
+                    >Do obchodu</a
+                >
+            </button>
+        </div>
     </section>
 </template>
 

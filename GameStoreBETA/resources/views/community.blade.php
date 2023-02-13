@@ -21,7 +21,7 @@
             <p class="text-gray-400 text-sm">{{$user->full_name}}</p>
             </div>
 
-            <?php if(Auth::user()->id == $user->id): ?>
+            <?php if(Auth::user()?->id == $user->id): ?>
             <strong
                 class="text-white mt-2"
             >
@@ -29,7 +29,8 @@
             >
             <?php endif; ?>
         </a>
-        <?php if(Auth::check() && Auth::user()->id != $user->id):?>
+        <?php
+        if( Auth::user()?->id != $user->id):?>
         <addfriend :user="{{$user}}"
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                    :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 
