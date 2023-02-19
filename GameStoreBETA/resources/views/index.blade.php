@@ -9,7 +9,7 @@
 <h1 class="text-3xl heading text-left mb-4">NOVINKY</h1>
 <ol id='games-list' class="h-full mb-16 mx-auto">
 @foreach ($newGames as $newgame)
-<a href="/game/{{$newgame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 text-tx-color">
+<a href="/game/{{$newgame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 text-tx-color mb-14 mx-auto">
     <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$newgame->slug.'/banner-1.jpg') }}" alt="Image of {{$newgame->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
@@ -34,7 +34,7 @@
 <h1 class="text-3xl heading text-left mb-4">ZĽAVY</h1>
 <ol id='games-list' class="h-full mb-16">
 @foreach ($saleGames as $saleGame)
-<a href="/game/{{$saleGame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color hover:text-tx-color mb-14">
+<a href="/game/{{$saleGame->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:brightness-110 text-tx-color hover:text-tx-color mb-14 mx-auto">
     <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$saleGame->slug.'/banner-1.jpg') }}" alt="Image of {{$saleGame->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">
@@ -60,7 +60,7 @@
 <h1 class="text-3xl heading text-left mb-4">VŠETKY HRY</h1>
 <ol id='games-list' class="h-full">
 @foreach ($games as $game)
-<a href="/game/{{$game->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 text-tx-color mb-14">
+<a href="/game/{{$game->slug}}" class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 text-tx-color mb-14 mx-auto">
     <img class="object-cover rounded-t-md w-full h-2/3" src="{{ asset('/images/games/'.$game->slug.'/banner-1.jpg') }}" alt="Image of {{$game->name}}"> 
 <div class="flex text-left h-1/3 p-3">
     <div class="w-56 truncate">

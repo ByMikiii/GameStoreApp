@@ -3,7 +3,7 @@
         class="mt-auto mybutton bg-yellow-400 text-black ml-auto"
         @click="addFriend"
         v-if="this.friendStatus == 0"
-        >Add Friend</a
+        >Pridať priateľa</a
     >
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 1">
@@ -13,7 +13,7 @@
             >Chat</a
         >
         <a class="mybutton bg-yellow-400 text-black" @click="removeFriend"
-            >Remove Friend</a
+            >Odstraniť z priteľov</a
         >
     </div>
 
@@ -21,15 +21,15 @@
         class="mt-auto mybutton bg-yellow-400 text-black w-40 ml-auto"
         @click="removeFriend"
         v-if="this.friendStatus == 2"
-        >Request Pending</a
+        >Žiadosť odoslaná</a
     >
 
     <div class="mt-auto ml-auto" v-if="this.friendStatus == 3">
         <a @click="removeFriend" class="mybutton bg-red-500 mr-2 text-black"
-            >Decline</a
+            >Odmietnuť</a
         >
         <a @click="acceptFriend" class="mybutton bg-yellow-400 text-black"
-            >Accept</a
+            >Prijať</a
         >
     </div>
 
@@ -43,7 +43,13 @@
 </template>
 <script>
 export default {
-    props: ["user", "friends", "pendingFriendsTo", "pendingFriendsFrom"],
+    props: [
+        "user",
+        "friends",
+        "pendingFriendsTo",
+        "pendingFriendsFrom",
+        "isauth",
+    ],
 
     data() {
         return {
@@ -74,19 +80,17 @@ export default {
         },
 
         checkStatus() {
-            if (this.friends != "0") {
+            if (this.isauth == "1") {
                 this.friends.forEach((friendId) => {
                     if (friendId == this.user.id) {
                         this.friendStatus = 1;
                     }
                 });
-            } else if (this.pendingFriendsTo != "0") {
                 this.pendingFriendsTo.forEach((pendingFriendToId) => {
                     if (pendingFriendToId == this.user.id) {
                         this.friendStatus = 2;
                     }
                 });
-            } else if (this.pendingFriendsFrom != "0") {
                 this.pendingFriendsFrom.forEach((pendingFriendFromId) => {
                     if (pendingFriendFromId == this.user.id) {
                         this.friendStatus = 3;

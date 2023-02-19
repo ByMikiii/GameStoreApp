@@ -110,6 +110,12 @@ class PagesController extends Controller
             'reviews' => $reviews,
         ]);
     }
+    public function editprofile(){
+        return view('editprofile',[
+            'title' => Auth::user()->name." - Blast",
+            'user' => Auth::user(),
+        ]);
+    }
 
     public function user($username){
         $user = User::where("name", "=", $username)->get();

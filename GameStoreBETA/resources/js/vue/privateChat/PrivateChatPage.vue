@@ -147,8 +147,8 @@ export default {
                 return object.name === this.currentUser.name;
             });
 
-            this.friendlist.splice(indexOfUser, 1);
-            this.friendlist.unshift(this.currentUser);
+            //this.friendlist.splice(indexOfUser, 1);
+            //this.friendlist.unshift(this.currentUser);
         },
         scrollToEnd() {
             const elm = this.$refs.privateChat;

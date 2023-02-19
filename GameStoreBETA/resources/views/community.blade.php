@@ -27,9 +27,11 @@
             <p class="text-gray-400 text-sm">{{$user->full_name}}</p>
             </div>
         </a>
+        {{Auth::check()}}
         <?php
         if( Auth::user()?->id != $user->id):?>
         <addfriend :user="{{$user}}"
+                   :isauth="{{Auth::check()}}"
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>" 
                    :pending-friends-to="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>" 
                    :pending-friends-from="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" > </addfriend>

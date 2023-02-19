@@ -50,8 +50,7 @@
             v-bind:class="
                 review.positive_review === 1
                     ? 'bg-green-600'
-                    : 'bg-red-500 bg-opacity-70',
-
+                    : 'bg-red-500 bg-opacity-70'
             "
         >
             <div class="flex">

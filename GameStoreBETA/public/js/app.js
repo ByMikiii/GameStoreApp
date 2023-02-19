@@ -20849,7 +20849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["user", "friends", "pendingFriendsTo", "pendingFriendsFrom"],
+  props: ["user", "friends", "pendingFriendsTo", "pendingFriendsFrom", "isauth"],
   data: function data() {
     return {
       friendStatus: 0
@@ -20875,19 +20875,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     checkStatus: function checkStatus() {
       var _this = this;
-      if (this.friends != "0") {
+      if (this.isauth == "1") {
         this.friends.forEach(function (friendId) {
           if (friendId == _this.user.id) {
             _this.friendStatus = 1;
           }
         });
-      } else if (this.pendingFriendsTo != "0") {
         this.pendingFriendsTo.forEach(function (pendingFriendToId) {
           if (pendingFriendToId == _this.user.id) {
             _this.friendStatus = 2;
           }
         });
-      } else if (this.pendingFriendsFrom != "0") {
         this.pendingFriendsFrom.forEach(function (pendingFriendFromId) {
           if (pendingFriendFromId == _this.user.id) {
             _this.friendStatus = 3;
@@ -21501,8 +21499,9 @@ __webpack_require__.r(__webpack_exports__);
       var indexOfUser = this.friendlist.findIndex(function (object) {
         return object.name === _this3.currentUser.name;
       });
-      this.friendlist.splice(indexOfUser, 1);
-      this.friendlist.unshift(this.currentUser);
+
+      //this.friendlist.splice(indexOfUser, 1);
+      //this.friendlist.unshift(this.currentUser);
     },
     scrollToEnd: function scrollToEnd() {
       var _this4 = this;
@@ -21553,7 +21552,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.addFriend && $options.addFriend.apply($options, arguments);
     })
-  }, "Add Friend")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "Pridať priateľa")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "mybutton bg-blue-400 text-black mr-2",
     href: '/chat/' + this.user.name
   }, "Chat", 8 /* PROPS */, _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
@@ -21561,23 +21560,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
-  }, "Remove Friend")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  }, "Odstraniť z priteľov")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 2,
     "class": "mt-auto mybutton bg-yellow-400 text-black w-40 ml-auto",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
-  }, "Request Pending")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "Žiadosť odoslaná")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     }),
     "class": "mybutton bg-red-500 mr-2 text-black"
-  }, "Decline"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "Odmietnuť"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[4] || (_cache[4] = function () {
       return $options.acceptFriend && $options.acceptFriend.apply($options, arguments);
     }),
     "class": "mybutton bg-yellow-400 text-black"
-  }, "Accept")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, "Prijať")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "mybutton bg-blue-500 mr-2 w-14",
     href: '/user/' + this.user.name
   }, "Profil", 8 /* PROPS */, _hoisted_5)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
@@ -22143,21 +22142,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = ["href"];
-var _hoisted_2 = {
-  "class": "block m-0 mr-2 ml-2"
+var _hoisted_1 = {
+  "class": "flex"
 };
-var _hoisted_3 = {
-  "class": "text-xs block"
+var _hoisted_2 = ["href"];
+var _hoisted_3 = ["src"];
+var _hoisted_4 = {
+  "class": "block m-0 my-auto"
 };
+var _hoisted_5 = ["href"];
+var _hoisted_6 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [this.message.receiver.name === this.auth.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    key: 0,
+    "class": "w-10 mt-auto mb-3 h-auto mr-2",
+    href: '/user/' + this.message.sender.name
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "rounded-full",
+    src: this.message.sender.profile_photo,
+    alt: "Profile Photo"
+  }, null, 8 /* PROPS */, _hoisted_3)], 8 /* PROPS */, _hoisted_2)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     id: "privateMessage",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bg-blue-500 rounded-xl rounded-bl-none mb-2 text-left", this.message.sender.name === this.auth.name ? 'ml-auto text-right rounded-bl-xl rounded-br-none' : null])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "text-xs block m-0 mr-2 ml-2",
-    href: 'user/' + this.message.sender.name
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.message.sender.name), 9 /* TEXT, PROPS */, _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.message.text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.messageTimeAgo), 1 /* TEXT */)], 2 /* CLASS */);
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["rounded-xl mb-3 text-left text-black px-2 py-1", this.message.sender.name === this.auth.name ? 'ml-auto text-left rounded-br-sm bg-yellow-400' : 'rounded-bl-sm bg-gray-100'])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.message.text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <small\r\n                class=\"text-xs text-gray-500 bg-slate-400 bg-opacity-40 rounded-lg p-1\"\r\n                >{{ this.messageTimeAgo }}</small\r\n            > ")], 2 /* CLASS */), this.message.sender.name === this.auth.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    key: 1,
+    "class": "w-10 mt-auto mb-3 h-auto ml-2",
+    href: '/user/' + this.message.sender.name
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "rounded-full",
+    src: this.message.sender.profile_photo,
+    alt: "Profile Photo"
+  }, null, 8 /* PROPS */, _hoisted_6)], 8 /* PROPS */, _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),

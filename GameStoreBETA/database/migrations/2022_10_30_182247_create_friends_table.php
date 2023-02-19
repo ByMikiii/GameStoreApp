@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->timestamp('latest_message_at')->nullable(true);
-            $table->string('latest_message_text', 255)->default('');
+            $table->string('latest_message_text', 255)->default(' ');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('friend_id');
             $table->boolean('isAccepted')->default(0);

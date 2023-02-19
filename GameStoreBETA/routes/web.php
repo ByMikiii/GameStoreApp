@@ -28,6 +28,7 @@ Route::get('/game/{gameslug}', [PagesController::class, 'game']);
 Route::get('/library', [PagesController::class, 'library'])->middleware('auth');
 Route::get('/community', [PagesController::class, 'community']);
 Route::get('/profile', [PagesController::class, 'profile'])->middleware('auth');
+Route::get('/profile/edit', [PagesController::class, 'editprofile'])->middleware('auth');
 Route::get('/user/{username}', [PagesController::class, 'user']);
 Route::get('/friends', [PagesController::class, 'chat'])->middleware('auth');
 Route::get('/chat', [PagesController::class, 'chat'])->middleware('auth');
