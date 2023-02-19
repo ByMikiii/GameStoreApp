@@ -65,12 +65,12 @@
                     >Do obchodu</a
                 >
             </button>
-            <reviews
+            <!-- <reviews
                 :auth="this.auth"
                 :game="this.currentGame"
                 :owngame="1"
                 :reviews="this.currentGameReviews"
-            ></reviews>
+            ></reviews> -->
         </div>
     </section>
 </template>
@@ -91,18 +91,9 @@ export default {
     methods: {
         changeCurrentGame(gamee) {
             this.currentGame = gamee;
-            if (Object.keys(this.currentGame.reviews).length !== 0) {
-                let jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
-                this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
-            }
         },
     },
-    created() {
-        if (Object.keys(this.currentgamee.reviews).length !== 0) {
-            let jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
-            this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
-        }
-    },
+    created() {},
 };
 </script>
 

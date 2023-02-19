@@ -21068,18 +21068,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changeCurrentGame: function changeCurrentGame(gamee) {
       this.currentGame = gamee;
-      if (Object.keys(this.currentGame.reviews).length !== 0) {
-        var jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
-        this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
-      }
     }
   },
-  created: function created() {
-    if (Object.keys(this.currentgamee.reviews).length !== 0) {
-      var jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
-      this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
-    }
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -21788,7 +21779,6 @@ var _hoisted_13 = {
 var _hoisted_14 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
-  var _component_reviews = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("reviews");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Games "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "(" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.gamelist.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.gamelist, function (game, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       id: "game",
@@ -21809,12 +21799,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.currentGame.description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "hover:text-black",
     href: '/game/' + this.currentGame.slug
-  }, "Do obchodu", 8 /* PROPS */, _hoisted_14)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_reviews, {
-    auth: this.auth,
-    game: this.currentGame,
-    owngame: 1,
-    reviews: this.currentGameReviews
-  }, null, 8 /* PROPS */, ["auth", "game", "reviews"])])]);
+  }, "Do obchodu", 8 /* PROPS */, _hoisted_14)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <reviews\r\n                :auth=\"this.auth\"\r\n                :game=\"this.currentGame\"\r\n                :owngame=\"1\"\r\n                :reviews=\"this.currentGameReviews\"\r\n            ></reviews> ")])]);
 }
 
 /***/ }),
