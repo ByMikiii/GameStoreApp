@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 100);
             $table->text('review_text');
             $table->boolean('positive_review');
             $table->unsignedInteger('user_id');

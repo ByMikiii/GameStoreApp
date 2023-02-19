@@ -11,13 +11,13 @@
             <ul class="h-full text-left">
                 <li
                     id="game"
-                    class="cursor-pointer flex"
+                    class="cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5 w-64"
                     v-for="(game, index) in this.gamelist"
                     :key="index"
                     @click="changeCurrentGame(game)"
                     v-bind:class="
                         game.name === this.currentGame.name
-                            ? 'bg-yellow-400 text-black'
+                            ? 'bg-yellow-400 text-black hover:brightness-105 hover:bg-yellow-400 hover:bg-opacity-100'
                             : null
                     "
                 >
@@ -31,7 +31,7 @@
                             "
                             alt="Game "
                         />
-                        <span class="truncate w-5/6">{{ game.name }}</span>
+                        <span class="truncate w-56">{{ game.name }}</span>
                     </div>
                 </li>
             </ul>
@@ -57,7 +57,7 @@
             }}</span>
 
             <button
-                class="mybutton bg-blue-500 p-2 mt-4 text-black hover:brightness-110 w-40 mx-auto"
+                class="mybutton bg-blue-400 p-2 mt-4 text-black hover:brightness-110 w-40 mx-auto"
             >
                 <a
                     class="hover:text-black"
@@ -65,26 +65,44 @@
                     >Do obchodu</a
                 >
             </button>
+            <reviews
+                :auth="this.auth"
+                :game="this.currentGame"
+                :owngame="1"
+                :reviews="this.currentGameReviews"
+            ></reviews>
         </div>
     </section>
 </template>
 
 <script>
+import { isProxy, toRaw } from "vue";
+
 export default {
-    props: ["games", "currentgamee"],
+    props: ["games", "currentgamee", "auth"],
     data() {
         return {
             noGames: true,
             gamelist: this.games,
             currentGame: this.currentgamee,
+            currentGameReviews: null,
         };
     },
     methods: {
         changeCurrentGame(gamee) {
             this.currentGame = gamee;
+            if (Object.keys(this.currentGame.reviews).length !== 0) {
+                let jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
+                this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
+            }
         },
     },
-    updated() {},
+    created() {
+        if (Object.keys(this.currentgamee.reviews).length !== 0) {
+            let jsonString = JSON.stringify(this.currentGame.reviews); // convert proxy object to string
+            this.currentGameReviews = JSON.parse(jsonString); // convert string to JSON object
+        }
+    },
 };
 </script>
 

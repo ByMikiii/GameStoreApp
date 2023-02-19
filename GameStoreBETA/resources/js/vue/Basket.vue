@@ -13,7 +13,7 @@
         id="invoices"
         class="h-3/5 bg-scnd-color rounded-b-md mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
     >
-        <h1 v-if="isEmpty" class="my-56 text-4xl">
+        <h1 v-if="isEmpty" class="my-56 text-4xl heading">
             Váš nákupný košík je prázdny 🥲
         </h1>
         <div
@@ -49,12 +49,14 @@
             >CELKOVÁ CENA: {{ this.total_price + " €" }}</span
         >
         <a href="/"
-            ><button class="mybutton bg-blue-500 h-8 mt-1 w-64 mr-3">
+            ><button
+                class="mybutton bg-blue-400 text-black h-8 mt-1 w-64 mr-3 hover:brightness-125"
+            >
                 Pokračovať v nakupovaní
             </button></a
         >
         <button
-            class="mybutton bg-green-500 h-8 mt-1 w-32"
+            class="mybutton bg-yellow-400 text-black h-8 mt-1 w-32 hover:brightness-125"
             @click="makePurchase"
         >
             Zaplatiť

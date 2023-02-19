@@ -1,15 +1,23 @@
 <template>
     <button
-        class="mybutton bg-green-500 p-2 text-black hover:brightness-110"
-        @click="addToBasket"
+        class="mybutton bg-tx-color p-2 text-black hover:brightness-110 ml-4 mr-auto relative mb-0 mt-auto"
+        v-if="this.owngame == 1"
     >
-        Add To Basket
+        Túto hru už vlastníš
+    </button>
+
+    <button
+        class="mybutton bg-tx-color p-2 text-black hover:brightness-110 ml-4 mr-auto relative mb-0 mt-auto"
+        @click="addToBasket"
+        v-if="this.owngame == 0"
+    >
+        Pridať do košíku
     </button>
 </template>
 
 <script>
 export default {
-    props: ["game"],
+    props: ["game", "owngame"],
     data() {
         return {};
     },

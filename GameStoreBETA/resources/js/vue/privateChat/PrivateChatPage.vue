@@ -12,13 +12,13 @@
             <ul class="h-full text-left">
                 <li
                     id="friend"
-                    class="p-2 cursor-pointer flex"
+                    class="p-2 cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5"
                     v-for="(friend, index) in friendlist"
                     :key="index"
                     @click="changeCurrentUser(friend)"
                     v-bind:class="
                         friend.name === this.currentUser.name
-                            ? 'bg-yellow-400 text-black'
+                            ? 'bg-yellow-400 text-black hover:brightness-105 hover:bg-yellow-400 hover:bg-opacity-100'
                             : null
                     "
                 >
@@ -64,7 +64,7 @@
         </div>
     </section>
     <h1 v-if="this.noFriends" class="text-5xl text-center mt-72 heading">
-        You have no friends. 🥲
+        Nemáte žiadnych priateľov. 🥲
     </h1>
 </template>
 

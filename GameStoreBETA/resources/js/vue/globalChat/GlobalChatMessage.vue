@@ -1,6 +1,6 @@
 <template>
     <div
-        class="chat-message"
+        class="chat-message border-b border-bg-color pb-2 px-4 hover:bg-gray-500 hover:bg-opacity-10"
         v-bind:class="
             message.user.name === this.auth.name ? 'text-right' : null
         "

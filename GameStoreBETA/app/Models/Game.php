@@ -26,10 +26,6 @@ class Game extends Model
         return $this->hasMany(Game_genre::class);
     }
 
-    public function review(){
-        return $this->hasMany(Review::class);
-    }
-
     public function invoice_item(){
         return $this->belongsTo(Invoice_item::class);
     }
@@ -47,6 +43,12 @@ class Game extends Model
     public function ownedBy(){
         return $this->belongsToMany(OwnedGame::class, 'owned_games');
     }
+
+    //Reviews
+    public function reviews(){
+        return $this->hasMany(Review::class, 'game_id' );
+    }
+
 
 
 }

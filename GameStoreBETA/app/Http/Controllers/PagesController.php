@@ -8,6 +8,7 @@ use App\Models\Game;
 use App\Models\Review;
 use App\Models\Basket_item;
 use App\Models\Message;
+use App\Models\OwnedGame;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
@@ -30,11 +31,19 @@ class PagesController extends Controller
         
         if(!$game->isEmpty()){
             $game = $game[0];
-            $reviews = Review::where('game_id', $game->id)->with('user')->get();
+            $reviews = Review::where('game_id', $game->id)->with('user')->orderBy('id', 'desc')->get();
+
+        $owngame = Auth::user()?->ownedGames()->where('game_id', $game->id)->get();
+        if($owngame == null) { $owngame = 0;}
+        else if($owngame != "[]"){
+            $owngame = 1;
+        }else { $owngame = 0;}
+
         return view('game',[
             'title' => $game->name." - Blast",
             'game' => $game,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'owngame' => $owngame,
         ]);
         }
         else{
@@ -45,7 +54,7 @@ class PagesController extends Controller
     public function library(){
         return view('library',[
             'title' => 'Library - Blast',
-            'games' => Auth::user()->ownedGames()->get(),
+            'games' => Auth::user()->ownedGames()->with('reviews')->get(),
             ]);
 }
 
@@ -81,7 +90,7 @@ class PagesController extends Controller
         $friends = json_encode(Auth::user()->friends()->all());
         return view('friends',[
             'title' => "Friends - Blast",
-            'friends' => $friends
+            'friends' => $friends,
           
         ]);
     }
@@ -94,15 +103,17 @@ class PagesController extends Controller
     }
 
     public function profile(){
+         $reviews = Review::where('user_id', Auth::user()->id)->with('user')->with('game')->orderBy('id','desc')->get();
         return view('profile',[
             'title' => Auth::user()->name." - Blast",
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'reviews' => $reviews,
         ]);
     }
 
     public function user($username){
         $user = User::where("name", "=", $username)->get();
-
+        $reviews = Review::where('user_id', $user[0]->id)->with('user')->with('game')->orderBy('id','desc')->get();
         if(Auth::check() && $username == Auth::user()->name){
             return redirect()->action([PagesController::class, 'profile']);
         }
@@ -130,6 +141,7 @@ class PagesController extends Controller
             'friends' => $friends,
             'pendingFriendsTo' => json_encode($pFriendsTo),
             'pendingFriendsFrom' => json_encode($pFriendsFrom),
+            'reviews' => $reviews
         ]);
         }
         else{
