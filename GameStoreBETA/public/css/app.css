@@ -1099,6 +1099,9 @@ body {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
+.border-tx-color {
+  border-color: var(--txcolor);
+}
 .bg-scnd-color {
   background-color: var(--scndcolor);
 }

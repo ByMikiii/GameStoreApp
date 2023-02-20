@@ -17,7 +17,7 @@
             />
             </div>
             <div class="mt-1 ml-3 w-full text-left">
-            <p class="text-white">{{ $user->name }} <?php if(Auth::user()?->id == $user->id): ?>
+            <p class="text-tx-color">{{ $user->name }} <?php if(Auth::user()?->id == $user->id): ?>
             <strong
                 class="text-white mt-2"
             >
@@ -27,7 +27,6 @@
             <p class="text-gray-400 text-sm">{{$user->full_name}}</p>
             </div>
         </a>
-        {{Auth::check()}}
         <?php
         if( Auth::user()?->id != $user->id):?>
         <addfriend :user="{{$user}}"
