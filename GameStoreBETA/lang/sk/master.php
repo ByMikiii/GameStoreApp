@@ -9,6 +9,9 @@ return [
   'login' => 'PRIHLÁSIŤ SA',
   'register' => 'VYTVORIŤ ÚČET',
 
+
+  'typesomething' => 'Napíšte niečo',
+
 ]
 
 ?>

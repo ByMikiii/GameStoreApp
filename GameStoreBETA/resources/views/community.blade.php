@@ -3,7 +3,13 @@
 @section('title', $title)
 
 @section('content')
-<h1 class="heading text-4xl mb-8">Komunita</h1>
+
+<?php if(Auth::check()){
+App::setLocale(Auth::user()->locale);
+}else App::setLocale('sk');
+?>
+
+<h1 class="heading text-4xl mb-8">{{__('community.community')}}</h1>
 <ol id='community-list' class="user-list">
 @foreach ($user as $user)
 <section class='bg-scnd-color p-4 rounded-md h-32 hover:brightness-105'>

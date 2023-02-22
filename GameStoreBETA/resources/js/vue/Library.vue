@@ -5,7 +5,7 @@
     >
         <div class="flex-grow">
             <h1 class="text-center text-2xl p-1 heading">
-                Games <small>({{ this.gamelist.length }})</small>
+                Hry <small>({{ this.gamelist.length }})</small>
             </h1>
 
             <ul class="h-full text-left">

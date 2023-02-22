@@ -6,20 +6,20 @@
     >
         <div class="flex-grow">
             <h1 class="text-center text-2xl p-1 heading">
-                Friends <small>({{ this.friendlist.length }})</small>
+                Priatelia <small>({{ this.friendlist.length }})</small>
             </h1>
 
             <ul class="h-full text-left">
                 <li
                     id="friend"
-                    class="p-2 cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5"
+                    class="p-2 cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5 font-semibold"
                     v-for="(friend, index) in friendlist"
                     :key="index"
                     @click="changeCurrentUser(friend)"
                     v-bind:class="
                         friend.name === this.currentUser.name
                             ? 'bg-yellow-400 text-black hover:brightness-105 hover:bg-yellow-400 hover:bg-opacity-100'
-                            : null
+                            : 'text-yellow-400 '
                     "
                 >
                     <img

@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     //LIBRARY
     public function ownedGames(){
-        return $this->belongsToMany(Game::class, 'owned_games');
+        return $this->belongsToMany(Game::class, 'owned_games')->withPivot('created_at');
     }
 
     //REVIEWS

@@ -88,6 +88,13 @@ App::setLocale(Auth::user()->locale);
     @endif 
   </ul>
 
+  <?php if(Auth::check()):?>
+<div class="w-full text-right mt-1">
+  <a href="/changelang/sk" class="font-semibold hover:text-tx-color <?php if(App::currentLocale() == 'sk'){echo "underline";}?>">SK</a>
+  <a href="/changelang/en" class="font-semibold mr-3 hover:text-tx-color <?php if(App::currentLocale() == 'en'){echo "underline";}?>">EN</a>
+</div>
+<?php endif; ?>
+
   <main id="app" class="mt-5 w-5/6 h-full text-center mx-auto">
     @yield('content')
 
@@ -100,7 +107,7 @@ App::setLocale(Auth::user()->locale);
     
     @if (Auth::check())
     <section id='global-chat' class='bg-scnd-color fixed bottom-16 right-2 border border-bg-color w-96 h-5/6 rounded-md flex-col flex invisible '>
-      <h1 class='text-center text-2xl w-full p-1 pb-2 heading'>Global Chat</h1>
+      <h1 class='text-center text-2xl w-full p-1 pb-2 heading'>{{__('master.globalchat')}}</h1>
       <global-chat-log class='py-1 scrollbar-thin scrollbar-thumb-bg-color scrollbar-track-scnd-color' :messages="globalMessages" :auth="{{Auth::user()}}"></global-chat-log>
       <global-chat-composer v-on:globalmessagesent="addMessage" :auth="{{Auth::user()}}"></global-chat-composer>
     </section>
@@ -110,7 +117,7 @@ App::setLocale(Auth::user()->locale);
   </main>
 
 
-  <footer class="text-xs fixed bottom-0 left-0">©2023 Bardáč</footer>
+  <footer class="text-xs fixed bottom-0 left-0">2023 Bardáč</footer>
 
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>

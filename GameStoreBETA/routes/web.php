@@ -38,6 +38,7 @@ Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
 
 
   Route::get('/lang/{lang}', [LangController::class, 'index']);
+  Route::get('/changelang/{lang}', [LangController::class, 'changelang']);
 
   Route::get('/login','LoginController@show_login_form')->name('Login');
   Route::post('/login','LoginController@process_login')->name('Loginn');

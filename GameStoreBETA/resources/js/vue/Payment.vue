@@ -4,7 +4,6 @@
         :pk="publishableKey"
         :sessionId="sessionId"
     />
-    <h2 class="text-3xl heading mb-2">Vklad</h2>
     <div class="h-10">
         <input
             v-model="amount"

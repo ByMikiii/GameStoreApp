@@ -50,6 +50,7 @@ const app = createApp({
         },
     },
     created() {
+        //alert("Hello! I am an alert box!!");
         if (document.getElementById("logged")) {
             axios.get("/globalmessages").then((response) => {
                 this.globalMessages = response.data;

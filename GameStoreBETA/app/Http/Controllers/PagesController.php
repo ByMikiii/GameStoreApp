@@ -104,10 +104,13 @@ class PagesController extends Controller
 
     public function profile(){
          $reviews = Review::where('user_id', Auth::user()->id)->with('user')->with('game')->orderBy('id','desc')->get();
+         
+         $games = Auth::user()->ownedGames()->get();
         return view('profile',[
             'title' => Auth::user()->name." - Blast",
             'user' => Auth::user(),
             'reviews' => $reviews,
+            'games' => $games,
         ]);
     }
     public function editprofile(){
@@ -141,13 +144,15 @@ class PagesController extends Controller
                     array_push($pFriendsFrom, $pf->id);
                 }   
             }
+            $games = $user[0]->ownedGames()->get();
          return view('profile',[
             'title' => $user[0]->name." - Blast",
             'user' => $user[0],
             'friends' => $friends,
             'pendingFriendsTo' => json_encode($pFriendsTo),
             'pendingFriendsFrom' => json_encode($pFriendsFrom),
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'games' => $games,
         ]);
         }
         else{

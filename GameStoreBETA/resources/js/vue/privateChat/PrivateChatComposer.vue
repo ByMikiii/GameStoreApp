@@ -3,7 +3,7 @@
         <input
             type="text"
             maxlength="255"
-            placeholder="Type something..."
+            placeholder="Napíšte niečo..."
             class="bg-transparent flex-auto outline-none p-2"
             v-model="privateMessageText"
             @keyup.enter="sendPrivateMessage"
