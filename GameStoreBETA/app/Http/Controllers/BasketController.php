@@ -43,16 +43,16 @@ class BasketController extends Controller
         $alreadyOwned = OwnedGame::where('game_id', $game_id)->where('user_id', Auth::user()->id)->get();
 
         if(!$alreadyInBasket->isempty()){
-            broadcast(new NotificationSent('Item already in basket!', Auth::user(), 'red'));
+            broadcast(new NotificationSent('Túto položku už v košíku máte!', Auth::user(), 'red'));
         }
         else if(!$alreadyOwned->isempty()){
-            broadcast(new NotificationSent('You already own this game!', Auth::user(), 'red'));
+            broadcast(new NotificationSent('Túto položku už vlastníte!', Auth::user(), 'red'));
         }
         else{
             Basket_item::create([
                 'user_id' => Auth::user()->id,
                 'game_id' => $game_id]);
-            broadcast(new NotificationSent('Item was added to basket!', Auth::user(), 'green'));
+            broadcast(new NotificationSent('Položka bola pridaná do košíka!', Auth::user(), 'green'));
         }
     }
 

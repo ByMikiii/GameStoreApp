@@ -33,7 +33,6 @@
 <div class="ml-auto"></div>
 <?php endif; ?>
 
-
     <?php if(Auth::check()): ?>
 <gamepage :game="{{$game}}" :owngame="{{$owngame}}"></gamepage>
     <?php else: ?>
@@ -44,6 +43,13 @@
 
 </div>
 
+<div id="genres" class="text-left w-5/12 mt-2 h-16"> 
+    
+    @foreach ($game->game_genre as $genre)
+    <small class="bg-gray-600 text-gray-100 py-0.5 px-1 rounded-sm opacity-70 relative mr-2">#{{$genre->genre_name}} </small>
+    @endforeach
+    
+</div>
 <reviews :auth="{{Auth::user()}}" :game="{{$game}}" :reviews="{{$reviews}}" :owngame="{{$owngame}}"></reviews>
 
 

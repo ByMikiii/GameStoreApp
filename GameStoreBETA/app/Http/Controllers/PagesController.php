@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Game;
 use App\Models\Review;
 use App\Models\Basket_item;
+use App\Models\Game_genre;
+use App\Models\Genre;
 use App\Models\Message;
 use App\Models\OwnedGame;
 use Illuminate\Support\Facades\Auth;
@@ -17,17 +19,19 @@ class PagesController extends Controller
     public function index(){
         $newGames = Game::orderBy('created_at', 'desc')->get()->slice(0, 4);
         $saleGames = Game::where('is_sale', 1)->orderBy('original_price', 'desc')->get();
+        $games = Game::orderBy('name', 'asc')->with('game_genre')->get();
+        $genres = Genre::all();
         return view('index',[
-            'games' => Game::orderBy('name', 'asc')->get(),
+            'games' => $games,
             'newGames' => $newGames,
             'saleGames' => $saleGames,
             'title' => 'Market - Blast',
-            
+            'genres' => $genres,
         ]);
     }
 
     public function game($gameslug){
-        $game = Game::where("slug", "=", $gameslug)->get();
+        $game = Game::where("slug", "=", $gameslug)->with('game_genre')->get();
         
         if(!$game->isEmpty()){
             $game = $game[0];

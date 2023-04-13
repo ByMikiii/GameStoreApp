@@ -14,6 +14,8 @@ import Library from "./vue/Library.vue";
 
 import Reviews from "./vue/Reviews.vue";
 
+import GameFilter from "./vue/GameFilter.vue";
+
 import Notification from "./vue/Notification.vue";
 
 import GlobalChatComposer from "./vue/globalChat/GlobalChatComposer.vue";
@@ -122,5 +124,8 @@ app.component("library", Library);
 
 //REVIEWS
 app.component("reviews", Reviews);
+
+//GAME FILTER
+app.component("gamefilter", GameFilter);
 
 app.mount("#app");

@@ -23,7 +23,7 @@ class Game extends Model
     }
 
     public function game_genre(){
-        return $this->hasMany(Game_genre::class);
+        return $this->belongsToMany(Genre::class, 'game_genres');
     }
 
     public function invoice_item(){
