@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('publisher_id');
             $table->float('original_price', 10, 2);
             $table->float('sale_price', 10, 2);
+            $table->integer('review_count')->default(0);
             $table->boolean('is_sale');
             $table->timestamp('release_date');
             $table->unsignedInteger('system_requirement_id')->nullable();

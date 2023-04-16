@@ -45,8 +45,6 @@ export default {
         },
     },
 };
-
-console.log();
 </script>
 
 <style></style>

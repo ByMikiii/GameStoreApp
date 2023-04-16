@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
+use App\Models\Game;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Events\NotificationSent;
@@ -25,6 +26,11 @@ class ReviewController extends Controller
            'user_id' => Auth::user()->id
         ]);
 
+        Game::where("id", $request->game_id)->increment('review_count', 1);
+
+        
+
+
         broadcast(new NotificationSent('Recenzia bola odoslaná!', Auth::user(), 'green'));
     }
 
@@ -37,6 +43,8 @@ class ReviewController extends Controller
     public function destroy($game_id)
     {
         Review::where('game_id', $game_id)->where('user_id', Auth::user()->id)->delete();
+
+        Game::where("id", $game_id)->decrement('review_count', 1);
         
         broadcast(new NotificationSent('Recenzia bola odstranená!', Auth::user(), 'green'));
     }

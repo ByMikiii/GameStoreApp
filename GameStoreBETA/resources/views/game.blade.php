@@ -8,12 +8,12 @@
     <p class="text-left text-4xl heading mb-5">{{ $game->name }}</p>
     <div class="flex h-96">
         <img
-            class="w-1/2 h-full rounded-md mx-auto"
+            class="w-1/2 max-w-full h-full rounded-md mx-auto"
 
             src="//localhost:3000/images/games/{{ $game->slug }}/banner-1.jpg"
             alt="Game Image"
         />
-<div class="px-4 h-full relative flex flex-col">
+<div class="px-4 w-4/6 h-full relative flex flex-col">
     <div class="overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">{{ $game->description }}</div>
 
    <div class="flex-1 flex mt-2">

@@ -7,6 +7,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\GamesController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PurchaseController;
@@ -57,6 +58,9 @@ Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
   Route::post('/friends/create/{friend_id}', [FriendController::class, 'create'])->middleware('auth');
   Route::patch('/friends/update/{friend_id}', [FriendController::class, 'update'])->middleware('auth');
   Route::delete('/friends/delete/{friend_id}', [FriendController::class, 'destroy'])->middleware('auth');
+
+  //Games
+  Route::get('/getGame/{game_name}/{genre}/{sort}', [GamesController::class, 'getGame']);
 
   //Global messages
   Route::get('/globalmessages', [GlobalMessageController::class, 'index'])->middleware('auth');

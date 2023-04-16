@@ -17,9 +17,9 @@ class PagesController extends Controller
 {
 
     public function index(){
-        $newGames = Game::orderBy('created_at', 'desc')->get()->slice(0, 4);
-        $saleGames = Game::where('is_sale', 1)->orderBy('original_price', 'desc')->get();
-        $games = Game::orderBy('name', 'asc')->with('game_genre')->get();
+        $newGames = Game::orderBy('created_at', 'desc')->with('publisher')->get()->slice(0, 4);
+        $saleGames = Game::where('is_sale', 1)->with('publisher')->orderBy('original_price', 'desc')->get();
+        $games = Game::orderBy('name', 'asc')->with('publisher')->get();
         $genres = Genre::all();
         return view('index',[
             'games' => $games,
