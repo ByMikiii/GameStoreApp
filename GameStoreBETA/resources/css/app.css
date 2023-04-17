@@ -58,7 +58,7 @@
     border-radius: 0.1rem
   }
 
-  @media only screen and (max-width: 1550px) {
+  @media only screen and (max-width: 1500px) {
     #community-list {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }

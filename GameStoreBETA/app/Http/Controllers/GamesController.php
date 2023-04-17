@@ -29,8 +29,11 @@ class GamesController extends Controller
         }elseif($Sort == "Reviews"){
             $sort_row = "review_count";
         }
-
-        $games = Game::where('name', 'ILIKE', '%'.$game_name.'%')->with('publisher')->with('game_genre')->orderBy($sort_row, $sort)->get();
+        if($Sort != ""){
+            $games = Game::where('name', 'LIKE', '%'.$game_name.'%')->with('publisher')->with('game_genre')->orderBy($sort_row, $sort)->get();
+        }else{
+            $games = Game::where('name', 'LIKE', '%'.$game_name.'%')->with('publisher')->with('game_genre')->get();
+        }
         $found_games = array();
 
        foreach($games as $game){
@@ -39,6 +42,9 @@ class GamesController extends Controller
                 array_push($found_games, $game);
             }
         }
+            if($Genre == ""){
+                array_push($found_games, $game);
+            }
        }
 
        return $found_games;

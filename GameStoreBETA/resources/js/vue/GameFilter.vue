@@ -4,12 +4,12 @@
             class="bg-bg-color border-b ml-auto mr-10 focus:outline-none"
             name="filter-name"
             placeholder="Search by name"
-            v-model="name"
+            v-model="namee"
             type="text"
         />
 
         <div class="select mr-10">
-            <select v-model="genre">
+            <select v-model="genree">
                 <option value="" selected disabled hidden>
                     Filter by genre
                 </option>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="select mr-10">
-            <select v-model="order">
+            <select v-model="orderr">
                 <option value="" selected disabled>Order</option>
 
                 <option>Highest price</option>
@@ -33,13 +33,7 @@
         </div>
 
         <button
-            class="mybutton bg-green-500 h-10 rounded-md p-2 px-4 mr-10 hover:brightness-110"
-            @click="submit"
-        >
-            Submit
-        </button>
-        <button
-            class="mybutton bg-red-500 h-10 rounded-md p-2 px-4 mr-auto hover:brightness-110"
+            class="mybutton bg-scnd-color text-tx-color h-10 rounded-md p-2 px-4 mr-auto hover:brightness-110"
             @click="reset"
         >
             Reset
@@ -74,13 +68,13 @@
                     </span>
                     <span
                         class="ml-auto py-2.5 font-semibold"
-                        v-if="foundgame.is_sale === 1"
+                        v-else-if="foundgame.is_sale === 1"
                     >
                         {{ foundgame.sale_price + "€" }}
                     </span>
                     <span
                         class="ml-auto py-2.5 font-semibold"
-                        v-if="foundgame.is_sale === 0"
+                        v-else-if="foundgame.is_sale === 0"
                     >
                         {{ foundgame.original_price + "€" }}
                     </span>
@@ -90,7 +84,7 @@
     </div>
 
     <div v-if="!this.isFilter">
-        <h1 class="text-3xl heading text-left mb-4">gfdgdf</h1>
+        <h1 class="text-3xl heading text-left mb-4">NOVINKY</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="newgame in this.newgames"
@@ -131,7 +125,7 @@
             </a>
         </ol>
 
-        <h1 class="text-3xl heading text-left mb-4">gfdgdf</h1>
+        <h1 class="text-3xl heading text-left mb-4">ZĽAVY</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="salegame in this.salegames"
@@ -172,7 +166,7 @@
             </a>
         </ol>
 
-        <h1 class="text-3xl heading text-left mb-4">gfdgdf</h1>
+        <h1 class="text-3xl heading text-left mb-4">VŠETKY HRY</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="allgame in this.allgames"
@@ -220,9 +214,12 @@ export default {
     props: ["genres", "newgames", "salegames", "allgames"],
     data() {
         return {
-            genre: "",
-            name: "",
-            order: "",
+            genre: "null",
+            name: "null",
+            order: "null",
+            genree: "",
+            namee: "",
+            orderr: "",
             isFilter: false,
             foundGames: [],
         };
@@ -230,10 +227,6 @@ export default {
 
     methods: {
         submit() {
-            console.log(this.genre);
-            console.log(this.name);
-            console.log(this.order);
-
             if (this.name == "") {
                 var game_name = "null";
             } else {
@@ -255,7 +248,6 @@ export default {
             axios
                 .get("getGame/" + game_name + "/" + game_genre + "/" + order)
                 .then((res) => {
-                    console.log(res.data);
                     this.foundGames = res.data;
                     this.isFilter = true;
                 });
@@ -264,14 +256,29 @@ export default {
             this.name = "";
             this.order = "";
             this.genre = "";
+            this.namee = "";
+            this.orderr = "";
+            this.genree = "";
             this.isFilter = false;
         },
     },
 
-    created() {
-        console.log(this.newgames);
+    created() {},
+    updated() {
+        if (
+            this.name != this.namee ||
+            this.order != this.orderr ||
+            this.genre != this.genree
+        ) {
+            this.name = this.namee;
+            this.order = this.orderr;
+            this.genre = this.genree;
+            this.submit();
+        }
+        if (this.namee === "" && this.orderr === "" && this.genree === "") {
+            this.reset();
+        }
     },
-    updated() {},
 };
 </script>
 

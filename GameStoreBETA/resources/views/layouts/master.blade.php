@@ -95,7 +95,7 @@ App::setLocale(Auth::user()->locale);
 </div>
 <?php endif; ?>
 
-  <main id="app" class="mt-5 w-5/6 h-full text-center mx-auto">
+  <main id="app" class="mt-5 w-10/12 h-full text-center mx-auto">
     @yield('content')
 
 
