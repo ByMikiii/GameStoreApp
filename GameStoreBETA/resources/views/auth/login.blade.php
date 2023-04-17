@@ -38,7 +38,7 @@
                                         {{ __('auth.remember') }}
                                     </label>
                                 </div> --}}
-                                <button type="submit" class=" mt-5 mb-5 mybutton bg-yellow-300 p-2 text-black hover:brightness-110">
+                                <button type="submit" class="mt-5 mb-5 mybutton bg-yellow-300 p-2 text-black hover:brightness-110">
                                     {{ __('auth.loginin') }}
                                 </button>
                     </form>

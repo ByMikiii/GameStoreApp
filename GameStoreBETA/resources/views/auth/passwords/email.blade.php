@@ -1,12 +1,10 @@
 @extends('layouts.master')
-@section('title', 'Reset password')
+@section('title', 'Reset password - Blast')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+
+                <div class="pt-4 mx-auto my-48 bg-scnd-color rounded-md w-2/5 h-60">
+                <div class="heading text-3xl mb-6">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,11 +16,10 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <div class="row mb-5">
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="focus:outline-none focus:border-b-yellow-300 bg-scnd-color border-b form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +31,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="mt-5 mb-5 mybutton bg-yellow-300 p-2 text-black hover:brightness-110">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>

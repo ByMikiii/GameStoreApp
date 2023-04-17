@@ -6,8 +6,8 @@
 
 <h1 class="text-4xl heading text-center mb-4">Úprava profilu</h1>
 
-<div id="private-chat" class="bg-scnd-color w-5/6 relative rounded-md mx-auto p-4 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
-<div class="mx-auto mt-4">
+<div id="private-chat" class="bg-scnd-color w-2/3 relative rounded-md mx-auto p-4 overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
+<div class="mx-auto mt-6">
     <img src="{{$user->profile_photo}}" alt="User Profile Photo" class="rounded-full w-32 mx-auto">
 
 
@@ -40,7 +40,10 @@
   <input class="focus:outline-none mx-auto focus:border-b-yellow-300 bg-scnd-color border-b text-2xl" spellcheck="false" id="oldpassword" type="password" placeholder="Old password" class="form-control" name="oldpassword">
 </div>
 
-<button type="submit" class="mt-12 mybutton bg-tx-color text-black p-2 px-4 text-lg hover:brightness-125">Save</button>
+<div class="flex mt-20 mx-auto text-center">
+  <button type="submit" class="mybutton bg-blue-400 text-black p-2 px-4 text-lg hover:brightness-125 ml-auto mr-5"><a href="http://localhost:3000/password/email">Change password</a></button>
+  <button type="submit" class="mybutton bg-tx-color text-black p-2 px-4 text-lg hover:brightness-125 mr-auto">Save</button>
+</div>
 
 </form>
 
