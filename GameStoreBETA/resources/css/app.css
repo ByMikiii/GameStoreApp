@@ -177,6 +177,10 @@
   #privateMessage {
     height: auto;
   }
+
+  .game-price {
+    @apply ml-auto py-2.5 font-bold;
+  }
 }
 
 @import 'bulma/css/bulma.min.css';

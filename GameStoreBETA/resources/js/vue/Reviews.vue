@@ -10,7 +10,7 @@
         >
             <div class="flex">
                 <textarea
-                    class="w-4/5 mr-5 h-20 bg-scnd-color focus:outline-none"
+                    class="w-4/5 mr-5 h-20 bg-scnd-color focus:outline-none brightness-75"
                     v-model="currentreview"
                     placeholder="Sem môžete napísať hodnotenie pre túto hru..."
                     cols="30"

@@ -1,18 +1,26 @@
 <template>
     <div class="flex mb-5">
         <input
-            class="bg-bg-color border-b ml-auto mr-10 focus:outline-none"
+            class="bg-bg-color border-b ml-6 focus:outline-none"
             name="filter-name"
-            placeholder="Search by name"
+            placeholder="Search"
             v-model="namee"
             type="text"
         />
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            class="w-4 fill-gray-500 relative bottom-0.5 right-5"
+        >
+            <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+            />
+        </svg>
 
-        <div class="select mr-10">
+        <div class="select ml-auto mr-10">
             <select v-model="genree">
-                <option value="" selected disabled hidden>
-                    Filter by genre
-                </option>
+                <option value="" selected disabled hidden>Genre</option>
 
                 <option value="">All</option>
                 <option v-for="genre in genres">
@@ -33,7 +41,7 @@
         </div>
 
         <button
-            class="mybutton bg-scnd-color text-tx-color h-10 rounded-md p-2 px-4 mr-auto hover:brightness-110"
+            class="mybutton bg-scnd-color text-tx-color h-10 rounded-md p-2 px-4 mr-6 hover:brightness-110"
             @click="reset"
         >
             Reset
@@ -46,7 +54,7 @@
             <a
                 v-for="foundgame in this.foundGames"
                 :href="'/game/' + foundgame.slug"
-                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-110 text-tx-color mb-14 mx-auto"
+                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-105 transition-all text-tx-color mb-14 mx-auto"
             >
                 <img
                     class="object-cover rounded-t-md w-full h-2/3"
@@ -61,19 +69,19 @@
                         </p>
                     </div>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-if="foundgame.original_price === 0"
                     >
                         Free
                     </span>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-else-if="foundgame.is_sale === 1"
                     >
                         {{ foundgame.sale_price + "€" }}
                     </span>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-else-if="foundgame.is_sale === 0"
                     >
                         {{ foundgame.original_price + "€" }}
@@ -89,7 +97,7 @@
             <a
                 v-for="newgame in this.newgames"
                 :href="'/game/' + newgame.slug"
-                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-110 text-tx-color mb-14 mx-auto"
+                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-105 transition-all text-tx-color mb-14 mx-auto"
             >
                 <img
                     class="object-cover rounded-t-md w-full h-2/3"
@@ -104,21 +112,15 @@
                         </p>
                     </div>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-if="newgame.original_price === 0"
                     >
                         Free
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-if="newgame.is_sale === 1"
-                    >
+                    <span class="game-price" v-if="newgame.is_sale === 1">
                         {{ newgame.sale_price + "€" }}
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-if="newgame.is_sale === 0"
-                    >
+                    <span class="game-price" v-if="newgame.is_sale === 0">
                         {{ newgame.original_price + "€" }}
                     </span>
                 </div>
@@ -130,7 +132,7 @@
             <a
                 v-for="salegame in this.salegames"
                 :href="'/game/' + salegame.slug"
-                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-110 text-tx-color mb-14 mx-auto"
+                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-105 transition-all text-tx-color mb-14 mx-auto"
             >
                 <img
                     class="object-cover rounded-t-md w-full h-2/3"
@@ -145,21 +147,15 @@
                         </p>
                     </div>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-if="salegame.original_price === 0"
                     >
                         Free
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-if="salegame.is_sale === 1"
-                    >
+                    <span class="game-price" v-if="salegame.is_sale === 1">
                         {{ salegame.sale_price + "€" }}
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-if="salegame.is_sale === 0"
-                    >
+                    <span class="game-price" v-if="salegame.is_sale === 0">
                         {{ salegame.original_price + "€" }}
                     </span>
                 </div>
@@ -171,7 +167,7 @@
             <a
                 v-for="allgame in this.allgames"
                 :href="'/game/' + allgame.slug"
-                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-110 text-tx-color mb-14 mx-auto"
+                class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-105 transition-all text-tx-color mb-14 mx-auto"
             >
                 <img
                     class="object-cover rounded-t-md w-full h-2/3"
@@ -186,21 +182,15 @@
                         </p>
                     </div>
                     <span
-                        class="ml-auto py-2.5 font-semibold"
+                        class="game-price"
                         v-if="allgame.original_price === 0"
                     >
                         Free
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-else-if="allgame.is_sale === 1"
-                    >
+                    <span class="game-price" v-else-if="allgame.is_sale === 1">
                         {{ allgame.sale_price + "€" }}
                     </span>
-                    <span
-                        class="ml-auto py-2.5 font-semibold"
-                        v-else-if="allgame.is_sale === 0"
-                    >
+                    <span class="game-price" v-else-if="allgame.is_sale === 0">
                         {{ allgame.original_price + "€" }}
                     </span>
                 </div>
