@@ -35,7 +35,7 @@
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 4">
         <a
-            class="mybutton bg-blue-500 mr-2 w-14"
+            class="mybutton bg-blue-500 mr-2 px-2 py-1 w-14"
             :href="'/user/' + this.user.name"
             >Profil</a
         >

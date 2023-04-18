@@ -9,7 +9,7 @@
             @keyup.enter="sendPrivateMessage"
         />
         <button
-            class="rounded-none rounded-br-md w-8 h-8 pr-2 pt-1 fill-gray-400 hover:fill-white"
+            class="rounded-none rounded-br-md w-8 h-8 pr-2 mr-2 pt-1 fill-gray-400 hover:fill-white"
             @click="sendPrivateMessage"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

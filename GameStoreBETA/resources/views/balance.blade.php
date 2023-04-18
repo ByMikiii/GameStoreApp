@@ -10,7 +10,7 @@ App::setLocale(Auth::user()->locale);
 }else App::setLocale('sk');
 ?>
 
-<h1 class='text-center text-3xl heading mb-5'>{{__('balance.orders')}}</h1>
+<h1 class='text-center text-3xl heading mb-5 '>{{__('balance.orders')}}</h1>
 
 <div class="flex flex-wrap bg-scnd-color rounded-t-md">
      <h1 class="text-xl border-b border-bg-color invoice-header mt-1">Id</h1>

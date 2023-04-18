@@ -4,15 +4,23 @@
         :pk="publishableKey"
         :sessionId="sessionId"
     />
-    <div class="h-10">
-        <input
-            v-model="amount"
-            type="number"
-            min="5"
-            placeholder="€"
-            class="text-black w-14 h-8 text-xl text-center mr-6"
-        />
-        <button class="mybutton bg-green-500 h-8" @click="submit">
+    <div class="h-10 flex w-full">
+        <div class="border-b pl-2 pr-1 rounded-sm ml-auto pt-0.5">
+            <input
+                v-model="amount"
+                type="number"
+                min="5"
+                max="10"
+                class="w-10 text-xl text-right bg-bg-color focus:outline-none"
+            />
+            <span class="ml-1.5 text-2xl my-auto pt-0.5 text-tx-color text-left"
+                >€</span
+            >
+        </div>
+        <button
+            class="mybutton bg-scnd-color mr-auto px-2 py-1 ml-10 hover:brightness-110 hover:text-tx-color"
+            @click="submit"
+        >
             Zaplatiť
         </button>
     </div>

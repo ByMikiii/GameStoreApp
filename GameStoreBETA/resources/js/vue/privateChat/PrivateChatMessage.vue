@@ -17,14 +17,20 @@
             v-bind:class="
                 this.message.sender.name === this.auth.name
                     ? 'ml-auto text-left rounded-br-sm bg-yellow-400'
-                    : 'rounded-bl-sm bg-gray-100'
+                    : 'rounded-bl-sm text-right bg-blue-300'
             "
         >
-            <span class="block m-0 my-auto">{{ this.message.text }}</span>
-            <!-- <small
-                class="text-xs text-gray-500 bg-slate-400 bg-opacity-40 rounded-lg p-1"
-                >{{ this.messageTimeAgo }}</small
-            > -->
+            <span class="my-auto">{{ this.message.text }}</span>
+            <p
+                class="text-xs text-gray-500"
+                v-bind:class="
+                    this.message.sender.name === this.auth.name
+                        ? 'text-right'
+                        : 'text-left'
+                "
+            >
+                {{ this.messageTimeAgo }}
+            </p>
         </div>
         <a
             class="w-10 mt-auto mb-3 h-auto ml-2"

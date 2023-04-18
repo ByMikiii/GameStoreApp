@@ -133,7 +133,7 @@
   }
 
   #invoices {
-    height: 68vh;
+    height: 64vh;
   }
 
   .invoice-header {
@@ -161,6 +161,21 @@
 
   #live-page {
     color: rgb(255, 230, 0);
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  #privateMessage {
+    height: auto;
   }
 }
 
