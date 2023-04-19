@@ -28,17 +28,17 @@ App::setLocale(Auth::user()->locale);
 <?php endif;?>
 </div>
 </div>
-<div class="bg-scnd-color h-96 rounded-md flex text-center overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
+<div class="bg-bg-color mb-14 rounded-md flex text-center overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color">
 
-    <div class="w-1/2 p-4 ml-auto border-r border-bg-color ">
+    <div class="w-1/2 p-4 ml-auto">
     <h2 class="text-2xl heading mb-4">{{__('profile.ownedgames')}}</h2>
     <ol>
         @foreach ($games as $game)
         <li
-            class="bg-bg-color rounded-md mb-5 p-4 text-left relative flex hover:brightness-110 "
+            class="bg-scnd-color rounded-md mb-5 text-left relative flex hover:brightness-110"
         >
         <img
-                            class="w-40 mr-2 rounded-sm object-cover"
+                            class="w-48 mr-3 rounded-l-md object-cover"
                             src="//localhost:3000/images/games/{{$game->slug}}/banner-1.jpg"
                             
                             alt="Game Banner"

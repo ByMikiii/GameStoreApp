@@ -28,7 +28,6 @@ class ReviewController extends Controller
 
         Game::where("id", $request->game_id)->increment('review_count', 1);
 
-        
 
 
         broadcast(new NotificationSent('Recenzia bola odoslaná!', Auth::user(), 'green'));

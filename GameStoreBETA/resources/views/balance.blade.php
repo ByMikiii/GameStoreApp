@@ -30,7 +30,7 @@ App::setLocale(Auth::user()->locale);
         <span class="invoice">{{$invoice->id}}</span>
         <span class="invoice <?php if($invoice->type == 0){echo 'text-green-600';} else echo 'text-red-600';?>">{{$invoice->total_price}}€</span>
         <span class="invoice"><?php if($invoice->type == 0){echo __('balance.deposit');} else echo __('balance.purchase');?></span>
-        <span class="invoice">{{$invoice->created_at}}</span>
+        <span class="invoice">{{$invoice->created_at->format('d. m. Y')}}</span>
      @endforeach
 </div>
 

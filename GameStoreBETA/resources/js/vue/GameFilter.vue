@@ -1,7 +1,7 @@
 <template>
     <div class="flex mb-5">
         <input
-            class="bg-bg-color border-b ml-6 focus:outline-none"
+            class="bg-bg-color border-b ml-6 focus:outline-none w-60"
             name="filter-name"
             placeholder="Search"
             v-model="namee"
@@ -10,7 +10,7 @@
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
-            class="w-4 fill-gray-500 relative bottom-0.5 right-5"
+            class="w-4 fill-gray-500 relative bottom-0.5 right-5 hover:cursor-pointer"
         >
             <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path

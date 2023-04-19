@@ -3,7 +3,7 @@
         class="mybutton bg-tx-color p-2 text-black hover:brightness-110 ml-4 mr-auto relative mb-0 mt-auto"
         v-if="this.owngame == 1"
     >
-        Túto hru už vlastníš
+        Túto hru už vlastníte
     </button>
 
     <button
