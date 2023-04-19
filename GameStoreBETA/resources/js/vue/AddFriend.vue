@@ -81,21 +81,27 @@ export default {
 
         checkStatus() {
             if (this.isauth == "1") {
-                this.friends.forEach((friendId) => {
-                    if (friendId == this.user.id) {
-                        this.friendStatus = 1;
-                    }
-                });
-                this.pendingFriendsTo.forEach((pendingFriendToId) => {
-                    if (pendingFriendToId == this.user.id) {
-                        this.friendStatus = 2;
-                    }
-                });
-                this.pendingFriendsFrom.forEach((pendingFriendFromId) => {
-                    if (pendingFriendFromId == this.user.id) {
-                        this.friendStatus = 3;
-                    }
-                });
+                if (this.friends != 0) {
+                    this.friends.forEach((friendId) => {
+                        if (friendId == this.user.id) {
+                            this.friendStatus = 1;
+                        }
+                    });
+                }
+                if (this.pendingFriendsTo != 0) {
+                    this.pendingFriendsTo.forEach((pendingFriendToId) => {
+                        if (pendingFriendToId == this.user.id) {
+                            this.friendStatus = 2;
+                        }
+                    });
+                }
+                if (this.pendingFriendsFrom != 0) {
+                    this.pendingFriendsFrom.forEach((pendingFriendFromId) => {
+                        if (pendingFriendFromId == this.user.id) {
+                            this.friendStatus = 3;
+                        }
+                    });
+                }
             } else {
                 this.friendStatus = 4;
             }

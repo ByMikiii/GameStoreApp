@@ -10,7 +10,7 @@
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
-            class="w-4 fill-gray-500 relative bottom-0.5 right-5 hover:cursor-pointer"
+            class="w-4 fill-gray-500 relative right-5 hover:cursor-pointer"
         >
             <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
@@ -41,7 +41,7 @@
         </div>
 
         <button
-            class="mybutton bg-scnd-color text-tx-color h-10 rounded-md p-2 px-4 mr-6 hover:brightness-110"
+            class="mybutton bg-scnd-color h-10 rounded-md p-2 px-4 mr-6 hover:brightness-110"
             @click="reset"
         >
             Reset

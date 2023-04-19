@@ -12,6 +12,8 @@ import FlashMessage from "./vue/FlashMessage.vue";
 
 import Library from "./vue/Library.vue";
 
+import Community from "./vue/Community.vue";
+
 import Reviews from "./vue/Reviews.vue";
 
 import GameFilter from "./vue/GameFilter.vue";
@@ -127,5 +129,8 @@ app.component("reviews", Reviews);
 
 //GAME FILTER
 app.component("gamefilter", GameFilter);
+
+//COMMUNITY
+app.component("community", Community);
 
 app.mount("#app");

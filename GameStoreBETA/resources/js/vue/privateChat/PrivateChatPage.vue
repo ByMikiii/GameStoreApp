@@ -29,7 +29,7 @@
                     />
                     <div class="ml-4 mt-3">
                         <span class="truncate w-5/6">{{ friend.name }}</span>
-                        <p class="truncate text-gray-400 text-xs w-52">
+                        <p class="truncate text-gray-400 text-xs w-48">
                             {{ friend.pivot.latest_message_text }}
                         </p>
                     </div>
