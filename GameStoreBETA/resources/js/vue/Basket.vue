@@ -2,36 +2,47 @@
     <h1 class="text-3xl heading mb-5'">Nákupný košík</h1>
 
     <div
-        class="mt-2 flex flex-wrap bg-scnd-color rounded-t-md border-b border-bg-color"
-    >
-        <span class="basket-item h-9 mt-1.5 text-xl">MENO PRODUKTU</span>
-        <span class="basket-item h-9 mt-1.5 text-xl">POČET KUSOV</span>
-        <span class="basket-item h-9 mt-1.5 text-xl">CENA</span>
-        <span class="basket-item h-9 mt-1.5 text-xl"></span>
-    </div>
-    <div
         id="invoices"
-        class="h-3/5 bg-scnd-color rounded-b-md mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color"
+        class="rounded-md mx-auto text-center overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color w-9/12"
     >
         <h1 v-if="isEmpty" class="my-56 text-4xl heading">
             Váš nákupný košík je prázdny 🥲
         </h1>
-        <div
-            class="mt-2 flex flex-wrap"
+        <a
+            class="mt-8 flex flex-wrap bg-scnd-color rounded-md"
             v-for="basketitem in this.basket_items"
+            :href="'/game/' + basketitem.slug"
         >
-            <span class="basket-item">{{ basketitem.name }}</span>
-            <span class="basket-item">1</span>
-            <span class="basket-item" v-if="basketitem.is_sale === 0">{{
-                basketitem.original_price
-            }}</span>
-            <span class="basket-item" v-if="basketitem.is_sale === 1">{{
-                basketitem.sale_price
-            }}</span>
+            <img
+                class="w-48 rounded-l-md"
+                :src="
+                    '//localhost:3000/images/games/' +
+                    basketitem.slug +
+                    '/banner-1.jpg'
+                "
+                alt=""
+            />
+            <div class="text-left ml-4">
+                <span class="heading text-2xl mt-4">{{ basketitem.name }}</span>
+                <span class="text-gray-400">{{
+                    basketitem.publisher.name
+                }}</span>
+            </div>
 
-            <span class="basket-item">
+            <span
+                class="heading text-xl mt-16 ml-auto"
+                v-if="basketitem.is_sale === 0"
+                >{{ basketitem.original_price }}€</span
+            >
+            <span
+                class="heading text-xl mt-16 ml-auto"
+                v-if="basketitem.is_sale === 1"
+                >{{ basketitem.sale_price }}€</span
+            >
+
+            <span class="mr-2 mt-1">
                 <svg
-                    class="w-4 fill-red-400 hover:fill-red-600 cursor-pointer mx-auto"
+                    class="w-4 fill-red-500 hover:fill-red-600 cursor-pointer mr-0.5"
                     @click="removeItem(basketitem)"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 320 512"
@@ -42,9 +53,9 @@
                     />
                 </svg>
             </span>
-        </div>
+        </a>
     </div>
-    <div class="flex">
+    <div class="flex w-9/12 mx-auto mt-24">
         <span class="text-left w-full"
             >CELKOVÁ CENA: {{ this.total_price + " €" }}</span
         >

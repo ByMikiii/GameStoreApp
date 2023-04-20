@@ -189,7 +189,7 @@ class PagesController extends Controller
         
     }
     public function basket(){
-        $basketitems = Auth::user()->basketitems()->get();
+        $basketitems = Auth::user()->basketitems()->with('publisher')->get();
         $totalprice = 0;
         foreach($basketitems as $basketitem){
             if($basketitem->is_sale == 1){
