@@ -3,7 +3,7 @@
         class="mt-auto mybutton bg-yellow-400 text-black ml-auto"
         @click="addFriend"
         v-if="this.friendStatus == 0"
-        >Pridať priateľa</a
+        >{{ __("addfriend") }}</a
     >
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 1">
@@ -12,32 +12,32 @@
             :href="'/chat/' + this.user.name"
             >Chat</a
         >
-        <a class="mybutton bg-yellow-400 text-black" @click="removeFriend"
-            >Odstraniť z priteľov</a
-        >
+        <a class="mybutton bg-yellow-400 text-black" @click="removeFriend">{{
+            __("unfriend")
+        }}</a>
     </div>
 
     <a
         class="mt-auto mybutton bg-yellow-400 text-black w-40 ml-auto"
         @click="removeFriend"
         v-if="this.friendStatus == 2"
-        >Žiadosť odoslaná</a
+        >{{ __("requestsent") }}</a
     >
 
     <div class="mt-auto ml-auto" v-if="this.friendStatus == 3">
-        <a @click="removeFriend" class="mybutton bg-red-500 mr-2 text-black"
-            >Odmietnuť</a
-        >
-        <a @click="acceptFriend" class="mybutton bg-yellow-400 text-black"
-            >Prijať</a
-        >
+        <a @click="removeFriend" class="mybutton bg-red-500 mr-2 text-black">{{
+            __("decline")
+        }}</a>
+        <a @click="acceptFriend" class="mybutton bg-yellow-400 text-black">{{
+            __("accept")
+        }}</a>
     </div>
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 4">
         <a
             class="mybutton bg-blue-500 mr-2 px-2 py-1 w-14"
             :href="'/user/' + this.user.name"
-            >Profil</a
+            >{{ __("viewprofile") }}</a
         >
     </div>
 </template>

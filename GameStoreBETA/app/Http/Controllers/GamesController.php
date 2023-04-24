@@ -20,9 +20,9 @@ class GamesController extends Controller
 
         $sort = "desc";
         if($Sort == "Highest price"){
-            $sort_row = "original_price";
+            $sort_row = "current_price";
         }elseif($Sort == "Lowest price"){
-            $sort_row = "original_price";
+            $sort_row = "current_price";
             $sort = "asc";
         }elseif($Sort == "Newest"){
             $sort_row = "release_date";

@@ -18,9 +18,10 @@ class PagesController extends Controller
 
     public function index(){
         $newGames = Game::orderBy('created_at', 'desc')->with('publisher')->get()->slice(0, 4);
-        $saleGames = Game::where('is_sale', 1)->with('publisher')->orderBy('original_price', 'desc')->get();
+        $saleGames = Game::where('is_sale', 1)->with('publisher')->get();
         $games = Game::orderBy('name', 'asc')->with('publisher')->get();
         $genres = Genre::all();
+
         return view('index',[
             'games' => $games,
             'newGames' => $newGames,
@@ -192,9 +193,7 @@ class PagesController extends Controller
         $basketitems = Auth::user()->basketitems()->with('publisher')->get();
         $totalprice = 0;
         foreach($basketitems as $basketitem){
-            if($basketitem->is_sale == 1){
-                $totalprice += $basketitem->sale_price;
-            }else{$totalprice += $basketitem->original_price;}  
+            $totalprice += $basketitem->current_price;
         }
         
         return view('basket', [

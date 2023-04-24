@@ -15,7 +15,9 @@ App::setLocale(Auth::user()->locale);
                     <?php if(Auth::check()){echo ":authid=\"".Auth::user()->id."\"";}?>
                    :friends="<?php if (Auth::check()) {  echo $friends;} else { echo 0;}?>"
                    :pendingfriendsto="<?php if (Auth::check()) {  echo $pendingFriendsTo;} else { echo 0;}?>"
-                   :pendingfriendsfrom="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>" >
+                   :pendingfriendsfrom="<?php if (Auth::check()) {  echo $pendingFriendsFrom;} else { echo 0;}?>"
+                   :lang="'{{Lang::locale()}}'" >
         </community>
 
 @stop
+

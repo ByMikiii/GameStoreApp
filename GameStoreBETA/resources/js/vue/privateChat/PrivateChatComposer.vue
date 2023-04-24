@@ -1,9 +1,11 @@
 <template>
-    <div class="chat-composer flex rounded-md mt-auto w-full relative">
+    <div
+        class="chat-composer flex mt-auto w-full relative border-t border-bg-color pt-0.5"
+    >
         <input
             type="text"
             maxlength="255"
-            placeholder="Napíšte niečo..."
+            :placeholder="__('typesomething')"
             class="bg-transparent flex-auto outline-none p-2"
             v-model="privateMessageText"
             @keyup.enter="sendPrivateMessage"
@@ -24,11 +26,14 @@
 
 <script>
 export default {
-    props: ["auth", "currentUser"],
+    props: ["auth", "currentUser", "lang"],
     data() {
         return {
             privateMessageText: "",
         };
+    },
+    created() {
+        this.$lang().setLocale(this.lang);
     },
     methods: {
         sendPrivateMessage() {

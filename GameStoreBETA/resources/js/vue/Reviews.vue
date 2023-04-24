@@ -1,6 +1,6 @@
 <template>
     <h1 class="text-3xl heading text-left mt-8 mb-4" v-if="this.game != 0">
-        Hodnotenia ({{ this.gamereviews.length }}) - {{ this.rating }}%
+        {{ __("reviews") }} ({{ this.gamereviews.length }}) - {{ this.rating }}%
     </h1>
 
     <ol class="w-full px-4 mb-20">
@@ -12,24 +12,25 @@
                 <textarea
                     class="w-4/5 mr-5 h-20 bg-scnd-color focus:outline-none brightness-90 py-2 px-3 rounded-md"
                     v-model="currentreview"
-                    placeholder="Sem môžete napísať hodnotenie pre túto hru..."
+                    :placeholder="__('reviewtext')"
                     cols="30"
                     rows="10"
                     maxlength="510"
                 ></textarea>
                 <div class="mx-auto">
-                    <p class="text-left mb-2">Odpurúčate túto hru?</p>
+                    <p class="text-left mb-2">{{ __("recommend") }}</p>
+
                     <button
                         class="bg-bg-color py-2 px-4 mr-4 ml-auto rounded-md transition-all hover:brightness-110 hover:scale-105"
                         @click="postReview(1)"
                     >
-                        Áno
+                        {{ __("yes") }}
                     </button>
                     <button
                         class="bg-bg-color py-2 px-4 mr-auto rounded-md transition-all hover:brightness-110 hover:scale-105"
                         @click="postReview(2)"
                     >
-                        Nie
+                        {{ __("no") }}
                     </button>
                 </div>
             </div>
@@ -112,7 +113,7 @@ var relativeTime = require("dayjs/plugin/relativeTime");
 dayjs.extend(relativeTime);
 
 export default {
-    props: ["reviews", "auth", "game", "owngame"],
+    props: ["reviews", "auth", "game", "owngame", "lang"],
     data() {
         return {
             gamereviews: this.reviews,
@@ -182,6 +183,7 @@ export default {
         },
     },
     created() {
+        this.$lang().setLocale(this.lang);
         if (this.game != 0) {
             this.updateRating();
         }

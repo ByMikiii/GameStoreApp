@@ -21,7 +21,7 @@
             class="mybutton bg-scnd-color mr-auto px-2 py-1 ml-10 hover:brightness-110 hover:text-tx-color"
             @click="submit"
         >
-            Zaplatiť
+            {{ __("pay") }}
         </button>
     </div>
 </template>
@@ -31,10 +31,13 @@ import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import axios from "axios";
 
 export default {
+    props: ["lang"],
     components: {
         StripeCheckout,
     },
-    updated() {},
+    created() {
+        this.$lang().setLocale(this.lang);
+    },
     data() {
         return {
             amount: 10,

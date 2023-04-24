@@ -3,7 +3,7 @@
         class="mybutton bg-tx-color p-2 text-black hover:brightness-110 ml-4 mr-auto relative mb-0 mt-auto"
         v-if="this.owngame == 1"
     >
-        Túto hru už vlastníte
+        {{ __("owngame") }}
     </button>
 
     <button
@@ -11,13 +11,13 @@
         @click="addToBasket"
         v-if="this.owngame == 0"
     >
-        Pridať do košíku
+        {{ __("addtocart") }}
     </button>
 </template>
 
 <script>
 export default {
-    props: ["game", "owngame"],
+    props: ["game", "owngame", "lang"],
     data() {
         return {};
     },
@@ -34,7 +34,10 @@ export default {
                 .then(this.recalculateBasketItems());
         },
     },
-    updated() {},
+    created() {
+        this.$lang().setLocale(this.lang);
+        console.log(this.lang);
+    },
 };
 </script>
 

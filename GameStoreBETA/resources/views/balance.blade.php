@@ -37,6 +37,6 @@ App::setLocale(Auth::user()->locale);
 </div>
 
 <h2 class="text-3xl heading mb-2">{{__('balance.deposit')}}</h2>
-<payment></payment>
+<payment :lang="'{{Lang::locale()}}'"></payment>
 
 @stop

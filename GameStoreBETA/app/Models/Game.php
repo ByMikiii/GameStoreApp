@@ -14,6 +14,8 @@ class Game extends Model
         
     ];
 
+    protected $dates = ['release_date'];
+
     public function publisher(){
         return $this->belongsTo(Publisher::class);
     }

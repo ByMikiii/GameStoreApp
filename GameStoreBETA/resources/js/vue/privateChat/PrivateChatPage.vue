@@ -6,10 +6,32 @@
     >
         <div class="flex-grow">
             <h1 class="text-center text-2xl p-1 heading">
-                Priatelia <small>({{ this.friendlist.length }})</small>
+                {{ __("friends") }} ({{ this.friends.length }})
             </h1>
 
-            <ul class="h-full text-left">
+            <div class="flex mb-2 w-full">
+                <input
+                    class="bg-scnd-color border-b ml-4 pb-1 focus:outline-none w-full"
+                    name="filter-name"
+                    :placeholder="__('search')"
+                    v-model="this.filterName"
+                    @keyup.enter="this.filter"
+                    type="text"
+                />
+                <svg
+                    @click="this.filter"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="w-4 fill-gray-500 relative right-5 hover:cursor-pointer"
+                >
+                    <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                    />
+                </svg>
+            </div>
+
+            <ul class="text-left">
                 <li
                     id="friend"
                     class="p-2 cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5 font-semibold"
@@ -60,6 +82,7 @@
                 v-on:messagesent="addPrivateMessage"
                 :auth="auth"
                 :currentUser="currentUser"
+                :lang="this.lang"
             ></private-chat-composer>
         </div>
     </section>
@@ -72,7 +95,7 @@
 import Echo from "laravel-echo";
 
 export default {
-    props: ["friends", "auth", "user"],
+    props: ["friends", "auth", "user", "lang"],
     data() {
         return {
             currentUser: "",
@@ -80,6 +103,8 @@ export default {
             messages: [],
             friendlist: this.friends,
             latestMessage: "",
+            filterName: "",
+            latestFilter: "",
         };
     },
     mounted() {
@@ -94,8 +119,13 @@ export default {
     },
     updated() {
         this.scrollToEnd();
+        if (this.latestFilter !== this.filterName) {
+            this.filter();
+        }
     },
     created() {
+        this.$lang().setLocale(this.lang);
+
         let chatChannel = window.Echo.private("chat." + this.auth.id);
         chatChannel.listen("MessagePosted", (e) => {
             if (
@@ -131,6 +161,15 @@ export default {
             axios.get("/messages/" + this.currentUser.id).then((response) => {
                 this.messages = response.data;
             });
+        },
+        filter() {
+            this.friendlist = this.friends.filter((e) =>
+                e.name.toLowerCase().includes(this.filterName.toLowerCase())
+            );
+            if (this.friendlist.length > 0) {
+                this.changeCurrentUser(this.friendlist[0]);
+            }
+            this.latestFilter = this.filterName;
         },
         addPrivateMessage(message) {
             this.messages.push(message);

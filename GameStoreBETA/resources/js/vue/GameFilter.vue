@@ -3,7 +3,7 @@
         <input
             class="bg-bg-color border-b ml-6 focus:outline-none w-60"
             name="filter-name"
-            placeholder="Search"
+            :placeholder="__('search')"
             v-model="namee"
             type="text"
         />
@@ -20,9 +20,10 @@
 
         <div class="select ml-auto mr-10">
             <select v-model="genree">
-                <option value="" selected disabled hidden>Genre</option>
+                <option value="" selected>
+                    {{ __("genre") }}
+                </option>
 
-                <option value="">All</option>
                 <option v-for="genre in genres">
                     {{ genre.genre_name }}
                 </option>
@@ -31,12 +32,12 @@
 
         <div class="select mr-10">
             <select v-model="orderr">
-                <option value="" selected disabled>Order</option>
+                <option value="" selected>{{ __("sort") }}</option>
 
-                <option>Highest price</option>
-                <option>Lowest price</option>
-                <option>Newest</option>
-                <option>Reviews</option>
+                <option value="Lowest price">{{ __("lowestprice") }}</option>
+                <option value="Highest price">{{ __("highestprice") }}</option>
+                <option value="Newest">{{ __("newest") }}</option>
+                <option value="Reviews">{{ __("reviews") }}</option>
             </select>
         </div>
 
@@ -49,7 +50,7 @@
     </div>
 
     <div id="filtered" v-if="this.isFilter">
-        <h1 class="text-3xl heading text-left mb-4">FOUND</h1>
+        <h1 class="text-3xl heading text-left mb-4">{{ __("found") }}</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="foundgame in this.foundGames"
@@ -70,21 +71,12 @@
                     </div>
                     <span
                         class="game-price"
-                        v-if="foundgame.original_price === 0"
+                        v-if="foundgame.current_price === 0"
                     >
                         Free
                     </span>
-                    <span
-                        class="game-price"
-                        v-else-if="foundgame.is_sale === 1"
-                    >
-                        {{ foundgame.sale_price + "€" }}
-                    </span>
-                    <span
-                        class="game-price"
-                        v-else-if="foundgame.is_sale === 0"
-                    >
-                        {{ foundgame.original_price + "€" }}
+                    <span class="game-price" v-else>
+                        {{ foundgame.current_price + "€" }}
                     </span>
                 </div>
             </a>
@@ -92,7 +84,7 @@
     </div>
 
     <div v-if="!this.isFilter">
-        <h1 class="text-3xl heading text-left mb-4">NOVINKY</h1>
+        <h1 class="text-3xl heading text-left mb-4">{{ __("news") }}</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="newgame in this.newgames"
@@ -111,29 +103,35 @@
                             {{ newgame.publisher.name }}
                         </p>
                     </div>
-                    <span
-                        class="game-price"
-                        v-if="newgame.original_price === 0"
-                    >
+                    <span class="game-price" v-if="newgame.current_price === 0">
                         Free
                     </span>
-                    <span class="game-price" v-if="newgame.is_sale === 1">
-                        {{ newgame.sale_price + "€" }}
-                    </span>
-                    <span class="game-price" v-if="newgame.is_sale === 0">
-                        {{ newgame.original_price + "€" }}
+                    <span class="game-price" v-else>
+                        {{ newgame.current_price + "€" }}
                     </span>
                 </div>
             </a>
         </ol>
 
-        <h1 class="text-3xl heading text-left mb-4">ZĽAVY</h1>
+        <h1 class="text-3xl heading text-left mb-4">{{ __("sales") }}</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="salegame in this.salegames"
                 :href="'/game/' + salegame.slug"
                 class="w-80 h-48 bg-scnd-color rounded-md hover:text-tx-color hover:brightness-110 hover:scale-105 transition-all text-tx-color mb-14 mx-auto"
             >
+                <p
+                    class="ml-2 mt-2 absolute heading text-lg w-16 h-14 py-3.5 rounded-lg bg-scnd-color border-bg-color"
+                >
+                    -{{
+                        Math.floor(
+                            ((salegame.original_price -
+                                salegame.current_price) /
+                                salegame.original_price) *
+                                100
+                        )
+                    }}%
+                </p>
                 <img
                     class="object-cover rounded-t-md w-full h-2/3"
                     :src="'/images/games/' + salegame.slug + '/banner-1.jpg'"
@@ -148,21 +146,18 @@
                     </div>
                     <span
                         class="game-price"
-                        v-if="salegame.original_price === 0"
+                        v-if="salegame.current_price === 0"
                     >
                         Free
                     </span>
-                    <span class="game-price" v-if="salegame.is_sale === 1">
-                        {{ salegame.sale_price + "€" }}
-                    </span>
-                    <span class="game-price" v-if="salegame.is_sale === 0">
-                        {{ salegame.original_price + "€" }}
+                    <span class="game-price" v-else>
+                        {{ salegame.current_price + "€" }}
                     </span>
                 </div>
             </a>
         </ol>
 
-        <h1 class="text-3xl heading text-left mb-4">VŠETKY HRY</h1>
+        <h1 class="text-3xl heading text-left mb-4">{{ __("allgames") }}</h1>
         <ol id="games-list" class="h-full mb-16 mx-auto">
             <a
                 v-for="allgame in this.allgames"
@@ -181,17 +176,11 @@
                             {{ allgame.publisher.name }}
                         </p>
                     </div>
-                    <span
-                        class="game-price"
-                        v-if="allgame.original_price === 0"
-                    >
+                    <span class="game-price" v-if="allgame.current_price === 0">
                         Free
                     </span>
-                    <span class="game-price" v-else-if="allgame.is_sale === 1">
-                        {{ allgame.sale_price + "€" }}
-                    </span>
-                    <span class="game-price" v-else-if="allgame.is_sale === 0">
-                        {{ allgame.original_price + "€" }}
+                    <span class="game-price" v-else>
+                        {{ allgame.current_price + "€" }}
                     </span>
                 </div>
             </a>
@@ -201,7 +190,7 @@
 
 <script>
 export default {
-    props: ["genres", "newgames", "salegames", "allgames"],
+    props: ["genres", "newgames", "salegames", "allgames", "lang"],
     data() {
         return {
             genre: "null",
@@ -253,7 +242,9 @@ export default {
         },
     },
 
-    created() {},
+    created() {
+        this.$lang().setLocale(this.lang);
+    },
     updated() {
         if (
             this.name != this.namee ||

@@ -1,16 +1,11 @@
 <template>
     <Transition name="bounce">
         <div
-            class="notification"
-            v-bind:class="
-                this.notification_color !== ''
-                    ? 'bg-' + this.notification_color + '-500'
-                    : 'bg-blue-400'
-            "
+            class="notification bg-scnd-color border-2 border-bg-color"
             v-if="this.isShown"
         >
             <button class="delete" @click="hide"></button>
-            <span>{{ notification_text }}</span>
+            <span class="text-tx-color text-lg">{{ notification_text }}</span>
         </div>
     </Transition>
 </template>

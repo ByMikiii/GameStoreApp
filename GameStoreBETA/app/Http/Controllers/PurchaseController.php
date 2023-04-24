@@ -22,9 +22,7 @@ class PurchaseController extends Controller
         $basketitems = Auth::user()->basketitems()->get();
         $totalprice = 0;
         foreach($basketitems as $basketitem){
-            if($basketitem->is_sale == 1){
-                $totalprice += $basketitem->sale_price;
-            }else{$totalprice += $basketitem->original_price;}  
+            $totalprice += $basketitem->current_price;
         }
 
         if($totalprice <= Auth::user()->wallet){

@@ -43,7 +43,9 @@ App::setLocale(Auth::user()->locale);
     </a>
     <form class="m-2 p-1" method="POST" action="{{ route('logout') }}">
         @csrf
-        <li><button type="submit" class="btn btn-primary text-red-600">{{__('master.logout')}}</button></li>
+        <li><button type="submit" class="w-7 h-7 mt-0.5 fill-red-600 hover:fill-red-700">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>  
+        </button></li>
     </form>
 
 
@@ -54,7 +56,6 @@ App::setLocale(Auth::user()->locale);
     @endif
     </ul>
 </nav>
-
 
   <div id="hamburger-icon" onclick="mobileNav()">
   <div class="bar1"></div>
@@ -90,10 +91,12 @@ App::setLocale(Auth::user()->locale);
 
   <?php if(Auth::check()):?>
 <div class="w-full text-right mt-1">
-  <a href="/changelang/sk" class="font-semibold hover:text-tx-color <?php if(App::currentLocale() == 'sk'){echo "underline";}?>">SK</a>
-  <a href="/changelang/en" class="font-semibold mr-3 hover:text-tx-color <?php if(App::currentLocale() == 'en'){echo "underline";}?>">EN</a>
+  <button onclick="changeLang('sk')" class="font-semibold hover:text-tx-color <?php if(App::currentLocale() == 'sk'){echo "underline";}?>">SK</button>
+  <button onclick="changeLang('en')" class="font-semibold mr-3 hover:text-tx-color <?php if(App::currentLocale() == 'en'){echo "underline";}?>">EN</button>
 </div>
 <?php endif; ?>
+
+
 
   <main id="app" class="mt-5 w-10/12 h-full text-center mx-auto">
     @yield('content')
@@ -116,12 +119,12 @@ App::setLocale(Auth::user()->locale);
     @endif
   </main>
 
-
   {{-- <footer class="text-xs fixed bottom-0 left-0">2023 Bardáč</footer> --}}
 
   <script src="{{ asset('js/app.js')}}"></script>
   <script src="/js/script.js"></script>
 
   @yield('scripts')
+
 </body>
 </html>

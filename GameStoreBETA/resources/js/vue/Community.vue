@@ -3,8 +3,9 @@
         <input
             class="bg-bg-color border-b pb-2 focus:outline-none w-60 ml-auto"
             name="filter-name"
-            placeholder="Search"
+            :placeholder="__('search')"
             v-model="this.filterName"
+            @keyup.enter="this.filter"
             type="text"
         />
         <svg
@@ -42,7 +43,7 @@
                                     v-if="user.id === this.authid"
                                     class="text-white mt-2"
                                 >
-                                    (YOU)</strong
+                                    ( {{ __("you") }} )</strong
                                 >
                             </p>
                             <p class="text-gray-400 text-sm">
@@ -65,7 +66,7 @@
                         v-else
                         class="mybutton bg-blue-400 w-32 ml-auto"
                         href="/profile"
-                        >View Profile</a
+                        >{{ __("viewprofile") }}</a
                     >
                 </div>
             </div>
@@ -88,7 +89,7 @@
                                     v-if="user.id === this.authid"
                                     class="text-white mt-2"
                                 >
-                                    (YOU)</strong
+                                    ( {{ __("you") }} )</strong
                                 >
                             </p>
                             <p class="text-gray-400 text-sm">
@@ -111,7 +112,7 @@
                         v-else
                         class="mybutton bg-blue-400 w-32 ml-auto"
                         href="/profile"
-                        >View Profile</a
+                        >{{ __("viewprofile") }}</a
                     >
                 </div>
             </div>
@@ -127,6 +128,7 @@ export default {
         "friends",
         "pendingfriendsto",
         "pendingfriendsfrom",
+        "lang",
     ],
     data() {
         return {
@@ -134,6 +136,7 @@ export default {
             filterName: "",
             filteredUsers: [],
             isFilter: false,
+            latestFilter: "",
         };
     },
     methods: {
@@ -142,17 +145,27 @@ export default {
                 e.name.toLowerCase().includes(this.filterName.toLowerCase())
             );
             this.isFilter = true;
+            this.latestFilter = this.filterName;
         },
     },
     updated() {
         if (this.filterName == "" && this.isFilter == true) {
             this.isFilter = false;
         }
+        if (this.latestFilter !== this.filterName) {
+            this.filter();
+        }
     },
     created() {
         if (this.authid != null) {
             this.authcheck = "1";
         }
+        this.$lang().setLocale(this.lang);
+    },
+    mounted() {
+        axios.get("/getLang").then((response) => {
+            this.$lang().setLocale(response.data);
+        });
     },
 };
 </script>

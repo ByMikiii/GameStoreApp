@@ -8,39 +8,33 @@
         <h1 v-if="isEmpty" class="my-56 text-4xl heading">
             Váš nákupný košík je prázdny 🥲
         </h1>
-        <a
-            class="mt-8 flex flex-wrap bg-scnd-color rounded-md"
+        <div
+            class="mt-8 flex flex-wrap bg-scnd-color rounded-md pr-8"
             v-for="basketitem in this.basket_items"
-            :href="'/game/' + basketitem.slug"
         >
-            <img
-                class="w-48 rounded-l-md"
-                :src="
-                    '//localhost:3000/images/games/' +
-                    basketitem.slug +
-                    '/banner-1.jpg'
-                "
-                alt=""
-            />
-            <div class="text-left ml-4">
+            <a :href="'/game/' + basketitem.slug">
+                <img
+                    class="w-48 rounded-l-md"
+                    :src="
+                        '//localhost:3000/images/games/' +
+                        basketitem.slug +
+                        '/banner-1.jpg'
+                    "
+                    alt=""
+                />
+            </a>
+            <div class="text-left ml-3">
                 <span class="heading text-2xl mt-4">{{ basketitem.name }}</span>
                 <span class="text-gray-400">{{
                     basketitem.publisher.name
                 }}</span>
             </div>
 
-            <span
-                class="heading text-xl mt-16 ml-auto"
-                v-if="basketitem.is_sale === 0"
-                >{{ basketitem.original_price }}€</span
-            >
-            <span
-                class="heading text-xl mt-16 ml-auto"
-                v-if="basketitem.is_sale === 1"
-                >{{ basketitem.sale_price }}€</span
+            <span class="heading text-2xl ml-auto relative mt-16"
+                >{{ basketitem.current_price }}€</span
             >
 
-            <span class="mr-2 mt-1">
+            <span class="relative left-6 mt-1">
                 <svg
                     class="w-4 fill-red-500 hover:fill-red-600 cursor-pointer mr-0.5"
                     @click="removeItem(basketitem)"
@@ -53,10 +47,10 @@
                     />
                 </svg>
             </span>
-        </a>
+        </div>
     </div>
-    <div class="flex w-9/12 mx-auto mt-24">
-        <span class="text-left w-full"
+    <div class="flex w-9/12 mx-auto mt-24 px-2">
+        <span class="text-left w-full text-lg"
             >CELKOVÁ CENA: {{ this.total_price + " €" }}</span
         >
         <a href="/"
@@ -89,11 +83,7 @@ export default {
     },
     methods: {
         removeItem(item) {
-            if (item.is_sale == 0) {
-                this.total_price -= item.original_price;
-            } else {
-                this.total_price -= item.sale_price;
-            }
+            this.total_price -= item.current_price;
             this.basket_items.splice(this.basket_items.indexOf(item), 1);
             axios
                 .delete("/basket/delete/" + item.id)

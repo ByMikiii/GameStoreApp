@@ -2,7 +2,7 @@
     <div class="chat-composer flex p-2 pb-0 rounded-md mt-auto w-full relative">
         <input
             type="text"
-            placeholder="Napíšte niečo..."
+            :placeholder="__('typesomething')"
             class="bg-transparent flex-auto outline-none"
             v-model="messageText"
             @keyup.enter="sendMessage"
@@ -46,7 +46,11 @@ export default {
             }
         },
     },
-    created() {},
+    created() {
+        axios.get("/getLang").then((response) => {
+            this.$lang().setLocale(response.data);
+        });
+    },
 };
 </script>
 

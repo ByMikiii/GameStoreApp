@@ -69,7 +69,7 @@ class FriendController extends Controller
 
         broadcast(new NotificationSent( Auth::user()->name.' vám poslal žiadosť o priateľstvo!', $friend, 'green'));
 
-        broadcast(new NotificationSent( 'Žiadosť o priateľstvo bola odoslaná1', Auth::user(), 'green'));
+        broadcast(new NotificationSent( 'Žiadosť o priateľstvo bola odoslaná!', Auth::user(), 'green'));
 
         }
     }

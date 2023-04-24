@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Lang;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
@@ -17,12 +18,19 @@ class LangController extends Controller
 
     public function changelang($lang)
     {
-        if(Auth::check()){
+        if(Auth::check() && ($lang == "en" || $lang == "sk")){
             User::where('id', Auth::user()->id)->update(['locale' => $lang]);
         }
 
         App::setLocale('en');
 
         return redirect('/');
+    }
+
+    public function getLang(){
+        if(Auth::check()){
+            return Auth::user()->locale;
+        }
+        return Lang::locale();
     }
 }

@@ -5,13 +5,13 @@
     >
         <div class="flex-grow">
             <h1 class="text-center text-2xl p-1 heading">
-                Hry <small>({{ this.gamelist.length }})</small>
+                {{ __("games") }} <small>({{ this.gamelist.length }})</small>
             </h1>
 
             <ul class="h-full text-left">
                 <li
                     id="game"
-                    class="cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5 w-64"
+                    class="cursor-pointer flex hover:brightness-125 hover:bg-gray-500 hover:bg-opacity-5 w-72"
                     v-for="(game, index) in this.gamelist"
                     :key="index"
                     @click="changeCurrentGame(game)"
@@ -38,7 +38,7 @@
         </div>
         <div
             id="private-chat"
-            class="flex flex-col border-l rounded-r-md border-bg-color overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color pb-40"
+            class="flex flex-col border-l rounded-r-md border-bg-color overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-bg-color pb-4"
         >
             <h1 class="text-center text-2xl p-1 heading">
                 {{ this.currentGame.name }}
@@ -52,7 +52,7 @@
                 "
                 alt="Game "
             />
-            <span class="text-center mx-24">{{
+            <span class="text-justify mx-24">{{
                 this.currentGame.description
             }}</span>
 
@@ -62,15 +62,9 @@
                 <a
                     class="hover:text-black"
                     :href="'/game/' + this.currentGame.slug"
-                    >Do obchodu</a
+                    >{{ __("storepage") }}</a
                 >
             </button>
-            <!-- <reviews
-                :auth="this.auth"
-                :game="this.currentGame"
-                :owngame="1"
-                :reviews="this.currentGameReviews"
-            ></reviews> -->
         </div>
     </section>
 </template>
@@ -79,7 +73,7 @@
 import { isProxy, toRaw } from "vue";
 
 export default {
-    props: ["games", "currentgamee", "auth"],
+    props: ["games", "currentgamee", "auth", "lang"],
     data() {
         return {
             noGames: true,
@@ -93,7 +87,9 @@ export default {
             this.currentGame = gamee;
         },
     },
-    created() {},
+    created() {
+        this.$lang().setLocale(this.lang);
+    },
 };
 </script>
 
