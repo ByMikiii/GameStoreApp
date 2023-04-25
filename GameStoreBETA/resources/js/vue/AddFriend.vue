@@ -1,6 +1,6 @@
 <template>
     <a
-        class="mt-auto mybutton bg-yellow-400 text-black ml-auto"
+        class="mt-auto mybutton bg-tx-color text-black ml-auto px-2 py-1"
         @click="addFriend"
         v-if="this.friendStatus == 0"
         >{{ __("addfriend") }}</a
@@ -8,29 +8,35 @@
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 1">
         <a
-            class="mybutton bg-blue-400 text-black mr-2"
+            class="mybutton bg-blue-400 text-black mr-2 px-2 py-1"
             :href="'/chat/' + this.user.name"
             >Chat</a
         >
-        <a class="mybutton bg-yellow-400 text-black" @click="removeFriend">{{
-            __("unfriend")
-        }}</a>
+        <a
+            class="mybutton bg-tx-color px-2 py-1 text-black"
+            @click="removeFriend"
+            >{{ __("unfriend") }}</a
+        >
     </div>
 
     <a
-        class="mt-auto mybutton bg-yellow-400 text-black w-40 ml-auto"
+        class="mt-auto mybutton bg-tx-color px-2 py-1 text-black w-40 ml-auto"
         @click="removeFriend"
         v-if="this.friendStatus == 2"
         >{{ __("requestsent") }}</a
     >
 
     <div class="mt-auto ml-auto" v-if="this.friendStatus == 3">
-        <a @click="removeFriend" class="mybutton bg-red-500 mr-2 text-black">{{
-            __("decline")
-        }}</a>
-        <a @click="acceptFriend" class="mybutton bg-yellow-400 text-black">{{
-            __("accept")
-        }}</a>
+        <a
+            @click="removeFriend"
+            class="mybutton bg-red-500 px-2 py-1 mr-2 text-black"
+            >{{ __("decline") }}</a
+        >
+        <a
+            @click="acceptFriend"
+            class="mybutton bg-tx-color px-2 py-1 text-black"
+            >{{ __("accept") }}</a
+        >
     </div>
 
     <div class="ml-auto mt-auto" v-if="this.friendStatus == 4">
@@ -49,6 +55,7 @@ export default {
         "pendingFriendsTo",
         "pendingFriendsFrom",
         "isauth",
+        "lang",
     ],
 
     data() {
@@ -109,7 +116,9 @@ export default {
     },
 
     created() {
+        //this.$lang().setLocale(this.lang);
         this.checkStatus();
+        //console.log(this.lang);
     },
 };
 </script>

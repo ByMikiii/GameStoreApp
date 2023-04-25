@@ -44,8 +44,8 @@ class UserAvatarController extends Controller
         Auth::user()->update(['profile_photo' => 'http://localhost:3000/storage/images/101']);
         }
 
-        session()->flash('flash', "xdd");
-        return redirect()->action([PagesController::class, "".__('edit.success').""]);
+        session()->flash('flash', __('edit.success'));
+        return redirect()->action([PagesController::class, 'editprofile']);
 
 
         

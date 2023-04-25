@@ -8,6 +8,8 @@ return [
     'newpassword' => 'New Password',
     'confirmpassword' => 'Confirm Password',
     'changepass' => 'Change password'
+
+    
 ]
 
 ?>

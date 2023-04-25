@@ -894,8 +894,14 @@ input::-webkit-outer-spin-button,
 .mt-3 {
   margin-top: 0.75rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .block {
   display: block;
+}
+.inline-block {
+  display: inline-block;
 }
 .flex {
   display: flex;
@@ -1091,6 +1097,9 @@ input::-webkit-outer-spin-button,
 }
 .flex-auto {
   flex: 1 1 auto;
+}
+.flex-none {
+  flex: none;
 }
 .flex-shrink-0 {
   flex-shrink: 0;
@@ -1313,6 +1322,18 @@ input::-webkit-outer-spin-button,
 }
 .fill-gray-400 {
   fill: #9ca3af;
+}
+.fill-gray-300 {
+  fill: #d1d5db;
+}
+.fill-slate-400 {
+  fill: #94a3b8;
+}
+.fill-zinc-500 {
+  fill: #71717a;
+}
+.fill-zinc-400 {
+  fill: #a1a1aa;
 }
 .object-cover {
   -o-object-fit: cover;

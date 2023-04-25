@@ -10,8 +10,8 @@ return [
   'allgames' => 'Všetky Hry',
   'genre' => 'Žáner',
   'sort' => 'Usporiadať',
-  'lowestprice' => 'Najvyššia Cena',
-  'highestprice' => 'Najnižšia Cena',
+  'lowestprice' => 'Najnižšia Cena',
+  'highestprice' => 'Najvyššia Cena',
   'newest' => 'Najnovšie',
   'reviews' => 'Počet Recenzií',
 

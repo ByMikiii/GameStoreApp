@@ -20849,7 +20849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["user", "friends", "pendingFriendsTo", "pendingFriendsFrom", "isauth"],
+  props: ["user", "friends", "pendingFriendsTo", "pendingFriendsFrom", "isauth", "lang"],
   data: function data() {
     return {
       friendStatus: 0
@@ -20903,7 +20903,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    //this.$lang().setLocale(this.lang);
     this.checkStatus();
+    //console.log(this.lang);
   }
 });
 
@@ -21732,21 +21734,21 @@ var _hoisted_5 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [this.friendStatus == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
-    "class": "mt-auto mybutton bg-yellow-400 text-black ml-auto",
+    "class": "mt-auto mybutton bg-tx-color text-black ml-auto px-2 py-1",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.addFriend && $options.addFriend.apply($options, arguments);
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.__("addfriend")), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "mybutton bg-blue-400 text-black mr-2",
+    "class": "mybutton bg-blue-400 text-black mr-2 px-2 py-1",
     href: '/chat/' + this.user.name
   }, "Chat", 8 /* PROPS */, _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "mybutton bg-yellow-400 text-black",
+    "class": "mybutton bg-tx-color px-2 py-1 text-black",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.__("unfriend")), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 2,
-    "class": "mt-auto mybutton bg-yellow-400 text-black w-40 ml-auto",
+    "class": "mt-auto mybutton bg-tx-color px-2 py-1 text-black w-40 ml-auto",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     })
@@ -21754,12 +21756,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.removeFriend && $options.removeFriend.apply($options, arguments);
     }),
-    "class": "mybutton bg-red-500 mr-2 text-black"
+    "class": "mybutton bg-red-500 px-2 py-1 mr-2 text-black"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.__("decline")), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[4] || (_cache[4] = function () {
       return $options.acceptFriend && $options.acceptFriend.apply($options, arguments);
     }),
-    "class": "mybutton bg-yellow-400 text-black"
+    "class": "mybutton bg-tx-color px-2 py-1 text-black"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.__("accept")), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.friendStatus == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "mybutton bg-blue-500 mr-2 px-2 py-1 w-14",
     href: '/user/' + this.user.name
@@ -21876,7 +21878,7 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 }, null, -1 /* HOISTED */);
 var _hoisted_4 = {
   id: "community-list",
-  "class": "user-list"
+  "class": "user-list mb-10"
 };
 var _hoisted_5 = {
   "class": ""
@@ -50249,7 +50251,7 @@ module.exports = {"search":"Search","found":"Found","news":"New Releases","sales
   \********************************/
 /***/ ((module) => {
 
-module.exports = {"search":"Vyhladať","found":"Nájdené","news":"Novinky","sales":"Zľavy","allgames":"Všetky Hry","genre":"Žáner","sort":"Usporiadať","lowestprice":"Najvyššia Cena","highestprice":"Najnižšia Cena","newest":"Najnovšie","reviews":"Hodnotenia","addfriend":"Pridať priateľa","requestsent":"Žiadosť odoslaná","unfriend":"Odstraniť priateľa","accept":"Prijať","decline":"Odmietnúť","you":"TY","viewprofile":"Zobraziť profil","friends":"Priatelia","typesomething":"Napíšte niečo...","games":"Hry","storepage":"Do obchodu","release_date":"Dátum vydania","owngame":"Túto hru už vlastníte","addtocart":"Pridať do košíku","pay":"Zaplatiť","reviewtext":"Sem môžete napísať hodnotenie pre túto hru...","recommend":"Odporúčate túto hru?","yes":"Áno","no":"Nie"};
+module.exports = {"search":"Vyhladať","found":"Nájdené","news":"Novinky","sales":"Zľavy","allgames":"Všetky Hry","genre":"Žáner","sort":"Usporiadať","lowestprice":"Najnižšia Cena","highestprice":"Najvyššia Cena","newest":"Najnovšie","reviews":"Hodnotenia","addfriend":"Pridať priateľa","requestsent":"Žiadosť odoslaná","unfriend":"Odstraniť priateľa","accept":"Prijať","decline":"Odmietnúť","you":"TY","viewprofile":"Zobraziť profil","friends":"Priatelia","typesomething":"Napíšte niečo...","games":"Hry","storepage":"Do obchodu","release_date":"Dátum vydania","owngame":"Túto hru už vlastníte","addtocart":"Pridať do košíku","pay":"Zaplatiť","reviewtext":"Sem môžete napísať hodnotenie pre túto hru...","recommend":"Odporúčate túto hru?","yes":"Áno","no":"Nie"};
 
 /***/ }),
 

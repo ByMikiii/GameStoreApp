@@ -20,7 +20,7 @@
             />
         </svg>
     </div>
-    <ol id="community-list" class="user-list">
+    <ol id="community-list" class="user-list mb-10">
         <section
             v-if="this.isFilter"
             v-for="user in this.filteredUsers"

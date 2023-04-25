@@ -15,7 +15,7 @@ return [
 
     'reset' => 'Heslo bolo obnovené!',
     'sent' => 'Link na obnovenie hesla bol odoslaný!',
-    'throttled' => 'Počkajte prosím!',
+    'throttled' => 'Link na obnovenie hesla bol odoslaný!',//'Počkajte prosím!',
     'token' => 'Token na obnovu hesla je neplatný.',
     'user' => "Používateľ s touto emailovou adresou neexistuje.",
 
