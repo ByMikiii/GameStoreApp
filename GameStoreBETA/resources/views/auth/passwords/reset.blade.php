@@ -3,54 +3,63 @@
 
 @section('content')
 
+
+    <?php
+        if(Auth::check()){
+        App::setLocale(Auth::user()->locale);
+        }else App::setLocale('sk');
+    ?>
+
                 <div class="pt-4 mx-auto my-32 bg-scnd-color rounded-md w-2/5 h-80">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="heading text-2xl mb-8">{{ __('reset.changepassword') }}</div>
 
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
+                        <div class="row mb-5">
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="w-64 focus:outline-none focus:border-b-yellow-300 bg-scnd-color border-b form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="{{__('reset.email')}}">
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <?php
+                                    session()->flash('flash', $message);
+                                    ?>
+                                    {{-- <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                    </span> --}}
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <div class="row mb-5">
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="w-64 focus:outline-none focus:border-b-yellow-300 bg-scnd-color border-b form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="{{__('reset.newpassword')}}">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <?php
+                                    session()->flash('flash', $message);
+                                    ?>
+                                    {{-- <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                    </span> --}}
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                        <div class="row mb-5">
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="w-64 focus:outline-none focus:border-b-yellow-300 bg-scnd-color border-b form-control" name="password_confirmation" required autocomplete="new-password" placeholder="{{__('reset.confirmpassword')}}">
                             </div>
                         </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
+                                <button type="submit" class="mt-5 mb-5 mybutton bg-tx-color p-2 text-black hover:brightness-110">
+                                    {{ __('reset.changepass') }}
                                 </button>
                             </div>
                         </div>

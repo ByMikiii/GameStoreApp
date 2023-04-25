@@ -13,7 +13,7 @@ App::setLocale(Auth::user()->locale);
 <div class="flex mx-auto w-2/3 mt-10 mb-6 p-2">
 
 <div class="mx-auto">
-    <img src="{{$user->profile_photo}}" alt="User Profile Photo" class="rounded-full w-32 mx-auto">
+    <img src="{{$user->profile_photo}}" alt="User Profile Photo" class="border border-scnd-color rounded-full w-36 h-36 mx-auto">
 <h1 class="text-left text-4xl heading mx-auto mt-2 mb-3">{{$user->name}} <?php if(Auth::check()){if($user->name == Auth::user()->name){echo "<strong class='text-gray-200'>(".__('profile.you').") </strong>";}} ?></h1>
 <?php if($user->name == Auth::user()?->name):?>
 <button class="mybutton bg-yellow-400 text-black p-2">
@@ -55,7 +55,7 @@ App::setLocale(Auth::user()->locale);
     <h2 class="text-2xl heading mb-4">{{__('profile.reviews')}}</h2>
      <reviews :auth="{{Auth::user()}}" :game="0" :reviews="{{$reviews}}" :owngame="0"></reviews>
     </div> 
-    
+     
 </div>
 
 

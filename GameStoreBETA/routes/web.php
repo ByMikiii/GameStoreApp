@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\GlobalMessageController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\LangController;
@@ -88,6 +89,9 @@ Route::get('/basket', [PagesController::class, 'basket'])->middleware('auth');
   Route::post('/addReview', [ReviewController::class, 'store'])->middleware('auth');
   Route::delete('/deleteReview/{game_id}', [ReviewController::class, 'destroy'])->middleware('auth');
 
+  Route::view('upload', 'upload');
+  
+  Route::post('/upload', [UserAvatarController::class, 'index'])->middleware('auth');
 
   //Any other page
   Route::get('{any}', [PagesController::class, 'index']);

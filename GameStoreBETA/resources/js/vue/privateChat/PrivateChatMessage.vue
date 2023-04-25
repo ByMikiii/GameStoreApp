@@ -6,7 +6,7 @@
             :href="'/user/' + this.message.sender.name"
         >
             <img
-                class="rounded-full"
+                class="rounded-full w-10 h-10"
                 :src="this.message.sender.profile_photo"
                 alt="Profile Photo"
             />
@@ -38,7 +38,7 @@
             :href="'/user/' + this.message.sender.name"
         >
             <img
-                class="rounded-full"
+                class="rounded-full w-10 h-10"
                 :src="this.message.sender.profile_photo"
                 alt="Profile Photo"
             />

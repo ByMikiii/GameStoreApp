@@ -27,9 +27,12 @@ export default {
 
 <template>
     <Transition name="bounce">
-        <div class="notification is-success" v-show="isShown">
+        <div
+            class="notification bg-scnd-color border-2 border-bg-color"
+            v-show="isShown"
+        >
             <button class="delete" @click="hide"></button>
-            <span>{{ this.text }}</span>
+            <span class="text-tx-color text-lg">{{ this.text }}</span>
         </div>
     </Transition>
 </template>

@@ -33,7 +33,7 @@
                             <img
                                 :src="user.profile_photo"
                                 alt="Profile Picture"
-                                class="rounded-full"
+                                class="rounded-full w-16 h-16"
                             />
                         </div>
                         <div class="mt-1 ml-3 w-full text-left">
@@ -79,7 +79,7 @@
                             <img
                                 :src="user.profile_photo"
                                 alt="Profile Picture"
-                                class="rounded-full"
+                                class="rounded-full w-16 h-16"
                             />
                         </div>
                         <div class="mt-1 ml-3 w-full text-left">
