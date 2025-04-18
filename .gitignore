@@ -1,0 +1,42 @@
+# Laravel & PHP
+/vendor
+/node_modules
+/.env
+/.env.*.backup
+Homestead.yaml
+Homestead.json
+/.phpunit.result.cache
+/storage/*.key
+/storage/app/public
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/storage/logs
+/public/storage
+
+# Vite & Mix
+/public/hot
+/public/build
+/build
+*.log
+
+# IDEs & Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS & Misc
+.DS_Store
+Thumbs.db
+
+# Composer & NPM
+composer.lock
+package-lock.json
+
+# Others
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
